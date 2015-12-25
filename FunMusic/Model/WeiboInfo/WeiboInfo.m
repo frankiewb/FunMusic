@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  WeiboInfo.m
 //  FunMusic
 //
 //  Created by frankie on 15/12/25.
 //  Copyright © 2015年 Wang Bo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WeiboInfo.h"
 
-@interface ViewController : UIViewController
-
+@implementation WeiboInfo
 
 @end
-

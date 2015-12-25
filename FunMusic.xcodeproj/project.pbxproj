@@ -8,14 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		10EB09731C2CE01500A76210 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09721C2CE01500A76210 /* main.m */; };
-		10EB09761C2CE01500A76210 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09751C2CE01500A76210 /* AppDelegate.m */; };
-		10EB09791C2CE01500A76210 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09781C2CE01500A76210 /* ViewController.m */; };
 		10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EB097A1C2CE01500A76210 /* Main.storyboard */; };
 		10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */; };
-		10EB09811C2CE01500A76210 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EB09801C2CE01500A76210 /* Assets.xcassets */; };
+		10EB09811C2CE01500A76210 /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EB09801C2CE01500A76210 /* Image.xcassets */; };
 		10EB09841C2CE01500A76210 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EB09821C2CE01500A76210 /* LaunchScreen.storyboard */; };
 		10EB098F1C2CE01500A76210 /* FunMusicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB098E1C2CE01500A76210 /* FunMusicTests.m */; };
 		10EB099A1C2CE01500A76210 /* FunMusicUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09991C2CE01500A76210 /* FunMusicUITests.m */; };
+		10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09A91C2CE90500A76210 /* AppDelegate.m */; };
+		10EB09BF1C2CEAD300A76210 /* WeiboInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09BE1C2CEAD300A76210 /* WeiboInfo.m */; };
+		10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09C11C2CEAE300A76210 /* PlayerInfo.m */; };
+		10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09C41C2CEAF600A76210 /* ChannelInfo.m */; };
+		10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09C71C2CEB1400A76210 /* SongInfo.m */; };
+		10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09CC1C2CF06400A76210 /* UserInfo.m */; };
+		10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09CF1C2CF07E00A76210 /* LogInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,13 +43,9 @@
 /* Begin PBXFileReference section */
 		10EB096E1C2CE01500A76210 /* FunMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EB09721C2CE01500A76210 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		10EB09741C2CE01500A76210 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		10EB09751C2CE01500A76210 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		10EB09771C2CE01500A76210 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		10EB09781C2CE01500A76210 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		10EB097B1C2CE01500A76210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10EB097E1C2CE01500A76210 /* FunMusic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FunMusic.xcdatamodel; sourceTree = "<group>"; };
-		10EB09801C2CE01500A76210 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10EB09801C2CE01500A76210 /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		10EB09831C2CE01500A76210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10EB09851C2CE01500A76210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10EB098A1C2CE01500A76210 /* FunMusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunMusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +54,20 @@
 		10EB09951C2CE01500A76210 /* FunMusicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunMusicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EB09991C2CE01500A76210 /* FunMusicUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunMusicUITests.m; sourceTree = "<group>"; };
 		10EB099B1C2CE01500A76210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10EB09A81C2CE90500A76210 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Application/AppDelegate.h; sourceTree = "<group>"; };
+		10EB09A91C2CE90500A76210 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Application/AppDelegate.m; sourceTree = "<group>"; };
+		10EB09BD1C2CEAD300A76210 /* WeiboInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboInfo.h; path = Model/WeiboInfo/WeiboInfo.h; sourceTree = "<group>"; };
+		10EB09BE1C2CEAD300A76210 /* WeiboInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboInfo.m; path = Model/WeiboInfo/WeiboInfo.m; sourceTree = "<group>"; };
+		10EB09C01C2CEAE300A76210 /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerInfo.h; path = Model/PlayerInfo/PlayerInfo.h; sourceTree = "<group>"; };
+		10EB09C11C2CEAE300A76210 /* PlayerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerInfo.m; path = Model/PlayerInfo/PlayerInfo.m; sourceTree = "<group>"; };
+		10EB09C31C2CEAF600A76210 /* ChannelInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelInfo.h; path = Model/ChannelInfo/ChannelInfo.h; sourceTree = "<group>"; };
+		10EB09C41C2CEAF600A76210 /* ChannelInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelInfo.m; path = Model/ChannelInfo/ChannelInfo.m; sourceTree = "<group>"; };
+		10EB09C61C2CEB1400A76210 /* SongInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongInfo.h; path = Model/SongInfo/SongInfo.h; sourceTree = "<group>"; };
+		10EB09C71C2CEB1400A76210 /* SongInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongInfo.m; path = Model/SongInfo/SongInfo.m; sourceTree = "<group>"; };
+		10EB09CB1C2CF06400A76210 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Model/UserInfo/UserInfo.h; sourceTree = "<group>"; };
+		10EB09CC1C2CF06400A76210 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Model/UserInfo/UserInfo.m; sourceTree = "<group>"; };
+		10EB09CE1C2CF07E00A76210 /* LogInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInfo.h; path = Model/LoginInfo/LogInfo.h; sourceTree = "<group>"; };
+		10EB09CF1C2CF07E00A76210 /* LogInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInfo.m; path = Model/LoginInfo/LogInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,15 +118,9 @@
 		10EB09701C2CE01500A76210 /* FunMusic */ = {
 			isa = PBXGroup;
 			children = (
-				10EB09741C2CE01500A76210 /* AppDelegate.h */,
-				10EB09751C2CE01500A76210 /* AppDelegate.m */,
-				10EB09771C2CE01500A76210 /* ViewController.h */,
-				10EB09781C2CE01500A76210 /* ViewController.m */,
-				10EB097A1C2CE01500A76210 /* Main.storyboard */,
-				10EB09801C2CE01500A76210 /* Assets.xcassets */,
-				10EB09821C2CE01500A76210 /* LaunchScreen.storyboard */,
-				10EB09851C2CE01500A76210 /* Info.plist */,
-				10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */,
+				10EB09AB1C2CE91200A76210 /* Model */,
+				10EB09A71C2CE87C00A76210 /* Application */,
+				10EB09801C2CE01500A76210 /* Image.xcassets */,
 				10EB09711C2CE01500A76210 /* Supporting Files */,
 			);
 			path = FunMusic;
@@ -120,6 +129,8 @@
 		10EB09711C2CE01500A76210 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */,
+				10EB09851C2CE01500A76210 /* Info.plist */,
 				10EB09721C2CE01500A76210 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -141,6 +152,84 @@
 				10EB099B1C2CE01500A76210 /* Info.plist */,
 			);
 			path = FunMusicUITests;
+			sourceTree = "<group>";
+		};
+		10EB09A71C2CE87C00A76210 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09A81C2CE90500A76210 /* AppDelegate.h */,
+				10EB09A91C2CE90500A76210 /* AppDelegate.m */,
+				10EB097A1C2CE01500A76210 /* Main.storyboard */,
+				10EB09821C2CE01500A76210 /* LaunchScreen.storyboard */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		10EB09AB1C2CE91200A76210 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09CA1C2CEF7800A76210 /* UserInfo */,
+				10EB09C91C2CEF6600A76210 /* LogInfo */,
+				10EB09B81C2CEA3200A76210 /* SongInfo */,
+				10EB09BA1C2CEA4D00A76210 /* ChannelInfo */,
+				10EB09BB1C2CEA6400A76210 /* PlayerInfo */,
+				10EB09BC1C2CEA7100A76210 /* WeiboInfo */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		10EB09B81C2CEA3200A76210 /* SongInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09C61C2CEB1400A76210 /* SongInfo.h */,
+				10EB09C71C2CEB1400A76210 /* SongInfo.m */,
+			);
+			name = SongInfo;
+			sourceTree = "<group>";
+		};
+		10EB09BA1C2CEA4D00A76210 /* ChannelInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09C31C2CEAF600A76210 /* ChannelInfo.h */,
+				10EB09C41C2CEAF600A76210 /* ChannelInfo.m */,
+			);
+			name = ChannelInfo;
+			sourceTree = "<group>";
+		};
+		10EB09BB1C2CEA6400A76210 /* PlayerInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09C01C2CEAE300A76210 /* PlayerInfo.h */,
+				10EB09C11C2CEAE300A76210 /* PlayerInfo.m */,
+			);
+			name = PlayerInfo;
+			sourceTree = "<group>";
+		};
+		10EB09BC1C2CEA7100A76210 /* WeiboInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09BD1C2CEAD300A76210 /* WeiboInfo.h */,
+				10EB09BE1C2CEAD300A76210 /* WeiboInfo.m */,
+			);
+			name = WeiboInfo;
+			sourceTree = "<group>";
+		};
+		10EB09C91C2CEF6600A76210 /* LogInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09CE1C2CF07E00A76210 /* LogInfo.h */,
+				10EB09CF1C2CF07E00A76210 /* LogInfo.m */,
+			);
+			name = LogInfo;
+			sourceTree = "<group>";
+		};
+		10EB09CA1C2CEF7800A76210 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09CB1C2CF06400A76210 /* UserInfo.h */,
+				10EB09CC1C2CF06400A76210 /* UserInfo.m */,
+			);
+			name = UserInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10EB09841C2CE01500A76210 /* LaunchScreen.storyboard in Resources */,
-				10EB09811C2CE01500A76210 /* Assets.xcassets in Resources */,
+				10EB09811C2CE01500A76210 /* Image.xcassets in Resources */,
 				10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,10 +365,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10EB09791C2CE01500A76210 /* ViewController.m in Sources */,
-				10EB09761C2CE01500A76210 /* AppDelegate.m in Sources */,
+				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
+				10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */,
+				10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */,
+				10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */,
 				10EB09731C2CE01500A76210 /* main.m in Sources */,
 				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
+				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
+				10EB09BF1C2CEAD300A76210 /* WeiboInfo.m in Sources */,
+				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +597,7 @@
 				10EB09A01C2CE01500A76210 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		10EB09A11C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusicTests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +606,7 @@
 				10EB09A31C2CE01500A76210 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		10EB09A41C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusicUITests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +615,7 @@
 				10EB09A61C2CE01500A76210 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
