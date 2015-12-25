@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10EB09731C2CE01500A76210 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09721C2CE01500A76210 /* main.m */; };
+		10EB09761C2CE01500A76210 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09751C2CE01500A76210 /* AppDelegate.m */; };
+		10EB09791C2CE01500A76210 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09781C2CE01500A76210 /* ViewController.m */; };
+		10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EB097A1C2CE01500A76210 /* Main.storyboard */; };
+		10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */; };
+		10EB09811C2CE01500A76210 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EB09801C2CE01500A76210 /* Assets.xcassets */; };
+		10EB09841C2CE01500A76210 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EB09821C2CE01500A76210 /* LaunchScreen.storyboard */; };
+		10EB098F1C2CE01500A76210 /* FunMusicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB098E1C2CE01500A76210 /* FunMusicTests.m */; };
+		10EB099A1C2CE01500A76210 /* FunMusicUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09991C2CE01500A76210 /* FunMusicUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		10EB098B1C2CE01500A76210 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10EB09661C2CE01500A76210 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 10EB096D1C2CE01500A76210;
+			remoteInfo = FunMusic;
+		};
+		10EB09961C2CE01500A76210 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10EB09661C2CE01500A76210 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 10EB096D1C2CE01500A76210;
+			remoteInfo = FunMusic;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		10EB096E1C2CE01500A76210 /* FunMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10EB09721C2CE01500A76210 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		10EB09741C2CE01500A76210 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		10EB09751C2CE01500A76210 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		10EB09771C2CE01500A76210 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		10EB09781C2CE01500A76210 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		10EB097B1C2CE01500A76210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		10EB097E1C2CE01500A76210 /* FunMusic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FunMusic.xcdatamodel; sourceTree = "<group>"; };
+		10EB09801C2CE01500A76210 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10EB09831C2CE01500A76210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		10EB09851C2CE01500A76210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10EB098A1C2CE01500A76210 /* FunMusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunMusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		10EB098E1C2CE01500A76210 /* FunMusicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunMusicTests.m; sourceTree = "<group>"; };
+		10EB09901C2CE01500A76210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10EB09951C2CE01500A76210 /* FunMusicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunMusicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		10EB09991C2CE01500A76210 /* FunMusicUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunMusicUITests.m; sourceTree = "<group>"; };
+		10EB099B1C2CE01500A76210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		10EB096B1C2CE01500A76210 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10EB09871C2CE01500A76210 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10EB09921C2CE01500A76210 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10EB09651C2CE01500A76210 = {
+			isa = PBXGroup;
+			children = (
+				10EB09701C2CE01500A76210 /* FunMusic */,
+				10EB098D1C2CE01500A76210 /* FunMusicTests */,
+				10EB09981C2CE01500A76210 /* FunMusicUITests */,
+				10EB096F1C2CE01500A76210 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		10EB096F1C2CE01500A76210 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				10EB096E1C2CE01500A76210 /* FunMusic.app */,
+				10EB098A1C2CE01500A76210 /* FunMusicTests.xctest */,
+				10EB09951C2CE01500A76210 /* FunMusicUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		10EB09701C2CE01500A76210 /* FunMusic */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09741C2CE01500A76210 /* AppDelegate.h */,
+				10EB09751C2CE01500A76210 /* AppDelegate.m */,
+				10EB09771C2CE01500A76210 /* ViewController.h */,
+				10EB09781C2CE01500A76210 /* ViewController.m */,
+				10EB097A1C2CE01500A76210 /* Main.storyboard */,
+				10EB09801C2CE01500A76210 /* Assets.xcassets */,
+				10EB09821C2CE01500A76210 /* LaunchScreen.storyboard */,
+				10EB09851C2CE01500A76210 /* Info.plist */,
+				10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */,
+				10EB09711C2CE01500A76210 /* Supporting Files */,
+			);
+			path = FunMusic;
+			sourceTree = "<group>";
+		};
+		10EB09711C2CE01500A76210 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09721C2CE01500A76210 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		10EB098D1C2CE01500A76210 /* FunMusicTests */ = {
+			isa = PBXGroup;
+			children = (
+				10EB098E1C2CE01500A76210 /* FunMusicTests.m */,
+				10EB09901C2CE01500A76210 /* Info.plist */,
+			);
+			path = FunMusicTests;
+			sourceTree = "<group>";
+		};
+		10EB09981C2CE01500A76210 /* FunMusicUITests */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09991C2CE01500A76210 /* FunMusicUITests.m */,
+				10EB099B1C2CE01500A76210 /* Info.plist */,
+			);
+			path = FunMusicUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10EB096D1C2CE01500A76210 /* FunMusic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10EB099E1C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusic" */;
+			buildPhases = (
+				10EB096A1C2CE01500A76210 /* Sources */,
+				10EB096B1C2CE01500A76210 /* Frameworks */,
+				10EB096C1C2CE01500A76210 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FunMusic;
+			productName = FunMusic;
+			productReference = 10EB096E1C2CE01500A76210 /* FunMusic.app */;
+			productType = "com.apple.product-type.application";
+		};
+		10EB09891C2CE01500A76210 /* FunMusicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10EB09A11C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusicTests" */;
+			buildPhases = (
+				10EB09861C2CE01500A76210 /* Sources */,
+				10EB09871C2CE01500A76210 /* Frameworks */,
+				10EB09881C2CE01500A76210 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				10EB098C1C2CE01500A76210 /* PBXTargetDependency */,
+			);
+			name = FunMusicTests;
+			productName = FunMusicTests;
+			productReference = 10EB098A1C2CE01500A76210 /* FunMusicTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		10EB09941C2CE01500A76210 /* FunMusicUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10EB09A41C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusicUITests" */;
+			buildPhases = (
+				10EB09911C2CE01500A76210 /* Sources */,
+				10EB09921C2CE01500A76210 /* Frameworks */,
+				10EB09931C2CE01500A76210 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				10EB09971C2CE01500A76210 /* PBXTargetDependency */,
+			);
+			name = FunMusicUITests;
+			productName = FunMusicUITests;
+			productReference = 10EB09951C2CE01500A76210 /* FunMusicUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10EB09661C2CE01500A76210 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Wang Bo";
+				TargetAttributes = {
+					10EB096D1C2CE01500A76210 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 8D7826FKHD;
+					};
+					10EB09891C2CE01500A76210 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 8D7826FKHD;
+						TestTargetID = 10EB096D1C2CE01500A76210;
+					};
+					10EB09941C2CE01500A76210 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 8D7826FKHD;
+						TestTargetID = 10EB096D1C2CE01500A76210;
+					};
+				};
+			};
+			buildConfigurationList = 10EB09691C2CE01500A76210 /* Build configuration list for PBXProject "FunMusic" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 10EB09651C2CE01500A76210;
+			productRefGroup = 10EB096F1C2CE01500A76210 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10EB096D1C2CE01500A76210 /* FunMusic */,
+				10EB09891C2CE01500A76210 /* FunMusicTests */,
+				10EB09941C2CE01500A76210 /* FunMusicUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		10EB096C1C2CE01500A76210 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10EB09841C2CE01500A76210 /* LaunchScreen.storyboard in Resources */,
+				10EB09811C2CE01500A76210 /* Assets.xcassets in Resources */,
+				10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10EB09881C2CE01500A76210 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10EB09931C2CE01500A76210 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10EB096A1C2CE01500A76210 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10EB09791C2CE01500A76210 /* ViewController.m in Sources */,
+				10EB09761C2CE01500A76210 /* AppDelegate.m in Sources */,
+				10EB09731C2CE01500A76210 /* main.m in Sources */,
+				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10EB09861C2CE01500A76210 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10EB098F1C2CE01500A76210 /* FunMusicTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10EB09911C2CE01500A76210 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10EB099A1C2CE01500A76210 /* FunMusicUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		10EB098C1C2CE01500A76210 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 10EB096D1C2CE01500A76210 /* FunMusic */;
+			targetProxy = 10EB098B1C2CE01500A76210 /* PBXContainerItemProxy */;
+		};
+		10EB09971C2CE01500A76210 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 10EB096D1C2CE01500A76210 /* FunMusic */;
+			targetProxy = 10EB09961C2CE01500A76210 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		10EB097A1C2CE01500A76210 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10EB097B1C2CE01500A76210 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		10EB09821C2CE01500A76210 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10EB09831C2CE01500A76210 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		10EB099C1C2CE01500A76210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		10EB099D1C2CE01500A76210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		10EB099F1C2CE01500A76210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FunMusic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Wang-Bo.FunMusic";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		10EB09A01C2CE01500A76210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FunMusic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Wang-Bo.FunMusic";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		10EB09A21C2CE01500A76210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FunMusicTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Wang-Bo.FunMusicTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FunMusic.app/FunMusic";
+			};
+			name = Debug;
+		};
+		10EB09A31C2CE01500A76210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FunMusicTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Wang-Bo.FunMusicTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FunMusic.app/FunMusic";
+			};
+			name = Release;
+		};
+		10EB09A51C2CE01500A76210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FunMusicUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Wang-Bo.FunMusicUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FunMusic;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		10EB09A61C2CE01500A76210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FunMusicUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Wang-Bo.FunMusicUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FunMusic;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		10EB09691C2CE01500A76210 /* Build configuration list for PBXProject "FunMusic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10EB099C1C2CE01500A76210 /* Debug */,
+				10EB099D1C2CE01500A76210 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10EB099E1C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10EB099F1C2CE01500A76210 /* Debug */,
+				10EB09A01C2CE01500A76210 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		10EB09A11C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10EB09A21C2CE01500A76210 /* Debug */,
+				10EB09A31C2CE01500A76210 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		10EB09A41C2CE01500A76210 /* Build configuration list for PBXNativeTarget "FunMusicUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10EB09A51C2CE01500A76210 /* Debug */,
+				10EB09A61C2CE01500A76210 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				10EB097E1C2CE01500A76210 /* FunMusic.xcdatamodel */,
+			);
+			currentVersion = 10EB097E1C2CE01500A76210 /* FunMusic.xcdatamodel */;
+			path = FunMusic.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 10EB09661C2CE01500A76210 /* Project object */;
+}
