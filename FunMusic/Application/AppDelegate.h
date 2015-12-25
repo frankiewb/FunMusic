@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+@class UserInfo;
+@class PlayerInfo;
+@class ChannelInfo;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

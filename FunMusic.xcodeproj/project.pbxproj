@@ -21,6 +21,8 @@
 		10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09C71C2CEB1400A76210 /* SongInfo.m */; };
 		10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09CC1C2CF06400A76210 /* UserInfo.m */; };
 		10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09CF1C2CF07E00A76210 /* LogInfo.m */; };
+		10EB09D41C2D10B200A76210 /* FunServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09D31C2D10B200A76210 /* FunServer.m */; };
+		10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DB1C2D15A300A76210 /* ChannelGroup.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,10 @@
 		10EB09CC1C2CF06400A76210 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Model/UserInfo/UserInfo.m; sourceTree = "<group>"; };
 		10EB09CE1C2CF07E00A76210 /* LogInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInfo.h; path = Model/LoginInfo/LogInfo.h; sourceTree = "<group>"; };
 		10EB09CF1C2CF07E00A76210 /* LogInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInfo.m; path = Model/LoginInfo/LogInfo.m; sourceTree = "<group>"; };
+		10EB09D21C2D10B200A76210 /* FunServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FunServer.h; path = FunServer/FunServer.h; sourceTree = "<group>"; };
+		10EB09D31C2D10B200A76210 /* FunServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FunServer.m; path = FunServer/FunServer.m; sourceTree = "<group>"; };
+		10EB09DA1C2D15A300A76210 /* ChannelGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelGroup.h; path = Model/ChannelGroup/ChannelGroup.h; sourceTree = "<group>"; };
+		10EB09DB1C2D15A300A76210 /* ChannelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelGroup.m; path = Model/ChannelGroup/ChannelGroup.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,7 @@
 		10EB09701C2CE01500A76210 /* FunMusic */ = {
 			isa = PBXGroup;
 			children = (
+				10EB09D11C2CF20E00A76210 /* FunServer */,
 				10EB09AB1C2CE91200A76210 /* Model */,
 				10EB09A71C2CE87C00A76210 /* Application */,
 				10EB09801C2CE01500A76210 /* Image.xcassets */,
@@ -171,6 +178,7 @@
 				10EB09CA1C2CEF7800A76210 /* UserInfo */,
 				10EB09C91C2CEF6600A76210 /* LogInfo */,
 				10EB09B81C2CEA3200A76210 /* SongInfo */,
+				10EB09D91C2D157100A76210 /* ChannelGroup */,
 				10EB09BA1C2CEA4D00A76210 /* ChannelInfo */,
 				10EB09BB1C2CEA6400A76210 /* PlayerInfo */,
 				10EB09BC1C2CEA7100A76210 /* WeiboInfo */,
@@ -230,6 +238,24 @@
 				10EB09CC1C2CF06400A76210 /* UserInfo.m */,
 			);
 			name = UserInfo;
+			sourceTree = "<group>";
+		};
+		10EB09D11C2CF20E00A76210 /* FunServer */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09D21C2D10B200A76210 /* FunServer.h */,
+				10EB09D31C2D10B200A76210 /* FunServer.m */,
+			);
+			name = FunServer;
+			sourceTree = "<group>";
+		};
+		10EB09D91C2D157100A76210 /* ChannelGroup */ = {
+			isa = PBXGroup;
+			children = (
+				10EB09DA1C2D15A300A76210 /* ChannelGroup.h */,
+				10EB09DB1C2D15A300A76210 /* ChannelGroup.m */,
+			);
+			name = ChannelGroup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,12 +391,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */,
 				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
 				10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */,
 				10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */,
 				10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */,
 				10EB09731C2CE01500A76210 /* main.m in Sources */,
 				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
+				10EB09D41C2D10B200A76210 /* FunServer.m in Sources */,
 				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
 				10EB09BF1C2CEAD300A76210 /* WeiboInfo.m in Sources */,
 				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
