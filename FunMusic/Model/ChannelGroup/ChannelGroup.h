@@ -12,8 +12,7 @@
 
 typedef NS_ENUM(NSUInteger, ChannelType)
 {
-    ChannelTypeMine = 1,
-    ChannelTypeRecomand,
+    ChannelTypeRecomand = 1,
     ChannelTypeLanguage,
     ChannelTypeSongStyle,
     ChannelTypeFeeling,
@@ -26,6 +25,7 @@ typedef NS_ENUM(NSUInteger, ChannelType)
 @property (nonatomic, copy) NSString * channelTypeName;
 
 
-- (instancetype) initWithChannelTypeName:(NSString *)channelTypeName channelType:(ChannelType) channelType;
+- (instancetype) initWithChannelTypeName:(NSString *)channelTypeName channelType:(ChannelType) channelType channelGroupDictionary:(NSDictionary *)channelDic;
+
 
 @end

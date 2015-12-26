@@ -27,4 +27,26 @@
     return self;
 }
 
+
+//懒加载
+- (SongInfo *)currentSong
+{
+    if (!_currentSong)
+    {
+        _currentSong = [[SongInfo alloc] init];
+    }
+    
+    return _currentSong;
+}
+
+- (ChannelInfo *)currentChannel
+{
+    if (!_currentChannel)
+    {
+        _currentChannel = [[ChannelInfo alloc] init];
+    }
+    
+    return _currentChannel;
+}
+
 @end

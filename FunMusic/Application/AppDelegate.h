@@ -8,18 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @class UserInfo;
 @class PlayerInfo;
-@class ChannelInfo;
+@class ChannelGroup;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic) MPMoviePlayerController *MusicPlayer;
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) UserInfo *currentUserInfo;
+@property (nonatomic, strong) PlayerInfo *currentPlayerInfo;
+@property (nonatomic, strong) ChannelGroup *currentChannelGroup;
+
+
+
+
+
+@property (nonatomic, readonly, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readonly, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, readonly, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

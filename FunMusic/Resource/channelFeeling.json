@@ -1,0 +1,44 @@
+{
+	{
+		"name": "电影原声",
+		"channel_id": "10",
+		"intro": "彼时感动你的电影，此刻温暖你的声音",
+		"imagename": "电影原声"
+	},
+		{
+		"name": "小清新",
+		"channel_id": "76",
+		"intro": "这里没有喧哗与吵闹，静下心来感受世界的美好与祥和",
+		"imagename": "小清新"
+	},
+	{
+		"name": "女声",
+		"channel_id": "20",
+		"intro": "青青子衿，悠悠我心",
+		"imagename": "女声"
+	},
+	{
+		"name": "咖啡馆",
+		"channel_id": "32",
+		"intro": "来杯咖啡吧，放松下你的心灵",
+		"imagename": "咖啡馆"
+	},
+	{
+		"name": "雷鬼",
+		"channel_id": "190",
+		"intro": "不需要一头脏辫，简单的off-beat节奏就能让你神魂颠倒",
+		"imagename": "雷鬼"
+	},
+	{
+		"name": "新青年",
+		"channel_id": "196",
+		"intro": "我们是时代的先行者，感受并且创造时代",
+		"imagename": "新青年"
+	},
+	{
+		"name": "Easy",
+		"channel_id": "77",
+		"intro": "Take it easy",
+		"imagename": "Easy"
+	}]
+}

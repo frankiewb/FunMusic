@@ -15,8 +15,50 @@
 @implementation AppDelegate
 
 
+
+- (void)sharedInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^
+    {
+        _MusicPlayer = [[MPMoviePlayerController alloc] init];
+
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self sharedInstance];
+    
     return YES;
 }
 

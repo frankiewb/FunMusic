@@ -1,0 +1,69 @@
+{
+	"channels": [
+	{
+		"name": "摇滚",
+		"channel_id": "7",
+		"intro": "Rock and Roll Ain't Noise Pollution, Welcome to the Jungle",
+		"imagename": "摇滚"
+	},
+		{
+		"name": "爵士",
+		"channel_id": "13",
+		"intro": "I Love Jazz ",
+		"imagename": "爵士"
+	},
+	{
+		"name": "民谣",
+		"channel_id": "8",
+		"intro": "感受乡村音乐带给你的乐趣",
+		"imagename": "民谣"
+	},
+	{
+		"name": "古风",
+		"channel_id": "27",
+		"intro": "美人卷珠帘，深坐蹙蛾眉，但见泪痕湿，不知心恨谁",
+		"imagename": "古风"
+	},
+	{
+		"name": "电子",
+		"channel_id": "14","
+		"intro": "我为电子狂",
+		"imagename": "电子"
+	},
+	{
+		"name": "说唱",
+		"channel_id": "15",
+		"intro": "是谁抢走了我的麦克风，我只要我的喉咙",
+		"imagename": "说唱"
+	},
+	{
+		"name": "轻音乐",
+		"channel_id": "9",
+		"intro": "在属于你的放松地带，释放心灵",
+		"imagename": "轻音乐"
+	},
+		{
+		"name": "R&B ",
+		"channel_id": "16",
+		"intro": "yao~yao~check now，煎饼果子来一套",
+		"imagename": "R&B"
+	},
+	{
+		"name": "布鲁斯",
+		"channel_id": "188",
+		"intro": "感受Blues的风情",
+		"imagename": "布鲁斯
+	},
+		{
+		"name": "Pop",
+		"channel_id": "194","
+		"intro": "Pop我的最爱",
+		"imagename": "Pop"
+	},
+		{
+		"name": "拉丁",
+		"channel_id": "189",
+		"intro": "拉美风情的魅力尽在于此",
+		"imagename": "拉丁"
+	}]
+}

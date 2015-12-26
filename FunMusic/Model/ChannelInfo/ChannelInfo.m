@@ -16,11 +16,10 @@
     self = [super init];
     if (self)
     {
-        _channelCoverURL  = dic[@"cover"];
         _channelID        = dic[@"id"];
         _channelName      = dic[@"name"];
         _channelIntro     = dic[@"intro"];
-        _channelBannerURL = dic[@"banner"];
+        _channelImage     = dic[@"imagename"];
     }
     
     return self;

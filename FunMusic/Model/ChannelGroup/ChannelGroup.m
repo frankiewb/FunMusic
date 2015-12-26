@@ -11,7 +11,7 @@
 
 @implementation ChannelGroup
 
-- (instancetype) initWithChannelTypeName:(NSString *)channelTypeName channelType:(ChannelType)channelType
+- (instancetype) initWithChannelTypeName:(NSString *)channelTypeName channelType:(ChannelType)channelType channelGroupDictionary:(NSDictionary *)channelDic
 {
     self = [super init];
     if (self)

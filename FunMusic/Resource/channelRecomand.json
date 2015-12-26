@@ -1,0 +1,63 @@
+{
+	{
+		"name": "新歌",
+		"channel_id": "61",
+		"intro": "新鲜歌曲，从这里开始",
+		"imagename": "新歌"
+	},
+	{
+		"name": "中国好歌曲",
+		"channel_id": "179",
+		"intro": "中国好声音，中国好歌曲",
+		"imagename": "中国好歌曲"
+	},
+	{
+		"name": "动漫",
+		"channel_id": "28",
+		"intro": "一拳解决不了的事情，就来两拳",
+		"imagename": "动漫"
+	},
+	{
+		"name": "圣诞",
+		"channel_id": "170",
+		"intro": "Lonely...lonely Christmas ...",
+		"imagename": "圣诞"
+	},
+	{
+		"name": "世界音乐",
+		"channel_id": "187",
+		"intro": "走入世界的舞台...",
+		"imagename": "世界音乐"
+	},
+	{
+		"name": "世界杯",
+		"channel_id": "201",
+		"intro": "when I get older I will be stronger, they'll call me freedom, just like a waving flag ...",
+		"imagename": "世界杯"
+	},
+	{
+		"name": "砖属音乐",
+		"channel_id": "145",
+		"intro": "砖属音乐，你的音乐",
+		"imagename": "砖属音乐"
+	},
+
+	{
+		"name": "乐享节日 乐享音乐",
+		"channel_id": "248",
+		"intro": "乐享你的快乐",
+		"imagename": "乐享节日 乐享音乐"
+	},
+	{
+		"name": "这一刻，从轻开始",
+		"channel_id": "250",
+		"intro": "这一次，就爱吧别放手",
+		"imagename": "这一刻，从轻开始"
+	},
+	{
+		"name": "迷笛 X 蓝鸟之夜",
+		"channel_id": "252",
+		"intro": "下次，我还能和你一起去迷笛音乐节吗？",
+		"imagename": "迷笛 X 蓝鸟之夜"
+	}]
+}
