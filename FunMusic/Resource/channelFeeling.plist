@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Item 1</key>
+	<dict>
+		<key>name</key>
+		<string>电影原声</string>
+		<key>channelid</key>
+		<string>10</string>
+		<key>intro</key>
+		<string>彼时感动你的电影，此刻温暖你的声音</string>
+		<key>imagename</key>
+		<string>电影原声</string>
+	</dict>
+	<key>Item 2</key>
+	<dict>
+		<key>name</key>
+		<string>小清新</string>
+		<key>channelid</key>
+		<string>76</string>
+		<key>intro</key>
+		<string>这里没有喧哗与吵闹，静下心来感受世界的美好与祥和</string>
+		<key>imagename</key>
+		<string>小清新</string>
+	</dict>
+	<key>Item 3</key>
+	<dict>
+		<key>name</key>
+		<string>女声</string>
+		<key>channelid</key>
+		<string>20</string>
+		<key>intro</key>
+		<string>青青子衿，悠悠我心</string>
+		<key>imagename</key>
+		<string>女声</string>
+	</dict>
+	<key>Item 4</key>
+	<dict>
+		<key>name</key>
+		<string>咖啡馆</string>
+		<key>channelid</key>
+		<string>32</string>
+		<key>intro</key>
+		<string>来杯咖啡吧，放松你的心灵</string>
+		<key>imagename</key>
+		<string>咖啡馆</string>
+	</dict>
+	<key>Item 5</key>
+	<dict>
+		<key>name</key>
+		<string>雷鬼</string>
+		<key>channelid</key>
+		<string>190</string>
+		<key>intro</key>
+		<string>不要一头脏辫，简单的节奏就能让你神魂颠倒</string>
+		<key>imagename</key>
+		<string>雷鬼</string>
+	</dict>
+	<key>Item 6</key>
+	<dict>
+		<key>name</key>
+		<string>新青年</string>
+		<key>channelid</key>
+		<string>196</string>
+		<key>intro</key>
+		<string>我们是时代的先行者，感受并且创造时代</string>
+		<key>imagename</key>
+		<string>新青年</string>
+	</dict>
+	<key>Item 7</key>
+	<dict>
+		<key>name</key>
+		<string>Easy</string>
+		<key>channelid</key>
+		<string>77</string>
+		<key>intro</key>
+		<string>take it easy</string>
+		<key>imagename</key>
+		<string>Easy</string>
+	</dict>
+</dict>
+</plist>

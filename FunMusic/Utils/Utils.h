@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ChannelGroup.h"
 
 @interface Utils : NSObject
 
+
++ (NSDictionary *)gennerateDicitonaryWithPlistFile:(NSString *)fileName;
 + (NSDictionary *)gennerateDicitonaryWithJsonFile:(NSString *)fileName;
++ (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type;
++ (ChannelType)gennerateChannelGroupTypeWithChannelName:(NSString *)name;
+
+
 
 
 @end

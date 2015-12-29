@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Item 1</key>
+	<dict>
+		<key>name</key>
+		<string>华语</string>
+		<key>channelid</key>
+		<string>1</string>
+		<key>intro</key>
+		<string>每天发现一首好听的歌</string>
+		<key>imagename</key>
+		<string>华语</string>
+	</dict>
+	<key>Item 2</key>
+	<dict>
+		<key>name</key>
+		<string>粤语</string>
+		<key>channelid</key>
+		<string>6</string>
+		<key>intro</key>
+		<string>那些年我们心水的劲歌金曲</string>
+		<key>imagename</key>
+		<string>粤语</string>
+	</dict>
+	<key>Item 3</key>
+	<dict>
+		<key>name</key>
+		<string>欧美</string>
+		<key>channelid</key>
+		<string>2</string>
+		<key>intro</key>
+		<string>关于欧美流行音乐的一切，就在这里了</string>
+		<key>imagename</key>
+		<string>欧美</string>
+	</dict>
+	<key>Item 4</key>
+	<dict>
+		<key>name</key>
+		<string>日语</string>
+		<key>channelid</key>
+		<string>17</string>
+		<key>intro</key>
+		<string>这里有你喜欢的乃木坂46，井上小百合万岁！</string>
+		<key>imagename</key>
+		<string>日语</string>
+	</dict>
+	<key>Item 5</key>
+	<dict>
+		<key>name</key>
+		<string>韩语</string>
+		<key>channelid</key>
+		<string>18</string>
+		<key>intro</key>
+		<string>少女时代，我爱黄美英！</string>
+		<key>imagename</key>
+		<string>韩语</string>
+	</dict>
+	<key>Item 6</key>
+	<dict>
+		<key>name</key>
+		<string>法语</string>
+		<key>channelid</key>
+		<string>22</string>
+		<key>intro</key>
+		<string>法国流行音乐，这里全掌握</string>
+		<key>imagename</key>
+		<string>法语</string>
+	</dict>
+	<key>Item 7</key>
+	<dict>
+		<key>name</key>
+		<string>九零</string>
+		<key>channelid</key>
+		<string>5</string>
+		<key>intro</key>
+		<string>我们是九零后的小鲜肉</string>
+		<key>imagename</key>
+		<string>九零</string>
+	</dict>
+	<key>Item 8</key>
+	<dict>
+		<key>name</key>
+		<string>八零</string>
+		<key>channelid</key>
+		<string>4</string>
+		<key>intro</key>
+		<string>生于八零后的我们，听着这些歌曲长大</string>
+		<key>imagename</key>
+		<string>八零</string>
+	</dict>
+	<key>Item 9</key>
+	<dict>
+		<key>name</key>
+		<string>七零</string>
+		<key>channelid</key>
+		<string>3</string>
+		<key>intro</key>
+		<string>那些年错过的大雨，那些年错过的爱情</string>
+		<key>imagename</key>
+		<string>七零</string>
+	</dict>
+</dict>
+</plist>

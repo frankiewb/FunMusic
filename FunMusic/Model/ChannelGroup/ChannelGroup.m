@@ -7,23 +7,35 @@
 //
 
 #import "ChannelGroup.h"
+#import "ChannelInfo.h"
 
 
 @implementation ChannelGroup
 
-- (instancetype) initWithChannelTypeName:(NSString *)channelTypeName channelType:(ChannelType)channelType channelGroupDictionary:(NSDictionary *)channelDic
+- (instancetype) initWithChannelType:(ChannelType)channelType channelGroupDictionary:(NSDictionary *)channelDic
 {
     self = [super init];
     if (self)
     {
         _channelArray = [[NSMutableArray alloc] init];
+        [self setChannelArrayWithDictionary:channelDic];
         _channelType = channelType;
-        _channelTypeName = channelTypeName;
     }
     
     return self;
 }
 
-
+- (void)setChannelArrayWithDictionary:(NSDictionary *)dic
+{
+    NSAssert(_channelArray, [NSString stringWithFormat:@"ChannelArray has not been inited !"]);
+    NSString * singleChannelKey;
+    NSMutableArray * singleChannelValue;
+    for (singleChannelKey in dic)
+    {
+        singleChannelValue = dic[singleChannelKey];
+        ChannelInfo * channelCell = [[ChannelInfo alloc] initWithDictionary:singleChannelValue];
+        [_channelArray addObject:channelCell];
+    }
+}
 
 @end

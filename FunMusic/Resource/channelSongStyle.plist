@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Item 1</key>
+	<dict>
+		<key>name</key>
+		<string>摇滚</string>
+		<key>channelid</key>
+		<string>7</string>
+		<key>intro</key>
+		<string>Rock and Roll Ain&apos;t Noise Pollution, welcome to the Jungle</string>
+		<key>imagename</key>
+		<string>摇滚</string>
+	</dict>
+	<key>Item 2</key>
+	<dict>
+		<key>name</key>
+		<string>爵士</string>
+		<key>channelid</key>
+		<string>13</string>
+		<key>intro</key>
+		<string>I love Jazz</string>
+		<key>imagename</key>
+		<string>爵士</string>
+	</dict>
+	<key>Item 3</key>
+	<dict>
+		<key>name</key>
+		<string>民谣</string>
+		<key>channelid</key>
+		<string>8</string>
+		<key>intro</key>
+		<string>感受乡村音乐带给你的乐趣</string>
+		<key>imagename</key>
+		<string>民谣</string>
+	</dict>
+	<key>Item 4</key>
+	<dict>
+		<key>name</key>
+		<string>古风</string>
+		<key>channelid</key>
+		<string>27</string>
+		<key>intro</key>
+		<string>美人卷珠帘，深坐蹙蛾眉，但见泪痕湿，不知心恨谁</string>
+		<key>imagename</key>
+		<string>古风</string>
+	</dict>
+	<key>Item 5</key>
+	<dict>
+		<key>name</key>
+		<string>电子</string>
+		<key>channelid</key>
+		<string>14</string>
+		<key>intro</key>
+		<string>我为电子狂</string>
+		<key>imagename</key>
+		<string>电子</string>
+	</dict>
+	<key>Item 6</key>
+	<dict>
+		<key>name</key>
+		<string>说唱</string>
+		<key>channelid</key>
+		<string>15</string>
+		<key>intro</key>
+		<string>是谁抢走了我的麦克风，我只要我的喉咙</string>
+		<key>imagename</key>
+		<string>说唱</string>
+	</dict>
+	<key>Item 7</key>
+	<dict>
+		<key>name</key>
+		<string>轻音乐</string>
+		<key>channelid</key>
+		<string>9</string>
+		<key>intro</key>
+		<string>在属于你的放松地带，释放心灵</string>
+		<key>imagename</key>
+		<string>轻音乐</string>
+	</dict>
+	<key>Item 8</key>
+	<dict>
+		<key>name</key>
+		<string>R&amp;B</string>
+		<key>channelid</key>
+		<string>16</string>
+		<key>intro</key>
+		<string>yoo～yoo～check now，煎饼果子来一套</string>
+		<key>imagename</key>
+		<string>R&amp;B</string>
+	</dict>
+	<key>Item 9</key>
+	<dict>
+		<key>name</key>
+		<string>布鲁斯</string>
+		<key>channelid</key>
+		<string>188</string>
+		<key>intro</key>
+		<string>感受Blues的风情</string>
+		<key>imagename</key>
+		<string>布鲁斯</string>
+	</dict>
+	<key>Item 10</key>
+	<dict>
+		<key>name</key>
+		<string>Pop</string>
+		<key>channelid</key>
+		<string>194</string>
+		<key>intro</key>
+		<string>Pop我的最爱</string>
+		<key>imagename</key>
+		<string>Pop</string>
+	</dict>
+	<key>Item 11</key>
+	<dict>
+		<key>name</key>
+		<string>拉丁</string>
+		<key>channelid</key>
+		<string>189</string>
+		<key>intro</key>
+		<string>拉美风情的魅力尽在于此</string>
+		<key>imagename</key>
+		<string>拉丁</string>
+	</dict>
+</dict>
+</plist>

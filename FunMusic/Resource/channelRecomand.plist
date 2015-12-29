@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Item 1</key>
+	<dict>
+		<key>name</key>
+		<string>新歌</string>
+		<key>channelid</key>
+		<string>61</string>
+		<key>intro</key>
+		<string>新鲜歌曲，从这里开始</string>
+		<key>imagename</key>
+		<string>新歌</string>
+	</dict>
+	<key>Item 2</key>
+	<dict>
+		<key>name</key>
+		<string>中国好歌曲</string>
+		<key>channelid</key>
+		<string>179</string>
+		<key>intro</key>
+		<string>中国好声音，中国好歌曲</string>
+		<key>imagename</key>
+		<string>中国好歌曲</string>
+	</dict>
+	<key>Item 3</key>
+	<dict>
+		<key>name</key>
+		<string>动漫</string>
+		<key>channelid</key>
+		<string>28</string>
+		<key>intro</key>
+		<string>一拳解决不了的事情，就两拳！</string>
+		<key>imagename</key>
+		<string>动漫</string>
+	</dict>
+	<key>Item 4</key>
+	<dict>
+		<key>name</key>
+		<string>圣诞</string>
+		<key>channelid</key>
+		<string>170</string>
+		<key>intro</key>
+		<string>Lonely，Lonely Christmas</string>
+		<key>imagename</key>
+		<string>圣诞</string>
+	</dict>
+	<key>Item 5</key>
+	<dict>
+		<key>name</key>
+		<string>世界音乐</string>
+		<key>channelid</key>
+		<string>187</string>
+		<key>intro</key>
+		<string>走入世界的舞台</string>
+		<key>imagename</key>
+		<string>世界音乐</string>
+	</dict>
+	<key>Item 6</key>
+	<dict>
+		<key>name</key>
+		<string>世界杯</string>
+		<key>channelid</key>
+		<string>201</string>
+		<key>intro</key>
+		<string>When I get older, I will be stronger, they will call me freedom, just like a waving flag</string>
+		<key>imagename</key>
+		<string>世界杯</string>
+	</dict>
+	<key>Item 7</key>
+	<dict>
+		<key>name</key>
+		<string>专属音乐</string>
+		<key>channelid</key>
+		<string>145</string>
+		<key>intro</key>
+		<string>专属音乐，你的音乐</string>
+		<key>imagename</key>
+		<string>专属音乐</string>
+	</dict>
+	<key>Item 8</key>
+	<dict>
+		<key>name</key>
+		<string>乐享节日 乐享音乐</string>
+		<key>channelid</key>
+		<string>248</string>
+		<key>intro</key>
+		<string>乐享你的快乐</string>
+		<key>imagename</key>
+		<string>乐享节日 乐享音乐</string>
+	</dict>
+	<key>Item 9</key>
+	<dict>
+		<key>name</key>
+		<string>这一刻，从轻开始</string>
+		<key>channelid</key>
+		<string>250</string>
+		<key>intro</key>
+		<string>这一次，就爱吧别放手</string>
+		<key>imagename</key>
+		<string>这一刻，从轻开始</string>
+	</dict>
+	<key>Item 10</key>
+	<dict>
+		<key>name</key>
+		<string>迷笛</string>
+		<key>channelid</key>
+		<string>252</string>
+		<key>intro</key>
+		<string>下一次，我还能和你一去迷笛吗？</string>
+		<key>imagename</key>
+		<string>迷笛</string>
+	</dict>
+</dict>
+</plist>

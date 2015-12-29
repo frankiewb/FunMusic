@@ -24,7 +24,17 @@
 		10EB09D41C2D10B200A76210 /* FunServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09D31C2D10B200A76210 /* FunServer.m */; };
 		10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DB1C2D15A300A76210 /* ChannelGroup.m */; };
 		10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */; };
+		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
+		10ECA4A71C31134C00F745DC /* channelSongStyle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A61C31134C00F745DC /* channelSongStyle.plist */; };
 		10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9B61C2E47BE001E76DE /* Utils.m */; };
+		10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */; };
+		10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */; };
+		10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9CB1C2FAEDB001E76DE /* ChannelGroupController.m */; };
+		10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9CF1C2FC177001E76DE /* ChannelCell.m */; };
+		10F471E81C2FEACE006DECAC /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F471E71C2FEACE006DECAC /* ChannelViewController.m */; };
+		10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F471EC1C2FF5DD006DECAC /* ContentTabBarController.m */; };
+		10F471FA1C310901006DECAC /* channelFeeling.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F471F91C310901006DECAC /* channelFeeling.plist */; };
+		10F471FC1C310DA2006DECAC /* channelLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F471FB1C310DA1006DECAC /* channelLanguage.plist */; };
 		1FADF1654E2BDF5DFD383F5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17D75A435202DCA54CA3194C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -79,8 +89,25 @@
 		10EB09DB1C2D15A300A76210 /* ChannelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelGroup.m; path = Model/ChannelGroup/ChannelGroup.m; sourceTree = "<group>"; };
 		10EB09DE1C2D206D00A76210 /* AFHTTPSessionManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPSessionManager+Util.h"; path = "Categories/AFHTTPSessionManager+Util.h"; sourceTree = "<group>"; };
 		10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+Util.m"; path = "Categories/AFHTTPSessionManager+Util.m"; sourceTree = "<group>"; };
+		10ECA4A41C31112500F745DC /* channelRecomand.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelRecomand.plist; path = Resource/channelRecomand.plist; sourceTree = "<group>"; };
+		10ECA4A61C31134C00F745DC /* channelSongStyle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelSongStyle.plist; path = Resource/channelSongStyle.plist; sourceTree = "<group>"; };
 		10F0A9B51C2E47BE001E76DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
 		10F0A9B61C2E47BE001E76DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Utils/Utils.m; sourceTree = "<group>"; };
+		10F0A9BC1C2E5C65001E76DE /* TitlebarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitlebarView.h; path = Channel/TitleBarView/TitlebarView.h; sourceTree = "<group>"; };
+		10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitlebarView.m; path = Channel/TitleBarView/TitlebarView.m; sourceTree = "<group>"; };
+		10F0A9BF1C2E5F1A001E76DE /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Common.h; path = Application/Common.h; sourceTree = "<group>"; };
+		10F0A9C21C2E66F3001E76DE /* HorizonalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HorizonalTableViewController.h; path = Channel/HorizonalTableController/HorizonalTableViewController.h; sourceTree = "<group>"; };
+		10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HorizonalTableViewController.m; path = Channel/HorizonalTableController/HorizonalTableViewController.m; sourceTree = "<group>"; };
+		10F0A9CA1C2FAEDB001E76DE /* ChannelGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelGroupController.h; path = Channel/ChannelGroupController/ChannelGroupController.h; sourceTree = "<group>"; };
+		10F0A9CB1C2FAEDB001E76DE /* ChannelGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelGroupController.m; path = Channel/ChannelGroupController/ChannelGroupController.m; sourceTree = "<group>"; };
+		10F0A9CE1C2FC177001E76DE /* ChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelCell.h; path = Channel/ChannelGroupController/ChannelCell.h; sourceTree = "<group>"; };
+		10F0A9CF1C2FC177001E76DE /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelCell.m; path = Channel/ChannelGroupController/ChannelCell.m; sourceTree = "<group>"; };
+		10F471E61C2FEACE006DECAC /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelViewController.h; path = Channel/ChannelViewController/ChannelViewController.h; sourceTree = "<group>"; };
+		10F471E71C2FEACE006DECAC /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelViewController.m; path = Channel/ChannelViewController/ChannelViewController.m; sourceTree = "<group>"; };
+		10F471EB1C2FF5DD006DECAC /* ContentTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContentTabBarController.h; path = ContentView/ContentTabBarController.h; sourceTree = "<group>"; };
+		10F471EC1C2FF5DD006DECAC /* ContentTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContentTabBarController.m; path = ContentView/ContentTabBarController.m; sourceTree = "<group>"; };
+		10F471F91C310901006DECAC /* channelFeeling.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelFeeling.plist; path = Resource/channelFeeling.plist; sourceTree = "<group>"; };
+		10F471FB1C310DA1006DECAC /* channelLanguage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelLanguage.plist; path = Resource/channelLanguage.plist; sourceTree = "<group>"; };
 		17D75A435202DCA54CA3194C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5BA0F67B249A6F67F664816 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		ED97FED49F2A3C5EFC8369C3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -137,13 +164,18 @@
 		10EB09701C2CE01500A76210 /* FunMusic */ = {
 			isa = PBXGroup;
 			children = (
-				10F0A9B41C2E4783001E76DE /* Utils */,
+				10F471E91C2FF531006DECAC /* MainView */,
 				10EB09A71C2CE87C00A76210 /* Application */,
+				10F0A9B41C2E4783001E76DE /* Utils */,
 				10EB09D11C2CF20E00A76210 /* FunServer */,
+				10F471EA1C2FF543006DECAC /* ContentView */,
+				10F0A9B81C2E5234001E76DE /* Channel */,
+				10ECA4A91C32307200F745DC /* Search */,
 				10EB09AB1C2CE91200A76210 /* Model */,
 				10EB09DD1C2D204600A76210 /* Categories */,
-				10EB09801C2CE01500A76210 /* Image.xcassets */,
+				10F471EE1C30176E006DECAC /* Resource */,
 				10EB09711C2CE01500A76210 /* Supporting Files */,
+				10EB09801C2CE01500A76210 /* Image.xcassets */,
 			);
 			path = FunMusic;
 			sourceTree = "<group>";
@@ -179,6 +211,7 @@
 		10EB09A71C2CE87C00A76210 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				10F0A9BF1C2E5F1A001E76DE /* Common.h */,
 				10EB09A81C2CE90500A76210 /* AppDelegate.h */,
 				10EB09A91C2CE90500A76210 /* AppDelegate.m */,
 				10EB097A1C2CE01500A76210 /* Main.storyboard */,
@@ -282,6 +315,13 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		10ECA4A91C32307200F745DC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		10F0A9B41C2E4783001E76DE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +329,82 @@
 				10F0A9B61C2E47BE001E76DE /* Utils.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		10F0A9B81C2E5234001E76DE /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				10F0A9BB1C2E52BA001E76DE /* ChannelViewController */,
+				10F0A9C81C2FADA3001E76DE /* ChannelGroupController */,
+				10F0A9BA1C2E52A5001E76DE /* HorizonalTableController */,
+				10F0A9B91C2E5282001E76DE /* TitleBarView */,
+			);
+			name = Channel;
+			sourceTree = "<group>";
+		};
+		10F0A9B91C2E5282001E76DE /* TitleBarView */ = {
+			isa = PBXGroup;
+			children = (
+				10F0A9BC1C2E5C65001E76DE /* TitlebarView.h */,
+				10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */,
+			);
+			name = TitleBarView;
+			sourceTree = "<group>";
+		};
+		10F0A9BA1C2E52A5001E76DE /* HorizonalTableController */ = {
+			isa = PBXGroup;
+			children = (
+				10F0A9C21C2E66F3001E76DE /* HorizonalTableViewController.h */,
+				10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */,
+			);
+			name = HorizonalTableController;
+			sourceTree = "<group>";
+		};
+		10F0A9BB1C2E52BA001E76DE /* ChannelViewController */ = {
+			isa = PBXGroup;
+			children = (
+				10F471E61C2FEACE006DECAC /* ChannelViewController.h */,
+				10F471E71C2FEACE006DECAC /* ChannelViewController.m */,
+			);
+			name = ChannelViewController;
+			sourceTree = "<group>";
+		};
+		10F0A9C81C2FADA3001E76DE /* ChannelGroupController */ = {
+			isa = PBXGroup;
+			children = (
+				10F0A9CA1C2FAEDB001E76DE /* ChannelGroupController.h */,
+				10F0A9CB1C2FAEDB001E76DE /* ChannelGroupController.m */,
+				10F0A9CE1C2FC177001E76DE /* ChannelCell.h */,
+				10F0A9CF1C2FC177001E76DE /* ChannelCell.m */,
+			);
+			name = ChannelGroupController;
+			sourceTree = "<group>";
+		};
+		10F471E91C2FF531006DECAC /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MainView;
+			sourceTree = "<group>";
+		};
+		10F471EA1C2FF543006DECAC /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				10F471EB1C2FF5DD006DECAC /* ContentTabBarController.h */,
+				10F471EC1C2FF5DD006DECAC /* ContentTabBarController.m */,
+			);
+			name = ContentView;
+			sourceTree = "<group>";
+		};
+		10F471EE1C30176E006DECAC /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				10F471F91C310901006DECAC /* channelFeeling.plist */,
+				10F471FB1C310DA1006DECAC /* channelLanguage.plist */,
+				10ECA4A41C31112500F745DC /* channelRecomand.plist */,
+				10ECA4A61C31134C00F745DC /* channelSongStyle.plist */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		412BB81B349FF85E37A68018 /* Frameworks */ = {
@@ -417,8 +533,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10ECA4A71C31134C00F745DC /* channelSongStyle.plist in Resources */,
+				10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */,
+				10F471FA1C310901006DECAC /* channelFeeling.plist in Resources */,
 				10EB09841C2CE01500A76210 /* LaunchScreen.storyboard in Resources */,
 				10EB09811C2CE01500A76210 /* Image.xcassets in Resources */,
+				10F471FC1C310DA2006DECAC /* channelLanguage.plist in Resources */,
 				10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,8 +612,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F471E81C2FEACE006DECAC /* ChannelViewController.m in Sources */,
 				10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */,
+				10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */,
+				10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */,
 				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
+				10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */,
 				10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */,
 				10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */,
 				10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */,
@@ -502,9 +626,11 @@
 				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
 				10EB09D41C2D10B200A76210 /* FunServer.m in Sources */,
 				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
+				10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */,
 				10EB09BF1C2CEAD300A76210 /* WeiboInfo.m in Sources */,
 				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
+				10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

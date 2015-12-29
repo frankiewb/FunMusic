@@ -11,15 +11,29 @@
 @implementation ChannelInfo
 
 
-- (instancetype)initWithDictionary:(NSDictionary *)dic
+- (instancetype)initWithDictionary:(NSMutableDictionary *)dic
 {
     self = [super init];
     if (self)
     {
-        _channelID        = dic[@"id"];
+        _channelID        = dic[@"channelid"];
         _channelName      = dic[@"name"];
         _channelIntro     = dic[@"intro"];
         _channelImage     = dic[@"imagename"];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithChannelInfo:(ChannelInfo *)channelInfo
+{
+    self = [super init];
+    if (self)
+    {
+        _channelID    = channelInfo.channelID;
+        _channelName  = channelInfo.channelName;
+        _channelIntro = channelInfo.channelIntro;
+        _channelImage = channelInfo.channelImage;
     }
     
     return self;

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PlayerInfo.h"
 
 @interface AppDelegate ()
 
@@ -22,6 +23,7 @@
     dispatch_once(&onceToken, ^
     {
         _MusicPlayer = [[MPMoviePlayerController alloc] init];
+        _currentPlayerInfo = [[PlayerInfo alloc] init];
 
     });
 }
