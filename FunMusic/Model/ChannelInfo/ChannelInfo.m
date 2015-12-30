@@ -11,7 +11,7 @@
 @implementation ChannelInfo
 
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dic
+- (instancetype)initWithDictionary:(NSDictionary *)dic
 {
     self = [super init];
     if (self)

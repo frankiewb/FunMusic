@@ -7,13 +7,14 @@
 //
 
 #import "ContentTabBarController.h"
+#import "SearchViewController.h"
 #import "ChannelViewController.h"
 #import "ChannelGroupController.h"
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
 
 
-static const CGFloat kTabbarItemTextFont = 15;
+static const CGFloat kTabbarItemTextFont = 12;
 
 typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
@@ -46,7 +47,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     
     for (NSString *singleChannelGroupname in channelGroupNames)
     {
-        ChannelGroupController *controller = [[ChannelGroupController alloc] initWithChannelGroupName:singleChannelGroupname];
+        ChannelGroupController *controller = [[ChannelGroupController alloc] initWithChannelGroupName:singleChannelGroupname ];
         [channelGroupCtr addObject:controller];
     }
     
@@ -87,6 +88,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                                              target:self
                                                                                                              action:@selector(pushSearchViewController)];
+            viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+           
+
             break;
         case tabBarControllerTypePlayer:
             break;
@@ -106,7 +110,8 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 - (void)pushSearchViewController
 {
-    //TO DO...
+
+    [(UINavigationController *)self.selectedViewController pushViewController:[[SearchViewController alloc] init] animated:YES];
 }
 
 

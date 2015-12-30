@@ -7,6 +7,7 @@
 //
 
 #import "Utils.h"
+#import "ChannelInfo.h"
 
 @implementation Utils
 
@@ -35,22 +36,21 @@
 
 
 
-
 + (ChannelType)gennerateChannelGroupTypeWithChannelName:(NSString *)name
 {
-    if ([name isEqualToString:@"心情"])
+    if ([name isEqualToString:@"心情"] || [name isEqualToString:@"channelFeeling"])
     {
         return ChannelTypeFeeling;
     }
-    else if ([name isEqualToString:@"语言"])
+    else if ([name isEqualToString:@"语言"] || [name isEqualToString:@"channelLanguage"])
     {
         return ChannelTypeLanguage;
     }
-    else if ([name isEqualToString:@"推荐"])
+    else if ([name isEqualToString:@"推荐"] || [name isEqualToString:@"channelRecomand"])
     {
         return ChannelTypeRecomand;
     }
-    else if ([name isEqualToString:@"风格"])
+    else if ([name isEqualToString:@"风格"] || [name isEqualToString:@"channelSongStyle"])
     {
         return ChannelTypeSongStyle;
         
@@ -64,22 +64,22 @@
     return 0;
 }
 
-+ (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type
++ (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type isChineseLanguage:(BOOL)isChinese
 {
     NSString *channelGroupName;
     switch (type)
     {
         case ChannelTypeFeeling:
-            channelGroupName =@"心情场景兆赫";
+            isChinese?(channelGroupName = @"心情"):(channelGroupName = @"channelFeeling");
             break;
         case ChannelTypeLanguage:
-            channelGroupName =@"语言年代兆赫";
+            isChinese?(channelGroupName = @"语言"):(channelGroupName = @"channelLanguage");
             break;
         case ChannelTypeRecomand:
-            channelGroupName =@"心动推荐兆赫";
+            isChinese?(channelGroupName = @"推荐"):(channelGroupName = @"channelRecomand");
             break;
         case ChannelTypeSongStyle:
-            channelGroupName =@"风格流派兆赫";
+            isChinese?(channelGroupName = @"风格"):(channelGroupName = @"channelSongStyle");            
             break;
     }
     

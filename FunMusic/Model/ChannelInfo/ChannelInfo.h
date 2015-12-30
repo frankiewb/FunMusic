@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *channelIntro;
 @property (nonatomic, copy) NSString *channelImage;
 
-- (instancetype) initWithDictionary:(NSMutableDictionary *)dic;
+- (instancetype) initWithDictionary:(NSDictionary *)dic;
 - (instancetype) initWithChannelInfo:(ChannelInfo *)channelInfo;
 
 @end

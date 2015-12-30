@@ -26,6 +26,7 @@
 		10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */; };
 		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
 		10ECA4A71C31134C00F745DC /* channelSongStyle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A61C31134C00F745DC /* channelSongStyle.plist */; };
+		10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10ECA4B91C33723D00F745DC /* SearchViewController.m */; };
 		10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9B61C2E47BE001E76DE /* Utils.m */; };
 		10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */; };
 		10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */; };
@@ -91,6 +92,8 @@
 		10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+Util.m"; path = "Categories/AFHTTPSessionManager+Util.m"; sourceTree = "<group>"; };
 		10ECA4A41C31112500F745DC /* channelRecomand.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelRecomand.plist; path = Resource/channelRecomand.plist; sourceTree = "<group>"; };
 		10ECA4A61C31134C00F745DC /* channelSongStyle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelSongStyle.plist; path = Resource/channelSongStyle.plist; sourceTree = "<group>"; };
+		10ECA4B81C33723D00F745DC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Search/SearchViewController.h; sourceTree = "<group>"; };
+		10ECA4B91C33723D00F745DC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Search/SearchViewController.m; sourceTree = "<group>"; };
 		10F0A9B51C2E47BE001E76DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
 		10F0A9B61C2E47BE001E76DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Utils/Utils.m; sourceTree = "<group>"; };
 		10F0A9BC1C2E5C65001E76DE /* TitlebarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitlebarView.h; path = Channel/TitleBarView/TitlebarView.h; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 		10ECA4A91C32307200F745DC /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				10ECA4B81C33723D00F745DC /* SearchViewController.h */,
+				10ECA4B91C33723D00F745DC /* SearchViewController.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -624,6 +629,7 @@
 				10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */,
 				10EB09731C2CE01500A76210 /* main.m in Sources */,
 				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
+				10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */,
 				10EB09D41C2D10B200A76210 /* FunServer.m in Sources */,
 				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
 				10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */,

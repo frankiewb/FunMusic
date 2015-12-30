@@ -67,22 +67,29 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType
 {
     NSDictionary *channelGroupDic;
-    switch (channelType)
+    NSString *channelName = [Utils gennerateChannelGroupNameWithChannelType:channelType isChineseLanguage:FALSE];
+    channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:channelName];
+    appDelegate.currentChannelGroup = [[ChannelGroup alloc] initWithChannelType:channelType channelName:channelName channelGroupDictionary:channelGroupDic];
+}
+
+
+- (NSMutableArray *)fmGetAllChannelInfos
+{
+    NSArray *channelsName = @[@"channelFeeling",
+                              @"channelLanguage",
+                              @"channelRecomand",
+                              @"channelSongStyle"];
+    
+    NSMutableArray *allChannelArray = [[NSMutableArray alloc] init];
+    for (NSString *singleChannelName in channelsName)
     {
-        case ChannelTypeFeeling:
-            channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:@"channelFeeling"];
-            break;
-        case ChannelTypeLanguage:
-            channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:@"channelLanguage"];
-            break;
-        case ChannelTypeRecomand:
-            channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:@"channelRecomand"];
-            break;
-        case ChannelTypeSongStyle:
-            channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:@"channelSongStyle"];
-            break;
+        NSDictionary *channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:singleChannelName];
+        ChannelType type = [Utils gennerateChannelGroupTypeWithChannelName:singleChannelName];
+        ChannelGroup *channelGroup = [[ChannelGroup alloc] initWithChannelType:type channelName:singleChannelName channelGroupDictionary:channelGroupDic];
+        [allChannelArray addObject:channelGroup];
     }
-    appDelegate.currentChannelGroup = [[ChannelGroup alloc] initWithChannelType:channelType channelGroupDictionary:channelGroupDic];
+    
+    return allChannelArray;
 }
 
 

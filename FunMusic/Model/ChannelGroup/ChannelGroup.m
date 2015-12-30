@@ -12,7 +12,7 @@
 
 @implementation ChannelGroup
 
-- (instancetype) initWithChannelType:(ChannelType)channelType channelGroupDictionary:(NSDictionary *)channelDic
+- (instancetype) initWithChannelType:(ChannelType)channelType channelName:(NSString *)name channelGroupDictionary:(NSDictionary *)channelDic
 {
     self = [super init];
     if (self)
@@ -20,6 +20,7 @@
         _channelArray = [[NSMutableArray alloc] init];
         [self setChannelArrayWithDictionary:channelDic];
         _channelType = channelType;
+        _channelName = name;
     }
     
     return self;
@@ -28,13 +29,13 @@
 - (void)setChannelArrayWithDictionary:(NSDictionary *)dic
 {
     NSAssert(_channelArray, [NSString stringWithFormat:@"ChannelArray has not been inited !"]);
-    NSString * singleChannelKey;
-    NSMutableArray * singleChannelValue;
-    for (singleChannelKey in dic)
+    NSString *singlehannelKey;
+    NSDictionary *singleChannelValue;
+    for (singlehannelKey in dic)
     {
-        singleChannelValue = dic[singleChannelKey];
-        ChannelInfo * channelCell = [[ChannelInfo alloc] initWithDictionary:singleChannelValue];
-        [_channelArray addObject:channelCell];
+        singleChannelValue = dic[singlehannelKey];
+        ChannelInfo *channelInfo = [[ChannelInfo alloc] initWithDictionary:singleChannelValue];
+        [_channelArray addObject:channelInfo];
     }
 }
 

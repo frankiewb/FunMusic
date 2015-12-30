@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType;
 
+- (NSMutableArray *)fmGetAllChannelInfos;
+
 
 
 

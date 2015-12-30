@@ -22,9 +22,10 @@ typedef NS_ENUM(NSUInteger, ChannelType)
 
 @property (nonatomic, copy) NSMutableArray * channelArray;
 @property (nonatomic, assign) ChannelType channelType;
+@property (nonatomic, copy) NSString *channelName;
 
 
-- (instancetype) initWithChannelType:(ChannelType) channelType channelGroupDictionary:(NSDictionary *)channelDic;
+- (instancetype) initWithChannelType:(ChannelType) channelType channelName:(NSString *)name channelGroupDictionary:(NSDictionary *)channelDic;
 
 
 @end

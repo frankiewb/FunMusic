@@ -13,8 +13,11 @@
 
 
 + (NSDictionary *)gennerateDicitonaryWithPlistFile:(NSString *)fileName;
+
 + (NSDictionary *)gennerateDicitonaryWithJsonFile:(NSString *)fileName;
-+ (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type;
+
++ (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type isChineseLanguage:(BOOL)isChinese;
+
 + (ChannelType)gennerateChannelGroupTypeWithChannelName:(NSString *)name;
 
 
