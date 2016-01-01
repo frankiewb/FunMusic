@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
+  - LDProgressView (1.2.1)
   - MarqueeLabel (2.4.2)
   - Masonry (0.6.3)
   - MJRefresh (3.0.8)
@@ -23,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - LDProgressView
   - MarqueeLabel
   - Masonry
   - MJRefresh
@@ -30,6 +32,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  LDProgressView: f6afc7c30d2a9edf33001515f3189338567a32d2
   MarqueeLabel: 641f82cd199dae0ab194bd157984b3cbfbb31b09
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MJRefresh: fafde8f18f4afd66b434331a9beb67a6c0264056

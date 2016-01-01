@@ -166,6 +166,7 @@ typedef NS_ENUM(NSUInteger, managerType)
              if ([operationString isEqualToString: @"r"])
              {
                  NSLog(@"喜欢！");
+                 return ;
              }
              
              NSLog(@"当前歌曲 : %@", appDelegate.currentPlayerInfo.currentSong.songTitle);

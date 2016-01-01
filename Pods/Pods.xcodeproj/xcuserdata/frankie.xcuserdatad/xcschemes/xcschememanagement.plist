@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>LDProgressView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,17 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3AA5A71647D59F06340DDF4EF88376A4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>434631DD92CF954F2BB1F207B9C152AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>59AE9CC6E8D16CD77D2BB74641162D5A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>65532522CA19824ECB01C421D7783F31</key>
+		<key>791F174302D9D28C07CF85A2D8841F06</key>
 		<dict>
 			<key>primary</key>
 			<true/>

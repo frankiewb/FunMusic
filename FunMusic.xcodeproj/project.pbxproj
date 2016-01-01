@@ -27,6 +27,8 @@
 		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
 		10ECA4A71C31134C00F745DC /* channelSongStyle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A61C31134C00F745DC /* channelSongStyle.plist */; };
 		10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10ECA4B91C33723D00F745DC /* SearchViewController.m */; };
+		10EDEB2F1C34C018008A9769 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EDEB2E1C34C018008A9769 /* MusicPlayerViewController.m */; };
+		10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EDEB311C364650008A9769 /* NSTimer+Util.m */; };
 		10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9B61C2E47BE001E76DE /* Utils.m */; };
 		10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */; };
 		10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */; };
@@ -94,6 +96,10 @@
 		10ECA4A61C31134C00F745DC /* channelSongStyle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelSongStyle.plist; path = Resource/channelSongStyle.plist; sourceTree = "<group>"; };
 		10ECA4B81C33723D00F745DC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Search/SearchViewController.h; sourceTree = "<group>"; };
 		10ECA4B91C33723D00F745DC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Search/SearchViewController.m; sourceTree = "<group>"; };
+		10EDEB2D1C34C018008A9769 /* MusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicPlayerViewController.h; path = MusicPlayer/MusicPlayerViewController.h; sourceTree = "<group>"; };
+		10EDEB2E1C34C018008A9769 /* MusicPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MusicPlayerViewController.m; path = MusicPlayer/MusicPlayerViewController.m; sourceTree = "<group>"; };
+		10EDEB301C364650008A9769 /* NSTimer+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+Util.h"; path = "Categories/NSTimer+Util.h"; sourceTree = "<group>"; };
+		10EDEB311C364650008A9769 /* NSTimer+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+Util.m"; path = "Categories/NSTimer+Util.m"; sourceTree = "<group>"; };
 		10F0A9B51C2E47BE001E76DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
 		10F0A9B61C2E47BE001E76DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Utils/Utils.m; sourceTree = "<group>"; };
 		10F0A9BC1C2E5C65001E76DE /* TitlebarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitlebarView.h; path = Channel/TitleBarView/TitlebarView.h; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 				10F0A9B41C2E4783001E76DE /* Utils */,
 				10EB09D11C2CF20E00A76210 /* FunServer */,
 				10F471EA1C2FF543006DECAC /* ContentView */,
+				10EDEB2C1C34BE2A008A9769 /* MusicPlayer */,
 				10F0A9B81C2E5234001E76DE /* Channel */,
 				10ECA4A91C32307200F745DC /* Search */,
 				10EB09AB1C2CE91200A76210 /* Model */,
@@ -314,6 +321,8 @@
 			children = (
 				10EB09DE1C2D206D00A76210 /* AFHTTPSessionManager+Util.h */,
 				10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */,
+				10EDEB301C364650008A9769 /* NSTimer+Util.h */,
+				10EDEB311C364650008A9769 /* NSTimer+Util.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -325,6 +334,15 @@
 				10ECA4B91C33723D00F745DC /* SearchViewController.m */,
 			);
 			name = Search;
+			sourceTree = "<group>";
+		};
+		10EDEB2C1C34BE2A008A9769 /* MusicPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				10EDEB2D1C34C018008A9769 /* MusicPlayerViewController.h */,
+				10EDEB2E1C34C018008A9769 /* MusicPlayerViewController.m */,
+			);
+			name = MusicPlayer;
 			sourceTree = "<group>";
 		};
 		10F0A9B41C2E4783001E76DE /* Utils */ = {
@@ -631,10 +649,12 @@
 				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
 				10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */,
 				10EB09D41C2D10B200A76210 /* FunServer.m in Sources */,
+				10EDEB2F1C34C018008A9769 /* MusicPlayerViewController.m in Sources */,
 				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
 				10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */,
 				10EB09BF1C2CEAD300A76210 /* WeiboInfo.m in Sources */,
 				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
+				10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
 				10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */,
 			);

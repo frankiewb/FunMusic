@@ -26,11 +26,11 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 
 @interface SearchViewController ()<UISearchResultsUpdating, UISearchBarDelegate>
 
-@property(nonatomic, strong)UISearchController *searchController;
-@property(nonatomic, strong)NSMutableArray *allChannelInfoCells;
-@property(nonatomic, strong)NSMutableArray *filteredChannelInfoCells;
-@property(nonatomic, strong)FunServer *funServer;
-@property(nonatomic, weak)AppDelegate *appDelegate;
+@property (nonatomic, strong)UISearchController *searchController;
+@property (nonatomic, strong)NSMutableArray *allChannelInfoCells;
+@property (nonatomic, strong)NSMutableArray *filteredChannelInfoCells;
+@property (nonatomic, strong)FunServer *funServer;
+@property (nonatomic, weak)AppDelegate *appDelegate;
 
 @end
 
@@ -72,7 +72,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     self.searchController.hidesNavigationBarDuringPresentation = NO;
     self.searchController.searchBar.placeholder = @"输入要查找的频道名称";
     [self.searchController.searchBar sizeToFit];
-    self.searchController.searchBar.backgroundColor = [UIColor orangeColor];
+    //self.searchController.searchBar.backgroundColor = [UIColor orangeColor];
     self.navigationItem.titleView = self.searchController.searchBar;
     
     
@@ -211,9 +211,13 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
     currentChannelInfo = [_appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelSearchInfo];
     [_funServer fmSongOperationWithType:SongOperationTypeNext];
-    
     //跳转页面
-    //TO DO...
+    if (_presidentView)
+    {
+        _presidentView(0);
+    }
+    
+
     
 }
 

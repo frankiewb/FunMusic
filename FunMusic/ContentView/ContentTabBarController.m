@@ -7,6 +7,7 @@
 //
 
 #import "ContentTabBarController.h"
+#import "MusicPlayerViewController.h"
 #import "SearchViewController.h"
 #import "ChannelViewController.h"
 #import "ChannelGroupController.h"
@@ -27,6 +28,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 
 @interface ContentTabBarController ()
+{
+    __weak ContentTabBarController *weakSelf;
+}
 
 @end
 
@@ -35,28 +39,29 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-
-    
-    NSArray *channelGroupNames = @[@"推荐",
-                                  @"语言",
-                                  @"风格",
-                                  @"心情"];
-    
-    NSMutableArray *channelGroupCtr = [[NSMutableArray alloc] init];
-    
+    NSArray *channelGroupNames = @[@"推荐",@"语言",@"风格",@"心情"];
+    NSMutableArray *channelGroupCtrList = [[NSMutableArray alloc] init];
+    weakSelf = self;
     for (NSString *singleChannelGroupname in channelGroupNames)
     {
         ChannelGroupController *controller = [[ChannelGroupController alloc] initWithChannelGroupName:singleChannelGroupname ];
-        [channelGroupCtr addObject:controller];
+        controller.presidentView = ^(NSInteger indexPath)
+        {
+            weakSelf.selectedIndex = indexPath;
+        };
+        
+        [channelGroupCtrList addObject:controller];
     }
     
-    ChannelViewController *channelViewCtr = [[ChannelViewController alloc] initWithTitle:@"FUN Music 频道" subTitles:channelGroupNames subTitleCOntrollers:channelGroupCtr];
+    ChannelViewController *channelViewCtr = [[ChannelViewController alloc] initWithTitle:@"FUN Music 频道" subTitles:channelGroupNames subTitleCOntrollers:channelGroupCtrList];
+    
+    MusicPlayerViewController *musicViewCtr = [[MusicPlayerViewController alloc] init];
     
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
-    self.viewControllers = @[[self addNavigationItemForViewController:channelViewCtr tabBarControllerType:tabBarControllerTypeChannel]];
-    NSArray *titles = @[@"FM频道"];
+    self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtr tabBarControllerType:tabBarControllerTypePlayer],
+                             [self addNavigationItemForViewController:channelViewCtr tabBarControllerType:tabBarControllerTypeChannel]];
+    NSArray *titles = @[@"音乐",@"FM频道"];
     //NSArray *images = @[];
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop)
      {
@@ -68,6 +73,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
          //[item setImage:[UIImage imageNamed:[images[idx] stringByAppendingString:@"-TabBarItem"]]];
           
      }];
+    
+    //SetBlockFunction
+    
 }
 
 
@@ -75,11 +83,10 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 - (UINavigationController *)addNavigationItemForViewController:(UIViewController *)viewController tabBarControllerType:(tabBarControllerType)type
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navigationController.navigationBar.tintColor = [UIColor redColor];
     switch (type)
     {
         case tabBarControllerTypeChannel:
-            navigationController.navigationBar.tintColor = [UIColor redColor];
-            navigationController.navigationBar.backgroundColor = [UIColor redColor];
             navigationController.navigationBar.translucent = NO;
             viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar-sidebar"]
                                                                                                style:UIBarButtonItemStylePlain
@@ -93,6 +100,11 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
             break;
         case tabBarControllerTypePlayer:
+            navigationController.navigationBar.translucent = NO;
+            viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar-sidebar"]
+                                                                                               style:UIBarButtonItemStylePlain
+                                                                                              target:self
+                                                                                              action:@selector(onClickMenuButton)];
             break;
         case tabBarControllerTypeMine:
             break;
@@ -110,8 +122,12 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 - (void)pushSearchViewController
 {
-
-    [(UINavigationController *)self.selectedViewController pushViewController:[[SearchViewController alloc] init] animated:YES];
+    SearchViewController *searchViewCtl = [[SearchViewController alloc] init];
+    searchViewCtl.presidentView = ^(NSInteger indexPath)
+    {
+        weakSelf.selectedIndex = indexPath;
+    };
+    [(UINavigationController *)self.selectedViewController pushViewController:searchViewCtl animated:YES];
 }
 
 

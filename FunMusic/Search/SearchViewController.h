@@ -10,4 +10,6 @@
 
 @interface SearchViewController : UITableViewController
 
+@property(nonatomic, copy) void(^presidentView)(NSInteger indexPath);
+
 @end
