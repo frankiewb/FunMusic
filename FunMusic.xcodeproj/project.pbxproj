@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10EA69181C37730100B189EB /* TweetInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA69171C37730100B189EB /* TweetInfo.m */; };
+		10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA691B1C37A89000B189EB /* NSDate+Util.m */; };
 		10EB09731C2CE01500A76210 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09721C2CE01500A76210 /* main.m */; };
 		10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EB097A1C2CE01500A76210 /* Main.storyboard */; };
 		10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */; };
@@ -15,7 +17,6 @@
 		10EB098F1C2CE01500A76210 /* FunMusicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB098E1C2CE01500A76210 /* FunMusicTests.m */; };
 		10EB099A1C2CE01500A76210 /* FunMusicUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09991C2CE01500A76210 /* FunMusicUITests.m */; };
 		10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09A91C2CE90500A76210 /* AppDelegate.m */; };
-		10EB09BF1C2CEAD300A76210 /* WeiboInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09BE1C2CEAD300A76210 /* WeiboInfo.m */; };
 		10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09C11C2CEAE300A76210 /* PlayerInfo.m */; };
 		10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09C41C2CEAF600A76210 /* ChannelInfo.m */; };
 		10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09C71C2CEB1400A76210 /* SongInfo.m */; };
@@ -59,6 +60,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10EA69161C37730100B189EB /* TweetInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetInfo.h; path = Model/TweetInfo/TweetInfo.h; sourceTree = "<group>"; };
+		10EA69171C37730100B189EB /* TweetInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetInfo.m; path = Model/TweetInfo/TweetInfo.m; sourceTree = "<group>"; };
+		10EA691A1C37A89000B189EB /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Util.h"; path = "Categories/NSDate+Util.h"; sourceTree = "<group>"; };
+		10EA691B1C37A89000B189EB /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Util.m"; path = "Categories/NSDate+Util.m"; sourceTree = "<group>"; };
 		10EB096E1C2CE01500A76210 /* FunMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EB09721C2CE01500A76210 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		10EB097B1C2CE01500A76210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,8 +79,6 @@
 		10EB099B1C2CE01500A76210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10EB09A81C2CE90500A76210 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Application/AppDelegate.h; sourceTree = "<group>"; };
 		10EB09A91C2CE90500A76210 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Application/AppDelegate.m; sourceTree = "<group>"; };
-		10EB09BD1C2CEAD300A76210 /* WeiboInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboInfo.h; path = Model/WeiboInfo/WeiboInfo.h; sourceTree = "<group>"; };
-		10EB09BE1C2CEAD300A76210 /* WeiboInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeiboInfo.m; path = Model/WeiboInfo/WeiboInfo.m; sourceTree = "<group>"; };
 		10EB09C01C2CEAE300A76210 /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerInfo.h; path = Model/PlayerInfo/PlayerInfo.h; sourceTree = "<group>"; };
 		10EB09C11C2CEAE300A76210 /* PlayerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerInfo.m; path = Model/PlayerInfo/PlayerInfo.m; sourceTree = "<group>"; };
 		10EB09C31C2CEAF600A76210 /* ChannelInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelInfo.h; path = Model/ChannelInfo/ChannelInfo.h; sourceTree = "<group>"; };
@@ -148,6 +151,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10EA69151C3772DD00B189EB /* TweetInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10EA69161C37730100B189EB /* TweetInfo.h */,
+				10EA69171C37730100B189EB /* TweetInfo.m */,
+			);
+			name = TweetInfo;
+			sourceTree = "<group>";
+		};
+		10EA69191C37730800B189EB /* Tweet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tweet;
+			sourceTree = "<group>";
+		};
 		10EB09651C2CE01500A76210 = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +200,7 @@
 				10EDEB2C1C34BE2A008A9769 /* MusicPlayer */,
 				10F0A9B81C2E5234001E76DE /* Channel */,
 				10ECA4A91C32307200F745DC /* Search */,
+				10EA69191C37730800B189EB /* Tweet */,
 				10EB09AB1C2CE91200A76210 /* Model */,
 				10EB09DD1C2D204600A76210 /* Categories */,
 				10F471EE1C30176E006DECAC /* Resource */,
@@ -233,13 +253,13 @@
 		10EB09AB1C2CE91200A76210 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				10EA69151C3772DD00B189EB /* TweetInfo */,
 				10EB09CA1C2CEF7800A76210 /* UserInfo */,
 				10EB09C91C2CEF6600A76210 /* LogInfo */,
 				10EB09B81C2CEA3200A76210 /* SongInfo */,
 				10EB09D91C2D157100A76210 /* ChannelGroup */,
 				10EB09BA1C2CEA4D00A76210 /* ChannelInfo */,
 				10EB09BB1C2CEA6400A76210 /* PlayerInfo */,
-				10EB09BC1C2CEA7100A76210 /* WeiboInfo */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -269,15 +289,6 @@
 				10EB09C11C2CEAE300A76210 /* PlayerInfo.m */,
 			);
 			name = PlayerInfo;
-			sourceTree = "<group>";
-		};
-		10EB09BC1C2CEA7100A76210 /* WeiboInfo */ = {
-			isa = PBXGroup;
-			children = (
-				10EB09BD1C2CEAD300A76210 /* WeiboInfo.h */,
-				10EB09BE1C2CEAD300A76210 /* WeiboInfo.m */,
-			);
-			name = WeiboInfo;
 			sourceTree = "<group>";
 		};
 		10EB09C91C2CEF6600A76210 /* LogInfo */ = {
@@ -323,6 +334,8 @@
 				10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */,
 				10EDEB301C364650008A9769 /* NSTimer+Util.h */,
 				10EDEB311C364650008A9769 /* NSTimer+Util.m */,
+				10EA691A1C37A89000B189EB /* NSDate+Util.h */,
+				10EA691B1C37A89000B189EB /* NSDate+Util.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -639,9 +652,11 @@
 				10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */,
 				10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */,
 				10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */,
+				10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */,
 				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
 				10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */,
 				10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */,
+				10EA69181C37730100B189EB /* TweetInfo.m in Sources */,
 				10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */,
 				10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */,
 				10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */,
@@ -652,7 +667,6 @@
 				10EDEB2F1C34C018008A9769 /* MusicPlayerViewController.m in Sources */,
 				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
 				10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */,
-				10EB09BF1C2CEAD300A76210 /* WeiboInfo.m in Sources */,
 				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
 				10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
