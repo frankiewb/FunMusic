@@ -25,6 +25,7 @@
     {
         _MusicPlayer = [[MPMoviePlayerController alloc] init];
         _currentPlayerInfo = [[PlayerInfo alloc] init];
+        _tweetInfoGroup = [[NSMutableArray alloc] init];;
         
         //后台播放MusicPlayer
         AVAudioSession *session = [AVAudioSession sharedInstance];

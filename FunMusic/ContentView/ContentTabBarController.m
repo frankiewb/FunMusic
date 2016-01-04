@@ -11,6 +11,7 @@
 #import "SearchViewController.h"
 #import "ChannelViewController.h"
 #import "ChannelGroupController.h"
+#import "TweetTableVIewController.h"
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
 
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
     tabBarControllerTypePlayer = 1,
     tabBarControllerTypeChannel,
-    tabBarControllerTypeWeiBo,
+    tabBarControllerTypeTweeter,
     tabBarControllerTypeMine
 };
 
@@ -53,15 +54,26 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
         [channelGroupCtrList addObject:controller];
     }
     
-    ChannelViewController *channelViewCtr = [[ChannelViewController alloc] initWithTitle:@"FUN Music 频道" subTitles:channelGroupNames subTitleCOntrollers:channelGroupCtrList];
+    ChannelViewController *channelViewCtr = [[ChannelViewController alloc] initWithTitle:@"FUN Music 频道"
+                                                                               subTitles:channelGroupNames
+                                                                     subTitleCOntrollers:channelGroupCtrList];
     
     MusicPlayerViewController *musicViewCtr = [[MusicPlayerViewController alloc] init];
+    
+    TweetTableVIewController *tweetViewCtr = [[TweetTableVIewController alloc] init];
+    
+    //set TweetView block Function
+    tweetViewCtr.presidentView = ^(NSInteger indexPath)
+    {
+        weakSelf.selectedIndex = indexPath;
+    };
     
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
     self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtr tabBarControllerType:tabBarControllerTypePlayer],
-                             [self addNavigationItemForViewController:channelViewCtr tabBarControllerType:tabBarControllerTypeChannel]];
-    NSArray *titles = @[@"音乐",@"FM频道"];
+                             [self addNavigationItemForViewController:channelViewCtr tabBarControllerType:tabBarControllerTypeChannel],
+                             [self addNavigationItemForViewController:tweetViewCtr tabBarControllerType:tabBarControllerTypeTweeter]];
+    NSArray *titles = @[@"音乐",@"FM频道",@"音乐圈"];
     //NSArray *images = @[];
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop)
      {
@@ -84,32 +96,30 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     navigationController.navigationBar.tintColor = [UIColor redColor];
+    navigationController.navigationBar.translucent = NO;
+    viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar-sidebar"]
+                                                                                       style:UIBarButtonItemStylePlain
+                                                                                      target:self
+                                                                                      action:@selector(onClickMenuButton)];
     switch (type)
     {
         case tabBarControllerTypeChannel:
-            navigationController.navigationBar.translucent = NO;
-            viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar-sidebar"]
-                                                                                               style:UIBarButtonItemStylePlain
-                                                                                              target:self
-                                                                                              action:@selector(onClickMenuButton)];
+
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                                              target:self
                                                                                                              action:@selector(pushSearchViewController)];
             viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
            
-
             break;
         case tabBarControllerTypePlayer:
-            navigationController.navigationBar.translucent = NO;
-            viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar-sidebar"]
-                                                                                               style:UIBarButtonItemStylePlain
-                                                                                              target:self
-                                                                                              action:@selector(onClickMenuButton)];
+
+            break;
+        case tabBarControllerTypeTweeter:
+
             break;
         case tabBarControllerTypeMine:
             break;
-        case tabBarControllerTypeWeiBo:
-            break;
+        
     }
     
     return navigationController;

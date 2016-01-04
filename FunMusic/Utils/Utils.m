@@ -8,6 +8,10 @@
 
 #import "Utils.h"
 #import "ChannelInfo.h"
+#import "ChannelGroup.h"
+#import "TweetInfo.h"
+#import "FunServer.h"
+#import "AppDelegate.h"
 
 @implementation Utils
 
@@ -30,8 +34,8 @@
 + (NSDictionary *)gennerateDicitonaryWithPlistFile:(NSString *)fileName
 {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
-    NSMutableDictionary *channelGroupDic = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
-    return channelGroupDic;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+    return dict;
 }
 
 
@@ -85,6 +89,14 @@
     
     return channelGroupName;
 }
+
+
+
+
+
+
+
+
 
 
 

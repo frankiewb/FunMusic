@@ -58,12 +58,6 @@ static const CGFloat kRefreshSleepTime = 0.5;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.tableView.backgroundColor = HORIZONALBACKGROUNDCOLOR;
     
-    //获取FunServer
-    _funServer = [[FunServer alloc] init];
-    
-    //LastCell可以追加，放入Tableview的footerview中来
-    //TO DO....
-    
     //添加MJRefresh
     __weak ChannelGroupController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^

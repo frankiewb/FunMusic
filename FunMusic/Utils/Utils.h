@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "ChannelGroup.h"
 
+
+@class ChannelInfo;
+
 @interface Utils : NSObject
 
 
@@ -19,6 +22,13 @@
 + (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type isChineseLanguage:(BOOL)isChinese;
 
 + (ChannelType)gennerateChannelGroupTypeWithChannelName:(NSString *)name;
+
+
+
+
+
+
+
 
 
 

@@ -35,8 +35,12 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 - (void)fmSongOperationWithType:(SongOperationType) operationType;
 
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType;
-
+- (ChannelInfo *)searchChannelInfoWithName:(NSString *)channelName;
 - (NSMutableArray *)fmGetAllChannelInfos;
+
+- (void)fmGetTweetInfoInLocal;
+- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike;
+- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID;
 
 
 

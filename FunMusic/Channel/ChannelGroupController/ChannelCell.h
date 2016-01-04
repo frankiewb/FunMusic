@@ -13,9 +13,7 @@
 
 @interface ChannelCell : UITableViewCell
 
-@property (nonatomic, strong) UIImageView *channelImageView;
-@property (nonatomic, strong) UILabel *channelNameLabel;
-@property (nonatomic, strong) MarqueeLabel *channelDescriptionLabel;
+
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

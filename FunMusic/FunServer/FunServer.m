@@ -11,6 +11,7 @@
 #import "ChannelInfo.h"
 #import "SongInfo.h"
 #import "PlayerInfo.h"
+#import "TweetInfo.h"
 #import "AFHTTPSessionManager+Util.h"
 #import "Utils.h"
 #import <AFNetworking.h>
@@ -66,11 +67,11 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType
 {
-    NSDictionary *channelGroupDic;
     NSString *channelName = [Utils gennerateChannelGroupNameWithChannelType:channelType isChineseLanguage:FALSE];
-    channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:channelName];
+    NSDictionary *channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:channelName];
     appDelegate.currentChannelGroup = [[ChannelGroup alloc] initWithChannelType:channelType channelName:channelName channelGroupDictionary:channelGroupDic];
 }
+
 
 
 - (NSMutableArray *)fmGetAllChannelInfos
@@ -136,6 +137,29 @@ typedef NS_ENUM(NSUInteger, managerType)
     }
     
     return channelURL;
+}
+
+- (ChannelInfo *)searchChannelInfoWithName:(NSString *)channelName
+{
+    if (!appDelegate.allChannelGroup)
+    {
+        appDelegate.allChannelGroup = [self fmGetAllChannelInfos];
+    }
+    NSMutableArray *allChannelInfo = appDelegate.allChannelGroup;
+    
+    
+    for (ChannelGroup *singleChannelGroup in allChannelInfo)
+    {
+        for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
+        {
+            if ([channelName isEqualToString: singleChannelInfo.channelName])
+            {
+                return singleChannelInfo;
+            }
+        }
+    }
+    NSAssert(FALSE, @"ChannelData fault ! There is unknown ChannelInfoName in YINYUEQUAN");
+    return Nil;
 }
 
 
@@ -223,6 +247,74 @@ typedef NS_ENUM(NSUInteger, managerType)
     
     return operationString;
 }
+
+
+#pragma TweetFunction
+
+
+- (void)fmGetTweetInfoInLocal
+{
+    
+    NSString *tweetGroupName = @"TweetData";
+    NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
+    appDelegate.tweetInfoGroup = [self gennrateTweetGroupWithDictionary:tweetGroupDic];
+    
+}
+
+
+
+- (NSMutableArray *)gennrateTweetGroupWithDictionary:(NSDictionary *)dic
+{
+    NSMutableArray *tweetGroup = [[NSMutableArray alloc] init];
+    NSAssert(dic, @"Dictionary has not been inited !");
+    NSString *singleTweeterKey;
+    NSDictionary *singleTweeterValue;
+    for (singleTweeterKey in dic)
+    {
+        singleTweeterValue = dic[singleTweeterKey];
+        TweetInfo *tweetInfo = [[TweetInfo alloc] initWithTweetDic:singleTweeterValue];
+        [tweetGroup addObject:tweetInfo];
+    }
+    
+    return tweetGroup;
+}
+
+- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike
+{
+    NSInteger index = [self searchTweetInfoWithID:tweetID];
+    TweetInfo *updatedTweetInfo = appDelegate.tweetInfoGroup[index];
+    isLike ? (updatedTweetInfo.likeCount++) : (updatedTweetInfo.likeCount--);
+    //针对服务器应该有一个post操作，因为没有现成服务器，暂且空余, 也可以统一定时更新
+    //TO DO...
+}
+
+
+- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID
+{
+    
+    if (!appDelegate.tweetInfoGroup)
+    {
+        [self fmGetTweetInfoInLocal];
+    }
+    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
+    NSInteger idx = 0;
+    for (TweetInfo *singleTweetInfo in tweetInfoGroup)
+    {
+        if ([singleTweetInfo.tweetID isEqualToString: tweetID])
+        {
+            return idx;
+        }
+        else
+        {
+            idx++;
+        }
+    }
+    NSAssert(FALSE, @"TweetData Error :Can not find the right  TweetInfo");
+    return -1;
+}
+
+
+
 
 
 

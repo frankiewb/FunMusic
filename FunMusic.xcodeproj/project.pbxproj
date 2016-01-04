@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		10EA69181C37730100B189EB /* TweetInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA69171C37730100B189EB /* TweetInfo.m */; };
 		10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA691B1C37A89000B189EB /* NSDate+Util.m */; };
+		10EA691F1C37B03B00B189EB /* TweetTableVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA691E1C37B03B00B189EB /* TweetTableVIewController.m */; };
+		10EA69221C37B49000B189EB /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA69211C37B49000B189EB /* TweetCell.m */; };
 		10EB09731C2CE01500A76210 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09721C2CE01500A76210 /* main.m */; };
 		10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EB097A1C2CE01500A76210 /* Main.storyboard */; };
 		10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10EB097D1C2CE01500A76210 /* FunMusic.xcdatamodeld */; };
@@ -30,6 +32,7 @@
 		10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10ECA4B91C33723D00F745DC /* SearchViewController.m */; };
 		10EDEB2F1C34C018008A9769 /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EDEB2E1C34C018008A9769 /* MusicPlayerViewController.m */; };
 		10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EDEB311C364650008A9769 /* NSTimer+Util.m */; };
+		10F02B6B1C390125002DC9A1 /* TweetData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F02B6A1C390125002DC9A1 /* TweetData.plist */; };
 		10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9B61C2E47BE001E76DE /* Utils.m */; };
 		10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */; };
 		10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */; };
@@ -64,6 +67,10 @@
 		10EA69171C37730100B189EB /* TweetInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetInfo.m; path = Model/TweetInfo/TweetInfo.m; sourceTree = "<group>"; };
 		10EA691A1C37A89000B189EB /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Util.h"; path = "Categories/NSDate+Util.h"; sourceTree = "<group>"; };
 		10EA691B1C37A89000B189EB /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Util.m"; path = "Categories/NSDate+Util.m"; sourceTree = "<group>"; };
+		10EA691D1C37B03B00B189EB /* TweetTableVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetTableVIewController.h; path = Tweet/TweetTableVIewController.h; sourceTree = "<group>"; };
+		10EA691E1C37B03B00B189EB /* TweetTableVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetTableVIewController.m; path = Tweet/TweetTableVIewController.m; sourceTree = "<group>"; };
+		10EA69201C37B49000B189EB /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetCell.h; path = Tweet/TweetCell.h; sourceTree = "<group>"; };
+		10EA69211C37B49000B189EB /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetCell.m; path = Tweet/TweetCell.m; sourceTree = "<group>"; };
 		10EB096E1C2CE01500A76210 /* FunMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EB09721C2CE01500A76210 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		10EB097B1C2CE01500A76210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,6 +110,7 @@
 		10EDEB2E1C34C018008A9769 /* MusicPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MusicPlayerViewController.m; path = MusicPlayer/MusicPlayerViewController.m; sourceTree = "<group>"; };
 		10EDEB301C364650008A9769 /* NSTimer+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+Util.h"; path = "Categories/NSTimer+Util.h"; sourceTree = "<group>"; };
 		10EDEB311C364650008A9769 /* NSTimer+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+Util.m"; path = "Categories/NSTimer+Util.m"; sourceTree = "<group>"; };
+		10F02B6A1C390125002DC9A1 /* TweetData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TweetData.plist; path = Resource/TweetData.plist; sourceTree = "<group>"; };
 		10F0A9B51C2E47BE001E76DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
 		10F0A9B61C2E47BE001E76DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Utils/Utils.m; sourceTree = "<group>"; };
 		10F0A9BC1C2E5C65001E76DE /* TitlebarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitlebarView.h; path = Channel/TitleBarView/TitlebarView.h; sourceTree = "<group>"; };
@@ -163,6 +171,10 @@
 		10EA69191C37730800B189EB /* Tweet */ = {
 			isa = PBXGroup;
 			children = (
+				10EA691D1C37B03B00B189EB /* TweetTableVIewController.h */,
+				10EA691E1C37B03B00B189EB /* TweetTableVIewController.m */,
+				10EA69201C37B49000B189EB /* TweetCell.h */,
+				10EA69211C37B49000B189EB /* TweetCell.m */,
 			);
 			name = Tweet;
 			sourceTree = "<group>";
@@ -358,6 +370,25 @@
 			name = MusicPlayer;
 			sourceTree = "<group>";
 		};
+		10F02B681C3900EB002DC9A1 /* ChannelData */ = {
+			isa = PBXGroup;
+			children = (
+				10F471F91C310901006DECAC /* channelFeeling.plist */,
+				10F471FB1C310DA1006DECAC /* channelLanguage.plist */,
+				10ECA4A41C31112500F745DC /* channelRecomand.plist */,
+				10ECA4A61C31134C00F745DC /* channelSongStyle.plist */,
+			);
+			name = ChannelData;
+			sourceTree = "<group>";
+		};
+		10F02B691C390103002DC9A1 /* TweetData */ = {
+			isa = PBXGroup;
+			children = (
+				10F02B6A1C390125002DC9A1 /* TweetData.plist */,
+			);
+			name = TweetData;
+			sourceTree = "<group>";
+		};
 		10F0A9B41C2E4783001E76DE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,10 +466,8 @@
 		10F471EE1C30176E006DECAC /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				10F471F91C310901006DECAC /* channelFeeling.plist */,
-				10F471FB1C310DA1006DECAC /* channelLanguage.plist */,
-				10ECA4A41C31112500F745DC /* channelRecomand.plist */,
-				10ECA4A61C31134C00F745DC /* channelSongStyle.plist */,
+				10F02B691C390103002DC9A1 /* TweetData */,
+				10F02B681C3900EB002DC9A1 /* ChannelData */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -573,6 +602,7 @@
 				10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */,
 				10F471FA1C310901006DECAC /* channelFeeling.plist in Resources */,
 				10EB09841C2CE01500A76210 /* LaunchScreen.storyboard in Resources */,
+				10F02B6B1C390125002DC9A1 /* TweetData.plist in Resources */,
 				10EB09811C2CE01500A76210 /* Image.xcassets in Resources */,
 				10F471FC1C310DA2006DECAC /* channelLanguage.plist in Resources */,
 				10EB097C1C2CE01500A76210 /* Main.storyboard in Resources */,
@@ -651,6 +681,7 @@
 				10F471E81C2FEACE006DECAC /* ChannelViewController.m in Sources */,
 				10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */,
 				10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */,
+				10EA69221C37B49000B189EB /* TweetCell.m in Sources */,
 				10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */,
 				10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */,
 				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
@@ -669,6 +700,7 @@
 				10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */,
 				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
 				10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */,
+				10EA691F1C37B03B00B189EB /* TweetTableVIewController.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
 				10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */,
 			);

@@ -22,11 +22,19 @@ static const CGFloat kChannelImageHeightWidthDistance = 60;
 static const CGFloat kChannelImageCornerRadius = 30;
 static const CGFloat kChannelCellUIEdgeDistance = 5;
 
+@interface ChannelCell ()
+
+@property (nonatomic, strong) UIImageView *channelImageView;
+@property (nonatomic, strong) UILabel *channelNameLabel;
+@property (nonatomic, strong) MarqueeLabel *channelDescriptionLabel;
+
+@end
+
+
+
 
 
 @implementation ChannelCell
-
-
 
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -97,15 +105,12 @@ static const CGFloat kChannelCellUIEdgeDistance = 5;
 
 - (void)setUpChannelCellWithChannelInfo:(ChannelInfo *)channelInfo
 {
-    //NSString *channelImageName = channelInfo.channelImage;
     [_channelImageView setImage:[UIImage imageNamed:channelInfo.channelImage]];
         
     //调研下，在复用的时候为什么取不到imageview的bound的size的width，结果居然是0
     _channelImageView.layer.cornerRadius = kChannelImageCornerRadius;
     _channelImageView.layer.masksToBounds = YES;
     _channelImageView.contentMode = UIViewContentModeScaleAspectFill;
-    _channelImageView.backgroundColor = [UIColor yellowColor];
-    
     
     _channelNameLabel.text = channelInfo.channelName;
     _channelDescriptionLabel.text = channelInfo.channelIntro;

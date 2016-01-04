@@ -22,7 +22,8 @@
 @property (nonatomic, strong) UserInfo *currentUserInfo;
 @property (nonatomic, strong) PlayerInfo *currentPlayerInfo;
 @property (nonatomic, strong) ChannelGroup *currentChannelGroup;
-
+@property (nonatomic, strong) NSMutableArray *tweetInfoGroup;
+@property (nonatomic, strong) NSMutableArray *allChannelGroup;
 
 
 

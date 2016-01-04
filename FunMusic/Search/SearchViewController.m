@@ -27,8 +27,8 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 @interface SearchViewController ()<UISearchResultsUpdating, UISearchBarDelegate>
 
 @property (nonatomic, strong)UISearchController *searchController;
-@property (nonatomic, strong)NSMutableArray *allChannelInfoCells;
 @property (nonatomic, strong)NSMutableArray *filteredChannelInfoCells;
+@property (nonatomic, strong)NSMutableArray *_allChannelInfoCells;
 @property (nonatomic, strong)FunServer *funServer;
 @property (nonatomic, weak)AppDelegate *appDelegate;
 
@@ -44,9 +44,13 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         _appDelegate = [[UIApplication sharedApplication] delegate];
         _funServer = [[FunServer alloc] init];
-        _allChannelInfoCells = [_funServer fmGetAllChannelInfos];
         _filteredChannelInfoCells = [[NSMutableArray alloc] init];
-        
+        if (!_appDelegate.allChannelGroup)
+        {
+            _appDelegate.allChannelGroup = [_funServer fmGetAllChannelInfos];
+
+        }
+        __allChannelInfoCells = _appDelegate.allChannelGroup;       
         //这个很关键，当从tabbar切换到查找页面时，隐藏tabber界面，回退时还可以恢复
         self.hidesBottomBarWhenPushed = YES;
         
@@ -98,7 +102,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 - (void)channelSearchFilterWithSearchText:(NSString *)searchText
 {
     [self.filteredChannelInfoCells removeAllObjects];
-    for (ChannelGroup *singleChannelGroup in _allChannelInfoCells)
+    for (ChannelGroup *singleChannelGroup in __allChannelInfoCells)
     {
         for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
         {
@@ -138,7 +142,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return 1;
     }
-    return _allChannelInfoCells.count;
+    return __allChannelInfoCells.count;
 }
 
 
@@ -149,7 +153,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return _filteredChannelInfoCells.count;
     }
-    ChannelGroup *singleChannelGroup = _allChannelInfoCells[section];
+    ChannelGroup *singleChannelGroup = __allChannelInfoCells[section];
     return singleChannelGroup.channelArray.count;
 }
 
@@ -188,7 +192,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
     else
     {
-        ChannelGroup *singleChannelGroup = [_allChannelInfoCells objectAtIndex:indexPath.section];
+        ChannelGroup *singleChannelGroup = [__allChannelInfoCells objectAtIndex:indexPath.section];
         channelSearchInfo = [singleChannelGroup.channelArray objectAtIndex:indexPath.row];
     }
     [channelSearchCell setUpChannelCellWithChannelInfo:channelSearchInfo];
@@ -206,7 +210,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
     else
     {
-        ChannelGroup *singleChannelGroup = [_allChannelInfoCells objectAtIndex:indexPath.section];
+        ChannelGroup *singleChannelGroup = [__allChannelInfoCells objectAtIndex:indexPath.section];
         selectChannelSearchInfo = [singleChannelGroup.channelArray objectAtIndex:indexPath.row];
     }
     currentChannelInfo = [_appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelSearchInfo];
@@ -228,7 +232,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return @"频道查询结果";
     }
-    ChannelGroup *singleChannelGroup = _allChannelInfoCells[section];
+    ChannelGroup *singleChannelGroup = __allChannelInfoCells[section];
     ChannelType type = singleChannelGroup.channelType;
     return [Utils gennerateChannelGroupNameWithChannelType:type isChineseLanguage:TRUE];
 }

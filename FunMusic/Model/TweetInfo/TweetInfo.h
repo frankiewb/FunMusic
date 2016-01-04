@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
 typedef NS_ENUM(NSInteger, tweeterType)
@@ -31,13 +32,18 @@ typedef NS_ENUM(NSInteger, infoType)
 @property (nonatomic, copy) NSString *channelName;
 @property (nonatomic, copy) NSString *tweeterComment;
 @property (nonatomic, copy) NSString *tweetDate;
-@property (nonatomic, copy) NSString *likeCount;
+@property (nonatomic, copy) NSString *isLike;
+@property (nonatomic, assign) NSInteger likeCount;
+@property (nonatomic, copy) NSString *tweetID;
 @property (nonatomic, assign) tweeterType tweeterType;
 @property (nonatomic, assign) infoType infoType;
+//为了纪录该TweetInfo产生的Cell高度，放在这里
+@property (nonatomic, assign) CGFloat cellHeight;
+
 
 
 - (instancetype) initWithTweetDic:(NSDictionary *)dict;
-- (instancetype)initWithTweeterCommentByLocal:(NSString *)comment Local:(AppDelegate *)appDelegate;
+- (instancetype) initWithTweeterCommentByLocal:(NSString *)comment Local:(AppDelegate *)appDelegate;
 
 @end
 
