@@ -23,6 +23,7 @@
         
         _currentChannel.channelID = @"1";
         _currentChannel.channelName = @"华语";
+        _currentChannel.channelImage = @"华语";
     }
     
     return self;

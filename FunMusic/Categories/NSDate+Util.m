@@ -19,7 +19,7 @@
     
     //设置时间输出格式
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy年MM月dd日 HH小时mm分ss秒"];
+    [formatter setDateFormat:@"yyyy年M月d日 HH:mm:ss"];
     NSString *currentTIme = [formatter stringFromDate:currentDate];
     
     return currentTIme;

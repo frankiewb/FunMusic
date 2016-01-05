@@ -38,6 +38,7 @@
 		10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */; };
 		10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9CB1C2FAEDB001E76DE /* ChannelGroupController.m */; };
 		10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9CF1C2FC177001E76DE /* ChannelCell.m */; };
+		10F3F5E61C3B9123009D9ACB /* SharedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F3F5E51C3B9123009D9ACB /* SharedViewController.m */; };
 		10F471E81C2FEACE006DECAC /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F471E71C2FEACE006DECAC /* ChannelViewController.m */; };
 		10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F471EC1C2FF5DD006DECAC /* ContentTabBarController.m */; };
 		10F471FA1C310901006DECAC /* channelFeeling.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F471F91C310901006DECAC /* channelFeeling.plist */; };
@@ -122,6 +123,8 @@
 		10F0A9CB1C2FAEDB001E76DE /* ChannelGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelGroupController.m; path = Channel/ChannelGroupController/ChannelGroupController.m; sourceTree = "<group>"; };
 		10F0A9CE1C2FC177001E76DE /* ChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelCell.h; path = Channel/ChannelGroupController/ChannelCell.h; sourceTree = "<group>"; };
 		10F0A9CF1C2FC177001E76DE /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelCell.m; path = Channel/ChannelGroupController/ChannelCell.m; sourceTree = "<group>"; };
+		10F3F5E41C3B9123009D9ACB /* SharedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedViewController.h; path = Shared/SharedViewController.h; sourceTree = "<group>"; };
+		10F3F5E51C3B9123009D9ACB /* SharedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedViewController.m; path = Shared/SharedViewController.m; sourceTree = "<group>"; };
 		10F471E61C2FEACE006DECAC /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelViewController.h; path = Channel/ChannelViewController/ChannelViewController.h; sourceTree = "<group>"; };
 		10F471E71C2FEACE006DECAC /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelViewController.m; path = Channel/ChannelViewController/ChannelViewController.m; sourceTree = "<group>"; };
 		10F471EB1C2FF5DD006DECAC /* ContentTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContentTabBarController.h; path = ContentView/ContentTabBarController.h; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 				10EB09D11C2CF20E00A76210 /* FunServer */,
 				10F471EA1C2FF543006DECAC /* ContentView */,
 				10EDEB2C1C34BE2A008A9769 /* MusicPlayer */,
+				10F3F5E01C3B54D5009D9ACB /* Shared */,
 				10F0A9B81C2E5234001E76DE /* Channel */,
 				10ECA4A91C32307200F745DC /* Search */,
 				10EA69191C37730800B189EB /* Tweet */,
@@ -445,6 +449,15 @@
 				10F0A9CF1C2FC177001E76DE /* ChannelCell.m */,
 			);
 			name = ChannelGroupController;
+			sourceTree = "<group>";
+		};
+		10F3F5E01C3B54D5009D9ACB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				10F3F5E41C3B9123009D9ACB /* SharedViewController.h */,
+				10F3F5E51C3B9123009D9ACB /* SharedViewController.m */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 		10F471E91C2FF531006DECAC /* MainView */ = {
@@ -701,6 +714,7 @@
 				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
 				10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */,
 				10EA691F1C37B03B00B189EB /* TweetTableVIewController.m in Sources */,
+				10F3F5E61C3B9123009D9ACB /* SharedViewController.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
 				10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */,
 			);

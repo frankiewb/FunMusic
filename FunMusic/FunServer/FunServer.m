@@ -257,15 +257,24 @@ typedef NS_ENUM(NSUInteger, managerType)
     
     NSString *tweetGroupName = @"TweetData";
     NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
-    appDelegate.tweetInfoGroup = [self gennrateTweetGroupWithDictionary:tweetGroupDic];
+    [self gennrateTweetGroupWithDictionary:tweetGroupDic];
     
+}
+
+- (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo
+{
+    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
+    NSAssert(tweetInfoGroup, @"tweetInfoGroup invalid !!");
+    [tweetInfoGroup insertObject:tweetInfo atIndex:0];
+    
+    //向服务器更新Tweet信息
+    //TO DO...
 }
 
 
 
-- (NSMutableArray *)gennrateTweetGroupWithDictionary:(NSDictionary *)dic
+- (void)gennrateTweetGroupWithDictionary:(NSDictionary *)dic
 {
-    NSMutableArray *tweetGroup = [[NSMutableArray alloc] init];
     NSAssert(dic, @"Dictionary has not been inited !");
     NSString *singleTweeterKey;
     NSDictionary *singleTweeterValue;
@@ -273,10 +282,8 @@ typedef NS_ENUM(NSUInteger, managerType)
     {
         singleTweeterValue = dic[singleTweeterKey];
         TweetInfo *tweetInfo = [[TweetInfo alloc] initWithTweetDic:singleTweeterValue];
-        [tweetGroup addObject:tweetInfo];
+        [appDelegate.tweetInfoGroup addObject:tweetInfo];
     }
-    
-    return tweetGroup;
 }
 
 - (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike
@@ -312,6 +319,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     NSAssert(FALSE, @"TweetData Error :Can not find the right  TweetInfo");
     return -1;
 }
+
 
 
 

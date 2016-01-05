@@ -49,14 +49,17 @@
 
 - (void)setUpTweetCellWithTweetInfo:(TweetInfo *)tweetInfo
 {
+    _deleteButton.hidden = NO;
     if (tweetInfo.infoType == infoTypeLocal)
     {
-        [_tweeterImageView sd_setImageWithURL:[NSURL URLWithString:tweetInfo.tweeterImage] placeholderImage:[UIImage imageNamed:@"wait to put"]];
+        //[_tweeterImageView sd_setImageWithURL:[NSURL URLWithString:tweetInfo.tweeterImage] placeholderImage:[UIImage imageNamed:@"wait to put"]];
+        //Login功能还没开发，暂时从本地获取
+        [_tweeterImageView setImage:[UIImage imageNamed:tweetInfo.tweeterImage]];
     }
     else
     {
         [_tweeterImageView setImage:[UIImage imageNamed:tweetInfo.tweeterImage]];
-        //_deleteButton.hidden = YES;
+        _deleteButton.hidden = YES;
     }
     
     _tweeterNameLabel.text = tweetInfo.tweeterName;
@@ -109,7 +112,7 @@
     
     //likeButton
     _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _isLike = NO;
+    //_isLike = NO;
     [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
     [_likeButton addTarget:self action:@selector(likeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_likeButton];
@@ -224,7 +227,7 @@
     [_tweeterCommentLabel mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.left.equalTo(_tweeterImageView.mas_right).offset(kLabelWidthDistance);
-         make.right.equalTo(self.contentView).offset(-kCellEdgeDistance);
+         make.right.equalTo(self.contentView.mas_right).offset(-kCellEdgeDistance);
          make.top.equalTo(_tweetDateLabel.mas_bottom).offset(kLabelHeightDistance);
          make.bottom.equalTo(self.contentView.mas_bottom).offset(-kCellEdgeDistance);
      }];

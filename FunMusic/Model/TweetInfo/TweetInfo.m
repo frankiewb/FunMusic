@@ -42,9 +42,11 @@ static const CGFloat kIdealTweetCommentHeight = 60;
         _tweeterName    = dict[@"userName"];
         _channelName    = dict[@"channelName"];
         _channelImage   = dict[@"channelImage"];
-        _tweeterComment = dict[@"tweeterComment"];
         _tweetDate      = dict[@"date"];
         _isLike         = dict[@"like"];
+        
+        NSString *comment = dict[@"tweeterComment"];
+        _tweeterComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         NSString *likeCountString  = dict[@"likeCount"];
         _likeCount = [likeCountString integerValue];
         NSString *tweetertype = dict[@"tweeterType"];
@@ -74,9 +76,12 @@ static const CGFloat kIdealTweetCommentHeight = 60;
 
 - (NSDictionary *)gennerateLocalTweeterDictionaryWithComment:(NSString *)comment Local:(AppDelegate *)appDelegate
 {
-
-    NSString *tweeterImage = [NSString stringWithFormat:USERIMAGEURL,appDelegate.currentUserInfo.userID];
-    NSString *tweeterName  = appDelegate.currentUserInfo.userName;
+    //Login功能暂时没做，先固定用户
+    //NSString *tweeterImage = [NSString stringWithFormat:USERIMAGEURL,appDelegate.currentUserInfo.userID];
+    //NSString *tweeterName  = appDelegate.currentUserInfo.userName;
+    NSString *tweeterImage = @"辰溪";
+    NSString *tweeterName = @"辰溪";
+        
     NSString *channelName  = appDelegate.currentPlayerInfo.currentChannel.channelName;
     NSString *channelImage = appDelegate.currentPlayerInfo.currentChannel.channelImage;
     //理论上本地发布的时间应该以服务器时间为准，毕竟本地时间不实标准时间
@@ -86,15 +91,17 @@ static const CGFloat kIdealTweetCommentHeight = 60;
     NSString *isLike = @"1";
     NSString *tweeterComment;
     NSString *tweeterType;
-    if (comment)
+    _tweeterComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    if ([comment isEqualToString:@""])
     {
-        tweeterComment = comment;
-        tweeterType = @"2";
+        tweeterComment = @" ";
+        tweeterType = @"1";        
     }
     else
     {
-        tweeterComment = @"";
-        tweeterType = @"1";
+        tweeterComment = comment;
+        tweeterType = @"2";
     }
     NSString *likeCount = @"0";
     NSString *infoType = @"2";

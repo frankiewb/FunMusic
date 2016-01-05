@@ -24,27 +24,24 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 
 
 
-
+@class TweetInfo;
 
 @interface FunServer : NSObject
 
-
-
+#pragma songOperation
+- (void)fmSongOperationWithType:(SongOperationType) operationType;
 @property (nonatomic, copy) void (^getSongListFail)(NSError *error);
 
-- (void)fmSongOperationWithType:(SongOperationType) operationType;
-
+#pragma channelOperation
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType;
 - (ChannelInfo *)searchChannelInfoWithName:(NSString *)channelName;
 - (NSMutableArray *)fmGetAllChannelInfos;
 
+#pragma TweeterOperation
 - (void)fmGetTweetInfoInLocal;
+- (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo;
 - (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike;
 - (NSInteger)searchTweetInfoWithID:(NSString *)tweetID;
-
-
-
-
 
 
 @end

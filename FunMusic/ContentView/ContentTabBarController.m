@@ -12,8 +12,10 @@
 #import "ChannelViewController.h"
 #import "ChannelGroupController.h"
 #import "TweetTableVIewController.h"
+#import "SharedViewController.h"
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
+#import "FunServer.h"
 
 
 static const CGFloat kTabbarItemTextFont = 12;
@@ -31,6 +33,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 @interface ContentTabBarController ()
 {
     __weak ContentTabBarController *weakSelf;
+    __weak TweetTableVIewController *weakTweetCtr;
+    
+    
 }
 
 @end
@@ -61,13 +66,12 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     MusicPlayerViewController *musicViewCtr = [[MusicPlayerViewController alloc] init];
     
     TweetTableVIewController *tweetViewCtr = [[TweetTableVIewController alloc] init];
-    
-    //set TweetView block Function
+    weakTweetCtr = tweetViewCtr;
     tweetViewCtr.presidentView = ^(NSInteger indexPath)
     {
         weakSelf.selectedIndex = indexPath;
     };
-    
+
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
     self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtr tabBarControllerType:tabBarControllerTypePlayer],
@@ -108,10 +112,20 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                                              target:self
                                                                                                              action:@selector(pushSearchViewController)];
-            viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+            viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                                               style:UIBarButtonItemStylePlain
+                                                                                              target:nil
+                                                                                              action:nil];
            
             break;
         case tabBarControllerTypePlayer:
+            viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shared-musicPlayer"]
+                                                                                                style:UIBarButtonItemStylePlain
+                                                                                               target:self action:@selector(pushSharedViewController)];
+            viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                                                                               style:UIBarButtonItemStylePlain
+                                                                                              target:nil
+                                                                                              action:nil];
 
             break;
         case tabBarControllerTypeTweeter:
@@ -138,6 +152,18 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
         weakSelf.selectedIndex = indexPath;
     };
     [(UINavigationController *)self.selectedViewController pushViewController:searchViewCtl animated:YES];
+}
+
+- (void)pushSharedViewController
+{
+    SharedViewController *sharedViewCtl = [[SharedViewController alloc] init];
+    sharedViewCtl.presidentView = ^(NSInteger index)
+    {
+        weakSelf.selectedIndex = index;
+        [weakTweetCtr fetchTweetData];
+        [weakTweetCtr.tableView reloadData];
+    };
+    [(UINavigationController *)self.selectedViewController pushViewController:sharedViewCtl animated:YES];
 }
 
 

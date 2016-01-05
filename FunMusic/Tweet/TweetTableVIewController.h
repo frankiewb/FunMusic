@@ -12,4 +12,6 @@
 
 @property(nonatomic, copy) void(^presidentView)(NSInteger indexPath);
 
+- (void)fetchTweetData;
+
 @end

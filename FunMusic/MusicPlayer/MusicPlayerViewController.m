@@ -90,6 +90,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     [self setMusicPlayerInfo];
     
     
+    
     //解决NSTimer保留环问题
     __weak MusicPlayerViewController *weakSelf = self;
     timer = [NSTimer fmScheduledTimerWithTimeInterval:kTimeInterval
