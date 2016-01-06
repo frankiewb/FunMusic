@@ -29,16 +29,21 @@ static const CGFloat kNOPlayingAlpha = 0.2;
 static const CGFloat kPlayingAlpha = 1;
 static const CGFloat kTimeInterval = 0.02;
 
-static const CGFloat kPlayerImageTop = 10;
-static const CGFloat kPlayerImageSideLength = 180;
-static const CGFloat kLabelHeightDistance = 15;
-static const CGFloat kLabelButtonHeightDistance = 40;
-static const CGFloat kLabelWidth = 160;
-static const CGFloat kLabelHeight = 30;
-static const CGFloat kProgressBarWidth = 180;
-static const CGFloat kProgressBarHeight = 10;
-static const CGFloat kButtonSideLength = 30;
-static const CGFloat kButtonXFactor = 0.4;
+
+//该页面在不同屏幕下会有形变，建议采用比例坐标约束
+
+static const CGFloat kPlayerImageTop              = 20;
+static const CGFloat kPlayerImageSideLengthFactor = 0.56;
+static const CGFloat kTimeLabelTopFactor          = 1.083;
+static const CGFloat kTimeProgressBarTopFactor    = 1.060;
+static const CGFloat kSongTitleTopFactor          = 1.055;
+static const CGFloat kSongArtistTopFactor         = 1.055;
+static const CGFloat kButtonTopFactor             = 1.1;
+static const CGFloat kLabelWidthFactor            = 0.56;
+static const CGFloat kLabelHeightFactor           = 0.053;
+static const CGFloat kProgressBarHeight           = 10;
+static const CGFloat kButtonHeightWidthFactor     = 0.083;
+static const CGFloat kButtonXFactor               = 0.4;
 
 
 typedef NS_ENUM(NSInteger, songButtonType)
@@ -132,7 +137,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     //初始化PlayerImage界面
     _musicPlayerImage = [[UIImageView alloc] init];
     _musicPlayerImage.layer.masksToBounds = YES;
-    _musicPlayerImage.layer.cornerRadius = kPlayerImageSideLength/2;
+    _musicPlayerImage.layer.cornerRadius = (kPlayerImageSideLengthFactor * [UIScreen mainScreen].bounds.size.width)/2;
     [self.view addSubview:_musicPlayerImage];
     
     //初始化PlayerImageBlock界面
@@ -207,7 +212,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     {
         make.top.equalTo(self.view.mas_top).offset(kPlayerImageTop);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.height.and.width.mas_equalTo(kPlayerImageSideLength);
+        make.height.and.width.equalTo(self.view.mas_width).with.multipliedBy(kPlayerImageSideLengthFactor);
     }];
     
     //playerImageBlock
@@ -215,43 +220,43 @@ typedef NS_ENUM(NSInteger, songButtonType)
     {
         make.top.equalTo(self.view.mas_top).offset(kPlayerImageTop);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.height.and.width.mas_equalTo(kPlayerImageSideLength);
+        make.height.and.width.equalTo(self.view.mas_width).with.multipliedBy(kPlayerImageSideLengthFactor);
     }];
     
     //TimeLabel
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.top.equalTo(_musicPlayerImage.mas_bottom).offset(kLabelHeightDistance);
+        make.top.equalTo(_musicPlayerImage.mas_bottom).with.multipliedBy(kTimeLabelTopFactor);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.width.mas_equalTo(kLabelWidth);
-        make.height.mas_equalTo(kLabelHeight);
+        make.width.equalTo(self.view.mas_width).with.multipliedBy(kLabelWidthFactor);
+        make.height.equalTo(self.view.mas_height).with.multipliedBy(kLabelHeightFactor);
     }];
     
     //TimeProgressBar
     [_timeProgressBar mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.top.equalTo(_timeLabel.mas_bottom).offset(kLabelHeightDistance);
+        make.top.equalTo(_timeLabel.mas_bottom).with.multipliedBy(kTimeProgressBarTopFactor);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.width.mas_equalTo(kProgressBarWidth);
+        make.width.equalTo(self.view.mas_width).with.multipliedBy(kLabelWidthFactor);
         make.height.mas_equalTo(kProgressBarHeight);
     }];
     
     //SongTitle
     [_songTitleLabel mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.top.equalTo(_timeProgressBar.mas_bottom).offset(kLabelHeightDistance);
+        make.top.equalTo(_timeProgressBar.mas_bottom).with.multipliedBy(kSongTitleTopFactor);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.width.mas_equalTo(kLabelWidth);
-        make.height.mas_equalTo(kLabelHeight);
+        make.width.equalTo(self.view.mas_width).with.multipliedBy(kLabelWidthFactor);
+        make.height.equalTo(self.view.mas_height).with.multipliedBy(kLabelHeightFactor);
     }];
     
     //SongArtist
     [_songArtistLabel mas_makeConstraints:^(MASConstraintMaker *make)
     {
-        make.top.equalTo(_songTitleLabel.mas_bottom).offset(kLabelHeightDistance);
+        make.top.equalTo(_songTitleLabel.mas_bottom).with.multipliedBy(kSongArtistTopFactor);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.width.mas_equalTo(kLabelWidth);
-        make.height.mas_equalTo(kLabelHeight);
+        make.width.equalTo(self.view.mas_width).with.multipliedBy(kLabelWidthFactor);
+        make.height.equalTo(self.view.mas_height).with.multipliedBy(kLabelHeightFactor);
     }];
     
     //初始化songOperationButton
@@ -260,9 +265,9 @@ typedef NS_ENUM(NSInteger, songButtonType)
      {
          [button mas_makeConstraints:^(MASConstraintMaker *make)
           {
-              make.top.equalTo(_songArtistLabel.mas_bottom).offset(kLabelButtonHeightDistance);
+              make.top.equalTo(_songArtistLabel.mas_bottom).multipliedBy(kButtonTopFactor);
               make.centerX.equalTo(self.view.mas_centerX).with.multipliedBy(kButtonXFactor * (idx+1));
-              make.width.and.height.mas_equalTo(kButtonSideLength);
+              make.width.and.height.equalTo(self.view.mas_width).with.multipliedBy(kButtonHeightWidthFactor);
           }];
 
      }];
