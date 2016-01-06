@@ -129,6 +129,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
             break;
         case tabBarControllerTypeTweeter:
+            viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                                             target:self
+                                                                                                             action:@selector(refreshTweeter)];
 
             break;
         case tabBarControllerTypeMine:
@@ -164,6 +167,11 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
         [weakTweetCtr.tableView reloadData];
     };
     [(UINavigationController *)self.selectedViewController pushViewController:sharedViewCtl animated:YES];
+}
+
+- (void)refreshTweeter
+{
+    [weakTweetCtr.tableView reloadData];
 }
 
 

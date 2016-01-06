@@ -90,7 +90,7 @@
                   moduleName = "FunMusic"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frankie/Desktop/FunMusic/FunMusic/Search/SearchViewController.m"
-                  timestampString = "473738644.645812"
+                  timestampString = "473743273.058157"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "121"
@@ -105,7 +105,7 @@
                   moduleName = "FunMusic"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frankie/Desktop/FunMusic/FunMusic/Search/SearchViewController.m"
-                  timestampString = "473738644.647005"
+                  timestampString = "473743273.058304"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "121"
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FunMusic/ContentView/ContentTabBarController.m"
-            timestampString = "473692726.156635"
+            timestampString = "473743250.99153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "-pushSharedViewController"
             landmarkType = "5">
          </BreakpointContent>
@@ -432,6 +432,22 @@
             startingLineNumber = "81"
             endingLineNumber = "81"
             landmarkName = "-setUpTweetCellWithTweetInfo:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FunMusic/ContentView/ContentTabBarController.m"
+            timestampString = "473743273.004797"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "-refreshTweeter"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
