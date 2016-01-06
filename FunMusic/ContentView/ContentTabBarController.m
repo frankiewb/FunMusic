@@ -119,9 +119,12 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
            
             break;
         case tabBarControllerTypePlayer:
-            viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shared-musicPlayer"]
-                                                                                                style:UIBarButtonItemStylePlain
-                                                                                               target:self action:@selector(pushSharedViewController)];
+            
+            viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                                             target:self
+                                                                                                             action:@selector(pushSharedViewController)];
+            
+            
             viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
                                                                                                style:UIBarButtonItemStylePlain
                                                                                               target:nil
