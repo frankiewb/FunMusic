@@ -79,7 +79,14 @@
     _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)tweetInfo.likeCount];
     _tweetID = tweetInfo.tweetID;
     [tweetInfo.isLike isEqualToString:@"1"] ? (_isLike = FALSE) : (_isLike = TRUE);
-     
+    if (_isLike)
+    {
+        [_likeButton setImage:[UIImage imageNamed:@"赞2"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
+    }
 }
 
 
@@ -112,7 +119,7 @@
     
     //likeButton
     _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //_isLike = NO;
+    _isLike = NO;
     [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
     [_likeButton addTarget:self action:@selector(likeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_likeButton];

@@ -291,6 +291,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     NSInteger index = [self searchTweetInfoWithID:tweetID];
     TweetInfo *updatedTweetInfo = appDelegate.tweetInfoGroup[index];
     isLike ? (updatedTweetInfo.likeCount++) : (updatedTweetInfo.likeCount--);
+    isLike ? (updatedTweetInfo.isLike = @"2") : (updatedTweetInfo.isLike = @"1");
     //针对服务器应该有一个post操作，因为没有现成服务器，暂且空余, 也可以统一定时更新
     //TO DO...
 }
