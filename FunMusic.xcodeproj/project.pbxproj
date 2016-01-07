@@ -43,6 +43,9 @@
 		10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F471EC1C2FF5DD006DECAC /* ContentTabBarController.m */; };
 		10F471FA1C310901006DECAC /* channelFeeling.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F471F91C310901006DECAC /* channelFeeling.plist */; };
 		10F471FC1C310DA2006DECAC /* channelLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F471FB1C310DA1006DECAC /* channelLanguage.plist */; };
+		10FB509F1C3DFB6E00572D04 /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB509E1C3DFB6E00572D04 /* MineTableViewController.m */; };
+		10FB50A31C3E3AF500572D04 /* MineOperationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB50A21C3E3AF500572D04 /* MineOperationInfo.m */; };
+		10FB50A61C3E435700572D04 /* MineOPCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB50A51C3E435700572D04 /* MineOPCell.m */; };
 		1FADF1654E2BDF5DFD383F5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17D75A435202DCA54CA3194C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +134,12 @@
 		10F471EC1C2FF5DD006DECAC /* ContentTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContentTabBarController.m; path = ContentView/ContentTabBarController.m; sourceTree = "<group>"; };
 		10F471F91C310901006DECAC /* channelFeeling.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelFeeling.plist; path = Resource/channelFeeling.plist; sourceTree = "<group>"; };
 		10F471FB1C310DA1006DECAC /* channelLanguage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelLanguage.plist; path = Resource/channelLanguage.plist; sourceTree = "<group>"; };
+		10FB509D1C3DFB6E00572D04 /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineTableViewController.h; path = Mine/MineTableViewController.h; sourceTree = "<group>"; };
+		10FB509E1C3DFB6E00572D04 /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineTableViewController.m; path = Mine/MineTableViewController.m; sourceTree = "<group>"; };
+		10FB50A11C3E3AF500572D04 /* MineOperationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineOperationInfo.h; path = Model/MineOperationInfo/MineOperationInfo.h; sourceTree = "<group>"; };
+		10FB50A21C3E3AF500572D04 /* MineOperationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineOperationInfo.m; path = Model/MineOperationInfo/MineOperationInfo.m; sourceTree = "<group>"; };
+		10FB50A41C3E435700572D04 /* MineOPCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineOPCell.h; path = Mine/MineOPCell.h; sourceTree = "<group>"; };
+		10FB50A51C3E435700572D04 /* MineOPCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineOPCell.m; path = Mine/MineOPCell.m; sourceTree = "<group>"; };
 		17D75A435202DCA54CA3194C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5BA0F67B249A6F67F664816 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		ED97FED49F2A3C5EFC8369C3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -207,14 +216,15 @@
 		10EB09701C2CE01500A76210 /* FunMusic */ = {
 			isa = PBXGroup;
 			children = (
-				10F471E91C2FF531006DECAC /* MainView */,
 				10EB09A71C2CE87C00A76210 /* Application */,
 				10F0A9B41C2E4783001E76DE /* Utils */,
-				10EB09D11C2CF20E00A76210 /* FunServer */,
+				10F471E91C2FF531006DECAC /* MainView */,
 				10F471EA1C2FF543006DECAC /* ContentView */,
+				10EB09D11C2CF20E00A76210 /* FunServer */,
 				10EDEB2C1C34BE2A008A9769 /* MusicPlayer */,
 				10F3F5E01C3B54D5009D9ACB /* Shared */,
 				10F0A9B81C2E5234001E76DE /* Channel */,
+				10FB509C1C3DF9EE00572D04 /* Mine */,
 				10ECA4A91C32307200F745DC /* Search */,
 				10EA69191C37730800B189EB /* Tweet */,
 				10EB09AB1C2CE91200A76210 /* Model */,
@@ -269,6 +279,7 @@
 		10EB09AB1C2CE91200A76210 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				10FB50A01C3E3AC500572D04 /* MineOpertionInfo */,
 				10EA69151C3772DD00B189EB /* TweetInfo */,
 				10EB09CA1C2CEF7800A76210 /* UserInfo */,
 				10EB09C91C2CEF6600A76210 /* LogInfo */,
@@ -483,6 +494,26 @@
 				10F02B681C3900EB002DC9A1 /* ChannelData */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		10FB509C1C3DF9EE00572D04 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				10FB509D1C3DFB6E00572D04 /* MineTableViewController.h */,
+				10FB509E1C3DFB6E00572D04 /* MineTableViewController.m */,
+				10FB50A41C3E435700572D04 /* MineOPCell.h */,
+				10FB50A51C3E435700572D04 /* MineOPCell.m */,
+			);
+			name = Mine;
+			sourceTree = "<group>";
+		};
+		10FB50A01C3E3AC500572D04 /* MineOpertionInfo */ = {
+			isa = PBXGroup;
+			children = (
+				10FB50A11C3E3AF500572D04 /* MineOperationInfo.h */,
+				10FB50A21C3E3AF500572D04 /* MineOperationInfo.m */,
+			);
+			name = MineOpertionInfo;
 			sourceTree = "<group>";
 		};
 		412BB81B349FF85E37A68018 /* Frameworks */ = {
@@ -703,10 +734,12 @@
 				10EA69181C37730100B189EB /* TweetInfo.m in Sources */,
 				10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */,
 				10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */,
+				10FB50A31C3E3AF500572D04 /* MineOperationInfo.m in Sources */,
 				10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */,
 				10EB09731C2CE01500A76210 /* main.m in Sources */,
 				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
 				10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */,
+				10FB50A61C3E435700572D04 /* MineOPCell.m in Sources */,
 				10EB09D41C2D10B200A76210 /* FunServer.m in Sources */,
 				10EDEB2F1C34C018008A9769 /* MusicPlayerViewController.m in Sources */,
 				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
@@ -715,6 +748,7 @@
 				10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */,
 				10EA691F1C37B03B00B189EB /* TweetTableVIewController.m in Sources */,
 				10F3F5E61C3B9123009D9ACB /* SharedViewController.m in Sources */,
+				10FB509F1C3DFB6E00572D04 /* MineTableViewController.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
 				10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */,
 			);

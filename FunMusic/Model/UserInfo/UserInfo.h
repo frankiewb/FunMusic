@@ -14,9 +14,7 @@
 @property (nonatomic, copy) NSString *cookies;
 @property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *userName;
-@property (nonatomic, copy) NSString *banned;
 @property (nonatomic, copy) NSString *liked;
-@property (nonatomic, copy) NSString *plyaed;
 
 - (instancetype) initWithDictionary:(NSDictionary *)dic;
 

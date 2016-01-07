@@ -65,6 +65,7 @@ static const CGFloat kRefreshSleepTime = 0.5;
     [self fetchTweetData];
     [self.tableView registerClass:[TweetCell class] forCellReuseIdentifier:kTweetCellID];
 
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,7 +75,8 @@ static const CGFloat kRefreshSleepTime = 0.5;
 
 - (void)refreshData
 {
-    //刷新另外开辟异步线程执行
+    //开辟异步并发线程
+    //子线程更新数据，主线程可以用来显示数据状态，注意GCD可以嵌套
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
                        [self fetchTweetData];

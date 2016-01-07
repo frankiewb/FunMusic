@@ -76,14 +76,26 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     self.searchController.hidesNavigationBarDuringPresentation = NO;
     self.searchController.searchBar.placeholder = @"输入要查找的频道名称";
     [self.searchController.searchBar sizeToFit];
-    //self.searchController.searchBar.backgroundColor = [UIColor orangeColor];
     self.navigationItem.titleView = self.searchController.searchBar;
+    //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！
+    [self.searchController loadViewIfNeeded];
     
-    
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:@selector(dismissSearchView)];
+   
     
     //注册channelCell
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelSearchCellID];
+}
+
+- (void)dismissSearchView
+{
+    [self dismissViewControllerAnimated:YES completion:^
+     {
+         [(UINavigationController *)self.presentingViewController popToRootViewControllerAnimated:YES];
+     }];
 }
 
 

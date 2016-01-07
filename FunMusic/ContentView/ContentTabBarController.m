@@ -12,6 +12,7 @@
 #import "ChannelViewController.h"
 #import "ChannelGroupController.h"
 #import "TweetTableVIewController.h"
+#import "MineTableViewController.h"
 #import "SharedViewController.h"
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
@@ -33,7 +34,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 @interface ContentTabBarController ()
 {
     __weak ContentTabBarController *weakSelf;
-    __weak TweetTableVIewController *weakTweetCtr;
+    __weak TweetTableVIewController *weakTweetCtl;
     
     
 }
@@ -58,26 +59,22 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
         
         [channelGroupCtrList addObject:controller];
     }
-    
-    ChannelViewController *channelViewCtr = [[ChannelViewController alloc] initWithTitle:@"FUN Music 频道"
+    ChannelViewController *channelViewCtl = [[ChannelViewController alloc] initWithTitle:@"FUN Music 频道"
                                                                                subTitles:channelGroupNames
                                                                      subTitleCOntrollers:channelGroupCtrList];
     
-    MusicPlayerViewController *musicViewCtr = [[MusicPlayerViewController alloc] init];
-    
-    TweetTableVIewController *tweetViewCtr = [[TweetTableVIewController alloc] init];
-    weakTweetCtr = tweetViewCtr;
-    tweetViewCtr.presidentView = ^(NSInteger indexPath)
-    {
-        weakSelf.selectedIndex = indexPath;
-    };
-
+    MusicPlayerViewController *musicViewCtl = [[MusicPlayerViewController alloc] init];
+    MineTableViewController *mineViewCtl = [[MineTableViewController alloc] init];
+    TweetTableVIewController *tweetViewCtl = [[TweetTableVIewController alloc] init];
+    weakTweetCtl = tweetViewCtl;
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
-    self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtr tabBarControllerType:tabBarControllerTypePlayer],
-                             [self addNavigationItemForViewController:channelViewCtr tabBarControllerType:tabBarControllerTypeChannel],
-                             [self addNavigationItemForViewController:tweetViewCtr tabBarControllerType:tabBarControllerTypeTweeter]];
-    NSArray *titles = @[@"音乐",@"FM频道",@"音乐圈"];
+    self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtl tabBarControllerType:tabBarControllerTypePlayer],
+                             [self addNavigationItemForViewController:channelViewCtl tabBarControllerType:tabBarControllerTypeChannel],
+                             [self addNavigationItemForViewController:tweetViewCtl tabBarControllerType:tabBarControllerTypeTweeter],
+                             [self addNavigationItemForViewController:mineViewCtl tabBarControllerType:tabBarControllerTypeMine]];
+    
+    NSArray *titles = @[@"音乐",@"FM频道",@"音乐圈",@"我"];
     //NSArray *images = @[];
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop)
      {
@@ -90,7 +87,16 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
           
      }];
     
-    //SetBlockFunction
+//**********************************************SetBlockFunction************************************************
+    mineViewCtl.presentView = ^(NSInteger indexPath)
+    {
+        weakSelf.selectedIndex = indexPath;
+    };
+    tweetViewCtl.presidentView = ^(NSInteger indexPath)
+    {
+        weakSelf.selectedIndex = indexPath;
+    };
+//****************************************************************************************************************
     
 }
 
@@ -138,6 +144,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
             break;
         case tabBarControllerTypeMine:
+            viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                                                             target:self
+                                                                                                             action:@selector(pushSearchViewController)];
             break;
         
     }
@@ -150,9 +159,11 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     //TO DO...
 }
 
+
 - (void)pushSearchViewController
 {
     SearchViewController *searchViewCtl = [[SearchViewController alloc] init];
+    
     searchViewCtl.presidentView = ^(NSInteger indexPath)
     {
         weakSelf.selectedIndex = indexPath;
@@ -163,18 +174,19 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 - (void)pushSharedViewController
 {
     SharedViewController *sharedViewCtl = [[SharedViewController alloc] init];
+    
     sharedViewCtl.presidentView = ^(NSInteger index)
     {
         weakSelf.selectedIndex = index;
-        [weakTweetCtr fetchTweetData];
-        [weakTweetCtr.tableView reloadData];
+        [weakTweetCtl fetchTweetData];
+        [weakTweetCtl.tableView reloadData];
     };
     [(UINavigationController *)self.selectedViewController pushViewController:sharedViewCtl animated:YES];
 }
 
 - (void)refreshTweeter
 {
-    [weakTweetCtr.tableView reloadData];
+    [weakTweetCtl.tableView reloadData];
 }
 
 
