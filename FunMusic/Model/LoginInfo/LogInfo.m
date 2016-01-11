@@ -10,4 +10,14 @@
 
 @implementation LogInfo
 
+- (BOOL)isLoginSuccessfull:(NSDictionary *)loginData
+{
+    if ([_loginName isEqualToString:loginData[@"name"]] && [_passWord isEqualToString:loginData[@"password"]])
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
 @end

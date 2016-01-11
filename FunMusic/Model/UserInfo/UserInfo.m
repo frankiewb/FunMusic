@@ -11,24 +11,27 @@
 @implementation UserInfo
 
 
+- (instancetype) init
+{
+    self = [super init];
+    if (self)
+    {
+        _isLogin = FALSE;
+    }
+    
+    return self;
+}
+
+
 
 - (instancetype) initWithDictionary:(NSDictionary *)dic
 {
     self = [super init];
     if (self)
     {
-        _isNotLogin = dic[@"r"];
-        
-        NSDictionary *tempUserInfoDic = dic[@"user_info"];
-        _cookies = tempUserInfoDic[@"ck"];
-        _userID = tempUserInfoDic[@"id"];
-        _userName = tempUserInfoDic[@"name"];
-        
-        NSDictionary *tempPlayRecordDic = tempUserInfoDic[@"play_record"];
-        _banned = [NSString stringWithFormat:@"%@",tempPlayRecordDic[@"banned"]];
-        _liked = [NSString stringWithFormat:@"%@",tempPlayRecordDic[@"liked"]];
-        _plyaed = [NSString stringWithFormat:@"%@",tempPlayRecordDic[@"played"]];
-
+        _isLogin = TRUE;
+        _userImage = dic[@"image"];
+        _userName = dic[@"name"];
     }
     
     return self;

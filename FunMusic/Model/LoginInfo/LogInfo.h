@@ -12,6 +12,7 @@
 
 @property(nonatomic,copy) NSString *loginName;
 @property(nonatomic,copy) NSString *passWord;
-@property(nonatomic,copy) NSString *capthchaInputWord;
+
+- (BOOL)isLoginSuccessfull:(NSDictionary *)loginData;
 
 @end

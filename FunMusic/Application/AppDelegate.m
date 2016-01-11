@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PlayerInfo.h"
+#import "UserInfo.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface AppDelegate ()
@@ -25,7 +26,8 @@
     {
         _MusicPlayer = [[MPMoviePlayerController alloc] init];
         _currentPlayerInfo = [[PlayerInfo alloc] init];
-        _tweetInfoGroup = [[NSMutableArray alloc] init];;
+        _tweetInfoGroup = [[NSMutableArray alloc] init];
+        _currentUserInfo = [[UserInfo alloc] init];
         
         //后台播放MusicPlayer
         AVAudioSession *session = [AVAudioSession sharedInstance];

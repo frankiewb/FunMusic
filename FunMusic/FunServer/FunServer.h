@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 
 
 @class TweetInfo;
+@class LogInfo;
 
 @interface FunServer : NSObject
 
@@ -42,6 +43,19 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 - (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo;
 - (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike;
 - (NSInteger)searchTweetInfoWithID:(NSString *)tweetID;
+
+#pragma LoginOperation
+- (void)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo;
+
+
+
+
+
+
+
+
+
+
 
 
 @end

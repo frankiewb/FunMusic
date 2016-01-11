@@ -12,6 +12,8 @@
 #import "SongInfo.h"
 #import "PlayerInfo.h"
 #import "TweetInfo.h"
+#import "UserInfo.h"
+#import "LogInfo.h"
 #import "AFHTTPSessionManager+Util.h"
 #import "Utils.h"
 #import <AFNetworking.h>
@@ -40,6 +42,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     AppDelegate *appDelegate;
     AFHTTPSessionManager *fmManager;
     managerType fmManagerType;
+    UserInfo *currentUserInfo;
 }
 
 
@@ -255,7 +258,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (void)fmGetTweetInfoInLocal
 {
     
-    NSString *tweetGroupName = @"TweetData";
+    NSString *tweetGroupName = @"tweetData";
     NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
     [self gennrateTweetGroupWithDictionary:tweetGroupDic];
     
@@ -320,6 +323,22 @@ typedef NS_ENUM(NSUInteger, managerType)
     NSAssert(FALSE, @"TweetData Error :Can not find the right  TweetInfo");
     return -1;
 }
+
+
+#pragma LoginOperation
+
+- (void)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo
+{
+    NSDictionary *logDic = [Utils gennerateDicitonaryWithPlistFile:@"loginData"];
+    if ([logInfo isLoginSuccessfull:logDic])
+    {
+        NSDictionary *userDic = [Utils gennerateDicitonaryWithPlistFile:@"userData"];
+        currentUserInfo = [appDelegate.currentUserInfo initWithDictionary:userDic];
+    }
+}
+
+
+
 
 
 
