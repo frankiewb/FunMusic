@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 
 #pragma songOperation
 - (void)fmSongOperationWithType:(SongOperationType) operationType;
-@property (nonatomic, copy) void (^getSongListFail)(NSError *error);
+@property (nonatomic, copy) void (^getSongListFail)();
 
 #pragma channelOperation
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType;
@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 - (NSInteger)searchTweetInfoWithID:(NSString *)tweetID;
 
 #pragma LoginOperation
-- (void)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo;
+- (BOOL)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo;
 
 
 

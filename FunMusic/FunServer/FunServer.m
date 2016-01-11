@@ -205,7 +205,7 @@ typedef NS_ENUM(NSUInteger, managerType)
      }
           failure:^(NSURLSessionDataTask *task, NSError *error)
      {
-         _getSongListFail(error);
+         _getSongListFail();
      }];
 }
 
@@ -327,14 +327,16 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 #pragma LoginOperation
 
-- (void)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo
+- (BOOL)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo
 {
     NSDictionary *logDic = [Utils gennerateDicitonaryWithPlistFile:@"loginData"];
     if ([logInfo isLoginSuccessfull:logDic])
     {
         NSDictionary *userDic = [Utils gennerateDicitonaryWithPlistFile:@"userData"];
         currentUserInfo = [appDelegate.currentUserInfo initWithDictionary:userDic];
+        return TRUE;
     }
+    return FALSE;
 }
 
 

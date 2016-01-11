@@ -89,13 +89,11 @@ typedef NS_ENUM(NSInteger, songButtonType)
 {
     [super viewDidLoad];
     funServer = [[FunServer alloc] init];
+    
     appDelegate = [[UIApplication sharedApplication] delegate];
     [self setUpUI];
     [self setAutoLayout];
     [self setMusicPlayerInfo];
-    
-    
-    
     //解决NSTimer保留环问题
     __weak MusicPlayerViewController *weakSelf = self;
     timer = [NSTimer fmScheduledTimerWithTimeInterval:kTimeInterval
@@ -103,6 +101,20 @@ typedef NS_ENUM(NSInteger, songButtonType)
                                              repeates:YES];
     
     [self refreshMusicPlayer];
+    
+    //************************************Block Function**********************************************************
+    funServer.getSongListFail = ^()
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"获取音乐失败"
+                                                                                 message:@"请检查网络是否连接"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        [alertController addAction:okAction];
+        [weakSelf presentViewController:alertController animated:YES completion:nil];
+    };
+    //**************************************************************************************************************
     
 }
 

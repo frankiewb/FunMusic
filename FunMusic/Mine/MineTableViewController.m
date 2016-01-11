@@ -198,6 +198,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)pushLoginView
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    loginCtl.hidesBottomBarWhenPushed = YES;
     __weak MineTableViewController *weakSelf = self;
     loginCtl.refreshUserView = ^()
     {

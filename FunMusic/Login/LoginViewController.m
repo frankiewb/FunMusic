@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 #import "LogInfo.h"
 #import "FunServer.h"
-#import <UIImageView+WebCache.h>
 #import <Masonry.h>
 
 
@@ -42,6 +41,7 @@ static const CGFloat kButtonHeightDistance = 20;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpLoginUI];
     [self setLoginLayOut];
+
 }
 
 
@@ -137,14 +137,31 @@ static const CGFloat kButtonHeightDistance = 20;
     logInfo.loginName = _loginNameTextField.text;
     logInfo.passWord = _loginPassWordTextField.text;
     funServer = [[FunServer alloc] init];
-    [funServer fmLoginInLocalWithLoginInfo:logInfo];
-    if (_refreshUserView)
+    if ([funServer fmLoginInLocalWithLoginInfo:logInfo])
     {
-        _refreshUserView();
+        if (_refreshUserView)
+        {
+            _refreshUserView();
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    [self.navigationController popViewControllerAnimated:YES];
-    //登录成功提示
-    //TO DO...
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"登录失败"
+                                                                                 message:@"请检查您的用户名和密码是否正确"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action)
+                                   {
+                                       _loginNameTextField.text = @"";
+                                       _loginPassWordTextField.text = @"";
+                                   }];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
+    
 }
 
 
