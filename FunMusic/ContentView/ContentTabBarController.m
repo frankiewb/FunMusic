@@ -14,12 +14,18 @@
 #import "TweetTableVIewController.h"
 #import "MineTableViewController.h"
 #import "SharedViewController.h"
+#import "LoginViewController.h"
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
 #import "FunServer.h"
+#import "AppDelegate.h"
+#import <MBProgressHUD.h>
+#import <RESideMenu.h>
+
 
 
 static const CGFloat kTabbarItemTextFont = 12;
+static const CGFloat kRefreshSleepTime = 0.8;
 
 typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
@@ -35,8 +41,8 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
     __weak ContentTabBarController *weakSelf;
     __weak TweetTableVIewController *weakTweetCtl;
-    
-    
+    __weak MineTableViewController *weakMineCtl;
+    AppDelegate *appDelegate;
 }
 
 @end
@@ -46,6 +52,8 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    
     NSArray *channelGroupNames = @[@"推荐",@"语言",@"风格",@"心情"];
     NSMutableArray *channelGroupCtrList = [[NSMutableArray alloc] init];
     weakSelf = self;
@@ -67,6 +75,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     MineTableViewController *mineViewCtl = [[MineTableViewController alloc] init];
     TweetTableVIewController *tweetViewCtl = [[TweetTableVIewController alloc] init];
     weakTweetCtl = tweetViewCtl;
+    weakMineCtl = mineViewCtl;
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
     self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtl tabBarControllerType:tabBarControllerTypePlayer],
@@ -87,7 +96,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
           
      }];
     
-//**********************************************SetBlockFunction************************************************
+//**********************************************SetBlockFunction********************************************
     mineViewCtl.presentView = ^(NSInteger indexPath)
     {
         weakSelf.selectedIndex = indexPath;
@@ -96,7 +105,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     {
         weakSelf.selectedIndex = indexPath;
     };
-//****************************************************************************************************************
+//**********************************************************************************************************
     
 }
 
@@ -131,7 +140,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                                                                                              action:@selector(pushSharedViewController)];
             
             
-            viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+            viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                                                style:UIBarButtonItemStylePlain
                                                                                               target:nil
                                                                                               action:nil];
@@ -156,7 +165,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 - (void)onClickMenuButton
 {
-    //TO DO...
+    [self.sideMenuViewController presentLeftMenuViewController];
 }
 
 
@@ -173,20 +182,92 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 - (void)pushSharedViewController
 {
-    SharedViewController *sharedViewCtl = [[SharedViewController alloc] init];
-    
-    sharedViewCtl.presidentView = ^(NSInteger index)
+    if ([appDelegate isLogin])
     {
-        weakSelf.selectedIndex = index;
-        [weakTweetCtl fetchTweetData];
-        [weakTweetCtl.tableView reloadData];
-    };
-    [(UINavigationController *)self.selectedViewController pushViewController:sharedViewCtl animated:YES];
+        SharedViewController *sharedViewCtl = [[SharedViewController alloc] init];
+        
+        sharedViewCtl.presidentView = ^(NSInteger index)
+        {
+            weakSelf.selectedIndex = index;
+            [weakTweetCtl fetchTweetData];
+            [weakTweetCtl.tableView reloadData];
+        };
+        [(UINavigationController *)self.selectedViewController pushViewController:sharedViewCtl animated:YES];
+    }
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请先登录"
+                                                                                 message:@"请登录后再分享您的音乐圈"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action)
+                                   {
+                                       LoginViewController *loginCtl = [[LoginViewController alloc] init];
+                                       loginCtl.updateUserUI = ^()
+                                       {
+                                           [weakMineCtl refreshUserView];
+                                       };
+                                       [(UINavigationController *)weakSelf.selectedViewController pushViewController:loginCtl animated:YES];
+                                       
+                                   }];
+        
+        
+        [alertController addAction:okAction];
+        [weakSelf.selectedViewController presentViewController:alertController animated:YES completion:nil];
+    }
+    
+   
 }
 
 - (void)refreshTweeter
 {
-    [weakTweetCtl.tableView reloadData];
+    if ([appDelegate isLogin])
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:weakTweetCtl.tableView animated:YES];
+        hud.labelText = @"刷新中";
+        hud.mode = MBProgressHUDModeIndeterminate;
+        //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                       {
+                           [weakTweetCtl fetchTweetData];
+                           [weakTweetCtl.tableView reloadData];
+                           [NSThread sleepForTimeInterval:kRefreshSleepTime];
+                           dispatch_async(dispatch_get_main_queue(), ^
+                                          {
+                                              [hud hide:YES];
+                                          });
+                       });
+
+    }
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请先登录"
+                                                                                 message:@"请登录后再刷新您的音乐圈"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action)
+                                   {
+                                       LoginViewController *loginCtl = [[LoginViewController alloc] init];
+                                       loginCtl.updateUserUI = ^()
+                                       {
+                                           [weakMineCtl refreshUserView];
+                                       };
+                                       loginCtl.hidesBottomBarWhenPushed = YES;
+                                       weakTweetCtl.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                                                                    style:UIBarButtonItemStylePlain
+                                                                                                                   target:nil
+                                                                                                                   action:nil];
+                                       
+                                       [weakTweetCtl.navigationController pushViewController:loginCtl animated:YES];
+                                       
+                                   }];
+        [alertController addAction:okAction];
+        [weakTweetCtl presentViewController:alertController animated:YES completion:nil];
+
+    }
+    
 }
 
 

@@ -10,6 +10,6 @@
 
 @interface LoginViewController : UIViewController
 
-@property (nonatomic, copy) void(^refreshUserView)();
+@property (nonatomic, copy) void(^updateUserUI)();
 
 @end

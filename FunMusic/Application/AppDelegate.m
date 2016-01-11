@@ -37,6 +37,13 @@
     });
 }
 
+- (BOOL)isLogin
+{
+    BOOL islogin;
+    _currentUserInfo.isLogin ? (islogin = TRUE) : (islogin = FALSE);
+    return islogin;
+}
+
 
 
 

@@ -139,9 +139,9 @@ static const CGFloat kButtonHeightDistance = 20;
     funServer = [[FunServer alloc] init];
     if ([funServer fmLoginInLocalWithLoginInfo:logInfo])
     {
-        if (_refreshUserView)
+        if (_updateUserUI)
         {
-            _refreshUserView();
+            _updateUserUI();
         }
         [self.navigationController popViewControllerAnimated:YES];
     }

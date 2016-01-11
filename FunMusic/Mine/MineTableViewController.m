@@ -25,7 +25,6 @@ static const CGFloat kEdgeDistance = 5;
 static const CGFloat kCellHeight = 50;
 static const CGFloat kNameFont = 20;
 
-#define USERIMAGEURL @"http://img3.douban.com/icon/ul%@-1.jpg"
 static NSString *kOPCellID = @"opCellID";
 
 
@@ -55,6 +54,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 @implementation MineTableViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,7 +66,6 @@ typedef NS_ENUM(NSInteger, mineOPType)
     [self.tableView registerClass:[MineOPCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白，记住！
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
 }
 
 - (void)setUpOperationInfo
@@ -104,25 +103,24 @@ typedef NS_ENUM(NSInteger, mineOPType)
     //userImageView
     _userImageView = [[UIImageView alloc] init];
     _userImageView.layer.cornerRadius = kUserImageViewSide / 2;
-    _userImageView.userInteractionEnabled = YES;
-    [_userImageView setImage:[UIImage imageNamed:@"userDefaultImage"]];
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushLoginView)];
     [_userImageView addGestureRecognizer:singleTap];
-    [_mineHeaderView addSubview:_userImageView];
     
     //userNameLabel
     _userNameLabel = [[UILabel alloc] init];
     _userNameLabel.textAlignment = NSTextAlignmentCenter;
     _userNameLabel.font = [UIFont systemFontOfSize:kNameFont];
-    _userNameLabel.text = @"未登录";
+    
+    [self refreshUserView];
     [_mineHeaderView addSubview:_userNameLabel];
+    [_mineHeaderView addSubview:_userImageView];
     
 }
 
 - (void)refreshUserView
 {
+    ([appDelegate isLogin]) ? (_userImageView.userInteractionEnabled = NO) : (_userImageView.userInteractionEnabled = YES);
     [_userImageView setImage:[UIImage imageNamed:appDelegate.currentUserInfo.userImage]];
-    _userImageView.userInteractionEnabled = NO;
     _userNameLabel.text = appDelegate.currentUserInfo.userName;
 }
 
@@ -198,24 +196,18 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)pushLoginView
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    loginCtl.hidesBottomBarWhenPushed = YES;
     __weak MineTableViewController *weakSelf = self;
-    loginCtl.refreshUserView = ^()
+    loginCtl.updateUserUI = ^()
     {
         [weakSelf refreshUserView];
     };
-
-    
+    loginCtl.hidesBottomBarWhenPushed = YES;    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:nil
                                                                             action:nil];
-    
     [self.navigationController pushViewController:loginCtl animated:YES];
 }
-
-
-
 
 
 

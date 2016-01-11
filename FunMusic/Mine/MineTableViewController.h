@@ -13,4 +13,6 @@
 
 @property (nonatomic, copy) void(^presentView)(NSInteger indexPath);
 
+- (void)refreshUserView;
+
 @end

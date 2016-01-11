@@ -17,6 +17,8 @@
     if (self)
     {
         _isLogin = FALSE;
+        _userImage = @"userDefaultImage";
+        _userName = @"未登录";
     }
     
     return self;

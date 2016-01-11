@@ -76,12 +76,9 @@ static const CGFloat kIdealTweetCommentHeight = 60;
 
 - (NSDictionary *)gennerateLocalTweeterDictionaryWithComment:(NSString *)comment Local:(AppDelegate *)appDelegate
 {
-    //Login功能暂时没做，先固定用户
-    //NSString *tweeterImage = [NSString stringWithFormat:USERIMAGEURL,appDelegate.currentUserInfo.userID];
-    //NSString *tweeterName  = appDelegate.currentUserInfo.userName;
-    NSString *tweeterImage = @"辰溪";
-    NSString *tweeterName = @"辰溪";
-        
+    
+    NSString *tweeterImage = appDelegate.currentUserInfo.userImage;
+    NSString *tweeterName  = appDelegate.currentUserInfo.userName;
     NSString *channelName  = appDelegate.currentPlayerInfo.currentChannel.channelName;
     NSString *channelImage = appDelegate.currentPlayerInfo.currentChannel.channelImage;
     //理论上本地发布的时间应该以服务器时间为准，毕竟本地时间不实标准时间

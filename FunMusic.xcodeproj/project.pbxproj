@@ -34,6 +34,9 @@
 		10EDEB321C364650008A9769 /* NSTimer+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EDEB311C364650008A9769 /* NSTimer+Util.m */; };
 		10EF32341C43423000D91DA5 /* userData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10EF32331C43423000D91DA5 /* userData.plist */; };
 		10EF323C1C4346CA00D91DA5 /* loginData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10EF323B1C4346CA00D91DA5 /* loginData.plist */; };
+		10EF32401C437C8600D91DA5 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF323F1C437C8600D91DA5 /* SideBarViewController.m */; };
+		10EF32471C43850300D91DA5 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32461C43850300D91DA5 /* MainView.m */; };
+		10EF324A1C43875B00D91DA5 /* SideBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32491C43875B00D91DA5 /* SideBarCell.m */; };
 		10F02B6B1C390125002DC9A1 /* tweetData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F02B6A1C390125002DC9A1 /* tweetData.plist */; };
 		10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9B61C2E47BE001E76DE /* Utils.m */; };
 		10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */; };
@@ -119,6 +122,12 @@
 		10EDEB311C364650008A9769 /* NSTimer+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+Util.m"; path = "Categories/NSTimer+Util.m"; sourceTree = "<group>"; };
 		10EF32331C43423000D91DA5 /* userData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = userData.plist; path = Resource/userData.plist; sourceTree = "<group>"; };
 		10EF323B1C4346CA00D91DA5 /* loginData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = loginData.plist; path = Resource/loginData.plist; sourceTree = "<group>"; };
+		10EF323E1C437C8600D91DA5 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideBarViewController.h; path = SideBarView/SideBarViewController.h; sourceTree = "<group>"; };
+		10EF323F1C437C8600D91DA5 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideBarViewController.m; path = SideBarView/SideBarViewController.m; sourceTree = "<group>"; };
+		10EF32451C43850300D91DA5 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainView.h; path = MainView/MainView.h; sourceTree = "<group>"; };
+		10EF32461C43850300D91DA5 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainView.m; path = MainView/MainView.m; sourceTree = "<group>"; };
+		10EF32481C43875B00D91DA5 /* SideBarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideBarCell.h; path = SideBarView/SideBarCell.h; sourceTree = "<group>"; };
+		10EF32491C43875B00D91DA5 /* SideBarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideBarCell.m; path = SideBarView/SideBarCell.m; sourceTree = "<group>"; };
 		10F02B6A1C390125002DC9A1 /* tweetData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = tweetData.plist; path = Resource/tweetData.plist; sourceTree = "<group>"; };
 		10F0A9B51C2E47BE001E76DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
 		10F0A9B61C2E47BE001E76DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Utils/Utils.m; sourceTree = "<group>"; };
@@ -226,8 +235,9 @@
 				10EB09A71C2CE87C00A76210 /* Application */,
 				10F0A9B41C2E4783001E76DE /* Utils */,
 				10EB09D11C2CF20E00A76210 /* FunServer */,
-				10F471E91C2FF531006DECAC /* MainView */,
+				10EF32441C4384B100D91DA5 /* MainView */,
 				10F471EA1C2FF543006DECAC /* ContentView */,
+				10EF323D1C437C3200D91DA5 /* SideBarView */,
 				10EDEB2C1C34BE2A008A9769 /* MusicPlayer */,
 				10F3F5E01C3B54D5009D9ACB /* Shared */,
 				10F0A9B81C2E5234001E76DE /* Channel */,
@@ -402,6 +412,26 @@
 			name = LoginData;
 			sourceTree = "<group>";
 		};
+		10EF323D1C437C3200D91DA5 /* SideBarView */ = {
+			isa = PBXGroup;
+			children = (
+				10EF323E1C437C8600D91DA5 /* SideBarViewController.h */,
+				10EF323F1C437C8600D91DA5 /* SideBarViewController.m */,
+				10EF32481C43875B00D91DA5 /* SideBarCell.h */,
+				10EF32491C43875B00D91DA5 /* SideBarCell.m */,
+			);
+			name = SideBarView;
+			sourceTree = "<group>";
+		};
+		10EF32441C4384B100D91DA5 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				10EF32451C43850300D91DA5 /* MainView.h */,
+				10EF32461C43850300D91DA5 /* MainView.m */,
+			);
+			name = MainView;
+			sourceTree = "<group>";
+		};
 		10F02B681C3900EB002DC9A1 /* ChannelData */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,13 +525,6 @@
 				10F3F5E51C3B9123009D9ACB /* SharedViewController.m */,
 			);
 			name = Shared;
-			sourceTree = "<group>";
-		};
-		10F471E91C2FF531006DECAC /* MainView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = MainView;
 			sourceTree = "<group>";
 		};
 		10F471EA1C2FF543006DECAC /* ContentView */ = {
@@ -756,6 +779,7 @@
 				10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */,
 				10EA69221C37B49000B189EB /* TweetCell.m in Sources */,
 				10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */,
+				10EF32471C43850300D91DA5 /* MainView.m in Sources */,
 				10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */,
 				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
 				10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */,
@@ -769,6 +793,7 @@
 				10EB09731C2CE01500A76210 /* main.m in Sources */,
 				10EB097F1C2CE01500A76210 /* FunMusic.xcdatamodeld in Sources */,
 				10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */,
+				10EF324A1C43875B00D91DA5 /* SideBarCell.m in Sources */,
 				10FB50A61C3E435700572D04 /* MineOPCell.m in Sources */,
 				10EB09D41C2D10B200A76210 /* FunServer.m in Sources */,
 				10EDEB2F1C34C018008A9769 /* MusicPlayerViewController.m in Sources */,
@@ -779,6 +804,7 @@
 				10EA691F1C37B03B00B189EB /* TweetTableVIewController.m in Sources */,
 				10F3F5E61C3B9123009D9ACB /* SharedViewController.m in Sources */,
 				10FB509F1C3DFB6E00572D04 /* MineTableViewController.m in Sources */,
+				10EF32401C437C8600D91DA5 /* SideBarViewController.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
 				10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */,
 			);

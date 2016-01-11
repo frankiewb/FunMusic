@@ -32,6 +32,8 @@
 @property (nonatomic, readonly, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, readonly, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+- (BOOL)isLogin;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 

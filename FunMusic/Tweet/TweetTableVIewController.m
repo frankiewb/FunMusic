@@ -13,6 +13,8 @@
 #import "PlayerInfo.h"
 #import "FunServer.h"
 #import "AppDelegate.h"
+#import "LoginViewController.h"
+#import "MineTableViewController.h"
 #import "Utils.h"
 #import <MJRefresh.h>
 
@@ -75,16 +77,33 @@ static const CGFloat kRefreshSleepTime = 0.5;
 
 - (void)refreshData
 {
-    //开辟异步并发线程
-    //子线程更新数据，主线程可以用来显示数据状态，注意GCD可以嵌套
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-                   {
-                       [self fetchTweetData];
-                   });
-    //刷新完后，暂停若干时间
-    [NSThread sleepForTimeInterval:kRefreshSleepTime];
+    //refresh之前检查是否登录
     
+    if (appDelegate.isLogin)
+    {
+        //开辟异步并发线程
+        //子线程更新数据，主线程可以用来显示数据状态，注意GCD可以嵌套
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                       {
+                           [self fetchTweetData];
+                       });
+        //刷新完后，暂停若干时间
+        [NSThread sleepForTimeInterval:kRefreshSleepTime];
+        
+    }
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请先登录"
+                                                                                 message:@"请登录后再刷新您的音乐圈"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
     [self.tableView.mj_header endRefreshing];
+    
 
 }
 
