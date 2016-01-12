@@ -80,19 +80,4 @@ static const CGFloat kEdgeDistance = 5;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

@@ -40,9 +40,10 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 
 #pragma TweeterOperation
 - (void)fmGetTweetInfoInLocal;
+- (NSMutableArray *)fmGetTweetInfoWithUserID:(NSString *)userID;
 - (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo;
 - (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike;
-- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID;
+- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine;
 
 #pragma LoginOperation
 - (BOOL)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo;

@@ -38,7 +38,7 @@
 		10EF32531C4490A200D91DA5 /* SideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32501C4490A200D91DA5 /* SideMenuCell.m */; };
 		10EF32541C4490A200D91DA5 /* SideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32521C4490A200D91DA5 /* SideMenuViewController.m */; };
 		10EF32571C44923900D91DA5 /* SideMenuInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32561C44923900D91DA5 /* SideMenuInfo.m */; };
-		10F02B6B1C390125002DC9A1 /* tweetData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F02B6A1C390125002DC9A1 /* tweetData.plist */; };
+		10F02B6B1C390125002DC9A1 /* localTweetData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F02B6A1C390125002DC9A1 /* localTweetData.plist */; };
 		10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9B61C2E47BE001E76DE /* Utils.m */; };
 		10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */; };
 		10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */; };
@@ -131,7 +131,7 @@
 		10EF32521C4490A200D91DA5 /* SideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuViewController.m; path = SideMenuView/SideMenuViewController.m; sourceTree = "<group>"; };
 		10EF32551C44923900D91DA5 /* SideMenuInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuInfo.h; path = Model/SideMenuInfo/SideMenuInfo.h; sourceTree = "<group>"; };
 		10EF32561C44923900D91DA5 /* SideMenuInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuInfo.m; path = Model/SideMenuInfo/SideMenuInfo.m; sourceTree = "<group>"; };
-		10F02B6A1C390125002DC9A1 /* tweetData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = tweetData.plist; path = Resource/tweetData.plist; sourceTree = "<group>"; };
+		10F02B6A1C390125002DC9A1 /* localTweetData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = localTweetData.plist; path = Resource/localTweetData.plist; sourceTree = "<group>"; };
 		10F0A9B51C2E47BE001E76DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
 		10F0A9B61C2E47BE001E76DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Utils/Utils.m; sourceTree = "<group>"; };
 		10F0A9BC1C2E5C65001E76DE /* TitlebarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitlebarView.h; path = Channel/TitleBarView/TitlebarView.h; sourceTree = "<group>"; };
@@ -241,6 +241,7 @@
 				10EF32441C4384B100D91DA5 /* MainView */,
 				10F471EA1C2FF543006DECAC /* ContentView */,
 				10EF323D1C437C3200D91DA5 /* SideMenuView */,
+				10EDEB2C1C34BE2A008A9769 /* MusicPlayer */,
 				10F3F5E01C3B54D5009D9ACB /* Shared */,
 				10F0A9B81C2E5234001E76DE /* Channel */,
 				10FB509C1C3DF9EE00572D04 /* Mine */,
@@ -422,7 +423,6 @@
 				10EF32501C4490A200D91DA5 /* SideMenuCell.m */,
 				10EF32511C4490A200D91DA5 /* SideMenuViewController.h */,
 				10EF32521C4490A200D91DA5 /* SideMenuViewController.m */,
-				10EDEB2C1C34BE2A008A9769 /* MusicPlayer */,
 			);
 			name = SideMenuView;
 			sourceTree = "<group>";
@@ -459,7 +459,7 @@
 		10F02B691C390103002DC9A1 /* TweetData */ = {
 			isa = PBXGroup;
 			children = (
-				10F02B6A1C390125002DC9A1 /* tweetData.plist */,
+				10F02B6A1C390125002DC9A1 /* localTweetData.plist */,
 			);
 			name = TweetData;
 			sourceTree = "<group>";
@@ -710,7 +710,7 @@
 				10EF32341C43423000D91DA5 /* userData.plist in Resources */,
 				10F471FA1C310901006DECAC /* channelFeeling.plist in Resources */,
 				10EB09841C2CE01500A76210 /* LaunchScreen.storyboard in Resources */,
-				10F02B6B1C390125002DC9A1 /* tweetData.plist in Resources */,
+				10F02B6B1C390125002DC9A1 /* localTweetData.plist in Resources */,
 				10EF323C1C4346CA00D91DA5 /* loginData.plist in Resources */,
 				10EB09811C2CE01500A76210 /* Image.xcassets in Resources */,
 				10F471FC1C310DA2006DECAC /* channelLanguage.plist in Resources */,

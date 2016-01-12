@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class MineTableViewController;
+@class TweetTableVIewController;
 
 @interface ContentTabBarController : UITabBarController
 
 @property (nonatomic, weak) MineTableViewController *weakMineCtl;
+@property (nonatomic, weak) TweetTableVIewController *weakTweetCtl;
+
 
 @end

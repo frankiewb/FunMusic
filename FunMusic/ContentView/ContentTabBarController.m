@@ -28,6 +28,7 @@
 static const CGFloat kTabbarItemTextFont = 12;
 static const CGFloat kRefreshSleepTime = 0.8;
 
+
 typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
     tabBarControllerTypePlayer = 1,
@@ -41,7 +42,6 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 @interface ContentTabBarController ()
 {
     __weak ContentTabBarController *weakSelf;
-    __weak TweetTableVIewController *weakTweetCtl;
     AppDelegate *appDelegate;
 }
 
@@ -73,8 +73,8 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     
     MusicPlayerViewController *musicViewCtl = [[MusicPlayerViewController alloc] init];
     MineTableViewController *mineViewCtl = [[MineTableViewController alloc] init];
-    TweetTableVIewController *tweetViewCtl = [[TweetTableVIewController alloc] init];
-    weakTweetCtl = tweetViewCtl;
+    TweetTableVIewController *tweetViewCtl = [[TweetTableVIewController alloc] initWithUserID:@"localTweetData" TweeterName:@"音乐圈"];
+    _weakTweetCtl = tweetViewCtl;
     _weakMineCtl = mineViewCtl;
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
@@ -189,8 +189,8 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
         sharedViewCtl.presidentView = ^(NSInteger index)
         {
             weakSelf.selectedIndex = index;
-            [weakTweetCtl fetchTweetData];
-            [weakTweetCtl.tableView reloadData];
+            [_weakTweetCtl fetchTweetData];
+            [_weakTweetCtl.tableView reloadData];
         };
         [(UINavigationController *)self.selectedViewController pushViewController:sharedViewCtl animated:YES];
     }
@@ -227,14 +227,14 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
     if ([appDelegate isLogin])
     {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:weakTweetCtl.tableView animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:_weakTweetCtl.tableView animated:YES];
         hud.labelText = @"刷新中";
         hud.mode = MBProgressHUDModeIndeterminate;
         //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                        {
-                           [weakTweetCtl fetchTweetData];
-                           [weakTweetCtl.tableView reloadData];
+                           [_weakTweetCtl fetchTweetData];
+                           [_weakTweetCtl.tableView reloadData];
                            [NSThread sleepForTimeInterval:kRefreshSleepTime];
                            dispatch_async(dispatch_get_main_queue(), ^
                                           {
@@ -260,16 +260,16 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                            [weakSideMenuCtl refreshUserView];
                                        };
                                        loginCtl.hidesBottomBarWhenPushed = YES;
-                                       weakTweetCtl.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                       _weakTweetCtl.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                                                                     style:UIBarButtonItemStylePlain
                                                                                                                    target:nil
                                                                                                                    action:nil];
                                        
-                                       [weakTweetCtl.navigationController pushViewController:loginCtl animated:YES];
+                                       [_weakTweetCtl.navigationController pushViewController:loginCtl animated:YES];
                                        
                                    }];
         [alertController addAction:okAction];
-        [weakTweetCtl presentViewController:alertController animated:YES completion:nil];
+        [_weakTweetCtl presentViewController:alertController animated:YES completion:nil];
 
     }
     

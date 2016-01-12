@@ -258,25 +258,22 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (void)fmGetTweetInfoInLocal
 {
     
-    NSString *tweetGroupName = @"tweetData";
+    NSString *tweetGroupName = @"localTweetData";
     NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
-    [self gennrateTweetGroupWithDictionary:tweetGroupDic];
+    [self gennrateTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:appDelegate.tweetInfoGroup];
     
 }
 
-- (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo
+- (NSMutableArray *)fmGetTweetInfoWithUserID:(NSString *)userID
 {
-    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
-    NSAssert(tweetInfoGroup, @"tweetInfoGroup invalid !!");
-    [tweetInfoGroup insertObject:tweetInfo atIndex:0];
-    
-    //向服务器更新Tweet信息
-    //TO DO...
+    NSMutableArray *userTweetGroup = [[NSMutableArray alloc] init];
+    NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:userID];
+    [self gennrateTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:userTweetGroup];
+    return userTweetGroup;
 }
 
 
-
-- (void)gennrateTweetGroupWithDictionary:(NSDictionary *)dic
+- (void)gennrateTweetGroupWithDictionary:(NSDictionary *)dic TweetInfoGroup:(NSMutableArray *)tweetInfoGroup
 {
     NSAssert(dic, @"Dictionary has not been inited !");
     NSString *singleTweeterKey;
@@ -285,13 +282,26 @@ typedef NS_ENUM(NSUInteger, managerType)
     {
         singleTweeterValue = dic[singleTweeterKey];
         TweetInfo *tweetInfo = [[TweetInfo alloc] initWithTweetDic:singleTweeterValue];
-        [appDelegate.tweetInfoGroup addObject:tweetInfo];
+        [tweetInfoGroup addObject:tweetInfo];
     }
 }
 
+
+- (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo
+{
+    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
+    NSMutableArray *userTweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
+    NSAssert(tweetInfoGroup, @"tweetInfoGroup invalid !!");
+    [tweetInfoGroup insertObject:tweetInfo atIndex:0];
+    [userTweetInfoGroup insertObject:tweetInfo atIndex:0];
+    //向服务器更新Tweet信息
+    //TO DO...
+}
+
+
 - (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike
 {
-    NSInteger index = [self searchTweetInfoWithID:tweetID];
+    NSInteger index = [self searchTweetInfoWithID:tweetID isMyTweetGroup:NO];
     TweetInfo *updatedTweetInfo = appDelegate.tweetInfoGroup[index];
     isLike ? (updatedTweetInfo.likeCount++) : (updatedTweetInfo.likeCount--);
     isLike ? (updatedTweetInfo.isLike = @"2") : (updatedTweetInfo.isLike = @"1");
@@ -300,14 +310,21 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID
+- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine
 {
-    
-    if (!appDelegate.tweetInfoGroup)
+    NSMutableArray *tweetInfoGroup = nil;
+    if (isMine)
     {
-        [self fmGetTweetInfoInLocal];
+        tweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
     }
-    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
+    else
+    {
+        if (!appDelegate.tweetInfoGroup)
+        {
+            [self fmGetTweetInfoInLocal];
+        }
+        tweetInfoGroup = appDelegate.tweetInfoGroup;
+    }
     NSInteger idx = 0;
     for (TweetInfo *singleTweetInfo in tweetInfoGroup)
     {
@@ -323,6 +340,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     NSAssert(FALSE, @"TweetData Error :Can not find the right  TweetInfo");
     return -1;
 }
+
 
 
 #pragma LoginOperation

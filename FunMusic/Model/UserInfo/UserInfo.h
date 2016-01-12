@@ -11,8 +11,10 @@
 @interface UserInfo : NSObject
 
 @property (nonatomic, assign) BOOL isLogin;
+@property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *userImage;
 @property (nonatomic, copy) NSString *userName;
+@property (nonatomic, strong) NSMutableArray *userTweeterList;
 
 - (instancetype) initWithDictionary:(NSDictionary *)dic;
 

@@ -11,12 +11,15 @@
 #import "TweetInfo.h"
 #import "ChannelInfo.h"
 #import "PlayerInfo.h"
+#import "UserInfo.h"
 #import "FunServer.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
+#import "ContentTabBarController.h"
 #import "Utils.h"
 #import <MJRefresh.h>
+#import <RESideMenu.h>
 
 
 
@@ -30,20 +33,22 @@ static const CGFloat kRefreshSleepTime = 0.5;
     FunServer *funServer;
     NSMutableArray *tweetInfoGroup;
     ChannelInfo *currentChannelInfo;
+    NSString *userID;
 }
 
 @end
 
 @implementation TweetTableVIewController
 
-- (instancetype)init
+- (instancetype)initWithUserID:(NSString *)ID TweeterName:(NSString *)name
 {
     self = [super init];
     if (self)
     {
         appDelegate = [[UIApplication sharedApplication] delegate];
         funServer = [[FunServer alloc] init];
-        self.title = @"音乐圈";
+        userID = ID;
+        self.title = name;
     }
     
     return self;
@@ -88,6 +93,7 @@ static const CGFloat kRefreshSleepTime = 0.5;
                            [self fetchTweetData];
                        });
         //刷新完后，暂停若干时间
+        [self.tableView reloadData];
         [NSThread sleepForTimeInterval:kRefreshSleepTime];
         
     }
@@ -110,10 +116,23 @@ static const CGFloat kRefreshSleepTime = 0.5;
 - (void)fetchTweetData
 {
     //本案中，因为数据是从本地读取的，故当读取一次后不再读取
+    //这是针对该app情况设计的逻辑，如果有真正的服务器，逻辑应该比此逻辑简单。
     if (!tweetInfoGroup)
     {
-        [funServer fmGetTweetInfoInLocal];
-        tweetInfoGroup = appDelegate.tweetInfoGroup;
+        if ([userID isEqualToString:@"localTweetData"])
+        {
+            [funServer fmGetTweetInfoInLocal];
+            tweetInfoGroup = appDelegate.tweetInfoGroup;
+        }
+        else if ([userID isEqualToString:@"mine"])
+        {
+            tweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
+        }
+        else
+        {
+            tweetInfoGroup = [funServer fmGetTweetInfoWithUserID:userID];
+        }
+        
     }
     
 }
@@ -134,17 +153,27 @@ static const CGFloat kRefreshSleepTime = 0.5;
     
     //**********************SetTweetBlock Function******************************************************
     __weak TweetTableVIewController *weakSelf = self;
-    __weak NSMutableArray *weakTweetInfoGroup = tweetInfoGroup;
+    __weak NSMutableArray *weakTweetInfoGroup = appDelegate.tweetInfoGroup;
+    __weak NSMutableArray *weakMyTweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
     __weak AppDelegate *weakAppDelegate = appDelegate;
     __weak FunServer *weakFunServer = funServer;
+    __weak TweetTableVIewController *weakMainTweetCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakTweetCtl;
     tweetCell.deleteTweetCell = ^(NSString *tweetID)
     {
-        NSInteger tweetIndex = [weakFunServer searchTweetInfoWithID:tweetID];
+        NSInteger tweetIndex = [weakFunServer searchTweetInfoWithID:tweetID isMyTweetGroup:NO];
         [weakTweetInfoGroup removeObjectAtIndex:tweetIndex];
+        NSInteger myTweetIndex = [weakFunServer searchTweetInfoWithID:tweetID isMyTweetGroup:YES];
+        [weakMyTweetInfoGroup removeObjectAtIndex:myTweetIndex];
+        
         //TO DO ...
         //updateServer()
         //Reload TableView
-        [weakSelf.tableView reloadData];
+        [self.tableView reloadData];
+        if (![userID isEqualToString:@"localTweetData"])
+        {
+            [weakMainTweetCtl.tableView reloadData];
+        }
+        
     };
     
     tweetCell.scrollView = ^(NSInteger index, NSString *channelName)
@@ -161,7 +190,14 @@ static const CGFloat kRefreshSleepTime = 0.5;
     tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike)
     {
         [weakFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike];
+        [self.tableView reloadData];
+        if (![userID isEqualToString:@"localTweetData"])
+        {
+            [weakMainTweetCtl.tableView reloadData];
+        }
+        
     };
+    
     //****************************************************************************************************
 
     return tweetCell;

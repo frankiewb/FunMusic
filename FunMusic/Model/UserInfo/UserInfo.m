@@ -16,9 +16,10 @@
     self = [super init];
     if (self)
     {
-        _isLogin = FALSE;
+        _isLogin   = FALSE;
+        _userID    = @"0";
         _userImage = @"userDefaultImage";
-        _userName = @"未登录";
+        _userName  = @"未登录";
     }
     
     return self;
@@ -31,9 +32,11 @@
     self = [super init];
     if (self)
     {
-        _isLogin = TRUE;
+        _isLogin   = TRUE;
+        _userID    = dic[@"id"];
         _userImage = dic[@"image"];
-        _userName = dic[@"name"];
+        _userName  = dic[@"name"];
+        _userTweeterList = [[NSMutableArray alloc] init];
     }
     
     return self;

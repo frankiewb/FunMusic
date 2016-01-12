@@ -50,18 +50,11 @@
 - (void)setUpTweetCellWithTweetInfo:(TweetInfo *)tweetInfo
 {
     _deleteButton.hidden = NO;
-    if (tweetInfo.infoType == infoTypeLocal)
+    [_tweeterImageView setImage:[UIImage imageNamed:tweetInfo.tweeterImage]];
+    if (tweetInfo.infoType == infoTypeFriend)
     {
-        //[_tweeterImageView sd_setImageWithURL:[NSURL URLWithString:tweetInfo.tweeterImage] placeholderImage:[UIImage imageNamed:@"wait to put"]];
-        //Login功能还没开发，暂时从本地获取
-        [_tweeterImageView setImage:[UIImage imageNamed:tweetInfo.tweeterImage]];
-    }
-    else
-    {
-        [_tweeterImageView setImage:[UIImage imageNamed:tweetInfo.tweeterImage]];
         _deleteButton.hidden = YES;
     }
-    
     _tweeterNameLabel.text = tweetInfo.tweeterName;
     [_channelImageView setImage:[UIImage imageNamed:tweetInfo.channelImage]];
     _channelNameLabel.text = [NSString stringWithFormat:@"    频道 ：%@",tweetInfo.channelName];
@@ -94,18 +87,22 @@
 {
     //tweeterImageView
     _tweeterImageView = [[UIImageView alloc] init];
+    _tweeterImageView.userInteractionEnabled = YES;
     [self.contentView addSubview:_tweeterImageView];
-    
-    //channelImageView
-    _channelImageView = [[UIImageView alloc] init];
-    _channelImageView.layer.cornerRadius = kMainImageHeight / 2;
-    [self.contentView addSubview:_channelImageView];
-    
+        
     //tweeterNameLabel
     _tweeterNameLabel = [[UILabel alloc] init];
     _tweeterNameLabel.textColor = [UIColor orangeColor];
     _tweeterNameLabel.font = [UIFont systemFontOfSize:kNameFontSize];
+    _tweeterNameLabel.userInteractionEnabled = YES;
     [self.contentView addSubview:_tweeterNameLabel];
+    
+    //channelImageView
+    _channelImageView = [[UIImageView alloc] init];
+    _channelImageView.layer.cornerRadius = kMainImageHeight / 2;
+    UITapGestureRecognizer *scrolViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(channelNameImageClicked)];
+    [_channelImageView addGestureRecognizer:scrolViewTap];
+    [self.contentView addSubview:_channelImageView];
     
     //channelName
     _channelNameLabel = [[UILabel alloc] init];
@@ -113,8 +110,8 @@
     _channelNameLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1.0];
     //UILabel默认是不允许交互的！！！
     _channelNameLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *scrolViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(channelNameImageClicked)];
-    [_channelNameLabel addGestureRecognizer:scrolViewTap];
+    UITapGestureRecognizer *scrolViewTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(channelNameImageClicked)];
+    [_channelNameLabel addGestureRecognizer:scrolViewTap1];
     [self.contentView addSubview:_channelNameLabel];
     
     //likeButton
@@ -276,6 +273,8 @@
 }
 
 
+
+
 - (void)channelNameImageClicked
 {
     if (_scrollView)
@@ -284,6 +283,7 @@
         _scrollView(0, channelName[1]);
     }
 }
+
 
 
 //gesture的代理事件需要再UIView类型上来写

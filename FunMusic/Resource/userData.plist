@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>id</key>
+	<string>王博</string>
 	<key>name</key>
 	<string>王博</string>
 	<key>image</key>

@@ -12,6 +12,8 @@
 
 @property(nonatomic, copy) void(^presidentView)(NSInteger indexPath);
 
+
+- (instancetype)initWithUserID:(NSString *)ID TweeterName:(NSString *)name;
 - (void)fetchTweetData;
 
 @end
