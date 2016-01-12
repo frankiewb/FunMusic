@@ -74,7 +74,6 @@ static const CGFloat kEdgeDistance = 5;
 
 - (void)setMineOPCellWithOPInfo:(MineOperationInfo *)opInfo
 {
-    //为写login模块，暂时用本地图片
     [_opImageView setImage:[UIImage imageNamed:opInfo.operationImageName]];
     _opNameLabel.text = opInfo.operationName;
 }

@@ -19,6 +19,7 @@
 #import "ChannelGroup.h"
 #import "FunServer.h"
 #import "AppDelegate.h"
+#import "SideMenuViewController.h"
 #import <MBProgressHUD.h>
 #import <RESideMenu.h>
 
@@ -41,7 +42,6 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
     __weak ContentTabBarController *weakSelf;
     __weak TweetTableVIewController *weakTweetCtl;
-    __weak MineTableViewController *weakMineCtl;
     AppDelegate *appDelegate;
 }
 
@@ -75,7 +75,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     MineTableViewController *mineViewCtl = [[MineTableViewController alloc] init];
     TweetTableVIewController *tweetViewCtl = [[TweetTableVIewController alloc] init];
     weakTweetCtl = tweetViewCtl;
-    weakMineCtl = mineViewCtl;
+    _weakMineCtl = mineViewCtl;
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
     self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtl tabBarControllerType:tabBarControllerTypePlayer],
@@ -196,8 +196,10 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     }
     else
     {
+        
+        __weak SideMenuViewController *weakSideMenuCtl = (SideMenuViewController *)self.sideMenuViewController.leftMenuViewController;
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请先登录"
-                                                                                 message:@"请登录后再分享您的音乐圈"
+                                                                                 message:@"请登录后再分享您的频道"
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
                                                            style:UIAlertActionStyleDefault
@@ -206,7 +208,8 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                        LoginViewController *loginCtl = [[LoginViewController alloc] init];
                                        loginCtl.updateUserUI = ^()
                                        {
-                                           [weakMineCtl refreshUserView];
+                                           [_weakMineCtl refreshUserView];
+                                           [weakSideMenuCtl refreshUserView];
                                        };
                                        [(UINavigationController *)weakSelf.selectedViewController pushViewController:loginCtl animated:YES];
                                        
@@ -242,6 +245,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     }
     else
     {
+        __weak SideMenuViewController *weakSideMenuCtl = (SideMenuViewController *)self.sideMenuViewController.leftMenuViewController;
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请先登录"
                                                                                  message:@"请登录后再刷新您的音乐圈"
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -252,7 +256,8 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                        LoginViewController *loginCtl = [[LoginViewController alloc] init];
                                        loginCtl.updateUserUI = ^()
                                        {
-                                           [weakMineCtl refreshUserView];
+                                           [_weakMineCtl refreshUserView];
+                                           [weakSideMenuCtl refreshUserView];
                                        };
                                        loginCtl.hidesBottomBarWhenPushed = YES;
                                        weakTweetCtl.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""

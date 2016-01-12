@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class MineTableViewController;
 
 @interface ContentTabBarController : UITabBarController
+
+@property (nonatomic, weak) MineTableViewController *weakMineCtl;
 
 @end

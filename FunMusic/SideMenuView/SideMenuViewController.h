@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SideBarViewController : UITableViewController
+@interface SideMenuViewController : UITableViewController
+
+- (void)refreshUserView;
 
 @end

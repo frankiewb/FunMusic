@@ -8,7 +8,7 @@
 
 #import "MainView.h"
 #import "ContentTabBarController.h"
-#import "SideBarViewController.h"
+#import "SideMenuViewController.h"
 #import "MineTableViewController.h"
 
 static const CGFloat kContentScaleValue = 0.95;
@@ -30,10 +30,10 @@ static const CGFloat kContentShadowRadius = 4.5;
     self.contentViewShadowRadius = kContentShadowRadius;
     
     ContentTabBarController *contentTabBarCtl = [[ContentTabBarController alloc] init];
-    SideBarViewController *sideBarCtl = [[SideBarViewController alloc] init];
+    SideMenuViewController *sideMenuCtl = [[SideMenuViewController alloc] init];
     
     self.contentViewController = contentTabBarCtl;
-    self.leftMenuViewController = sideBarCtl;
+    self.leftMenuViewController = sideMenuCtl;
 }
 
 

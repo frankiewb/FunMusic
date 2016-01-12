@@ -13,7 +13,8 @@
 #import "FunServer.h"
 #import "UserInfo.h"
 #import "LoginViewController.h"
-#import <UIImageView+WebCache.h>
+#import "SideMenuViewController.h"
+#import <RESideMenu.h>
 #import <Masonry.h>
 
 static const CGFloat kHeaderViewHeight = 160;
@@ -71,7 +72,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)setUpOperationInfo
 {
     NSArray *operationNameLists = @[@"我的频道",@"我的音乐圈",@"清除缓存",@"夜间模式"];
-    //NSArray *operationImageNameLists = @[@"频道",@"音乐圈",@"缓存",@"夜间模式"];
+    //NSArray *operationImageNameLists = @[@"我的频道",@"我的音乐圈",@"缓存",@"夜间模式"];
     if (!mineOperationLists)
     {
         mineOperationLists = [[NSMutableArray alloc] init];
@@ -196,10 +197,12 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)pushLoginView
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    __weak SideMenuViewController *weakSideMenuCtl = (SideMenuViewController *)self.sideMenuViewController.leftMenuViewController;
     __weak MineTableViewController *weakSelf = self;
     loginCtl.updateUserUI = ^()
     {
         [weakSelf refreshUserView];
+        [weakSideMenuCtl refreshUserView];
     };
     loginCtl.hidesBottomBarWhenPushed = YES;    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""

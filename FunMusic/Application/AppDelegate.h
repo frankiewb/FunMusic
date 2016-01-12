@@ -33,6 +33,7 @@
 @property (nonatomic, readonly, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (BOOL)isLogin;
+- (void)logOut;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

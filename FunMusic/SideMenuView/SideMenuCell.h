@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SideBarCell : UITableViewCell
+@class SideMenuInfo;
+
+@interface SideMenuCell : UITableViewCell
+
+- (void)setSideMenuCellWithOPInfo:(SideMenuInfo *)sideMenuInfo;
 
 @end

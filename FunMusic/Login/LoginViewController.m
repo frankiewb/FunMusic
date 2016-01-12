@@ -58,6 +58,7 @@ static const CGFloat kButtonHeightDistance = 20;
     //loginPasswordTextField
     _loginPassWordTextField = [[UITextField alloc] init];
     _loginPassWordTextField.placeholder = @"密码";
+    _loginPassWordTextField.secureTextEntry = YES;
     [UIList addObject:_loginPassWordTextField];
     
     

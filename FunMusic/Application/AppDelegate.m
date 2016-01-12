@@ -44,6 +44,11 @@
     return islogin;
 }
 
+- (void)logOut
+{
+    _currentUserInfo = [_currentUserInfo init];
+}
+
 
 
 
