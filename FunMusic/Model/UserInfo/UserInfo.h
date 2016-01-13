@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *userImage;
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, strong) NSMutableArray *userTweeterList;
+@property (nonatomic, strong) NSMutableArray *userSharedChannelLists;
 
 - (instancetype) initWithDictionary:(NSDictionary *)dic;
 

@@ -71,6 +71,7 @@ static const CGFloat kRefreshSleepTime = 0.5;
     self.tableView.mj_header = header;
     [self fetchTweetData];
     [self.tableView registerClass:[TweetCell class] forCellReuseIdentifier:kTweetCellID];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
 
 }
@@ -181,10 +182,7 @@ static const CGFloat kRefreshSleepTime = 0.5;
         ChannelInfo *channelInfo = [weakFunServer searchChannelInfoWithName:channelName];
         currentChannelInfo = [weakAppDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:channelInfo];
         [weakFunServer fmSongOperationWithType:SongOperationTypeNext];
-        if (weakSelf.presidentView)
-        {
-          _presidentView(index);
-        }
+        ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = 0;
     };
     
     tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike)

@@ -11,8 +11,6 @@
 
 @interface MineTableViewController : UITableViewController
 
-@property (nonatomic, copy) void(^presentView)(NSInteger indexPath);
-
 - (void)refreshUserView;
 
 @end

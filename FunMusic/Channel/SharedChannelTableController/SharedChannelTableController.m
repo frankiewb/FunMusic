@@ -1,125 +1,102 @@
 //
-//  ChannelGroupController.m
+//  SharedChannelTableController.m
 //  FunMusic
 //
-//  Created by frankie on 15/12/27.
-//  Copyright © 2015年 Wang Bo. All rights reserved.
+//  Created by frankie on 16/1/13.
+//  Copyright © 2016年 Wang Bo. All rights reserved.
 //
 
-#import "ChannelGroupController.h"
-#import "Common.h"
-#import "Utils.h"
-#import "AppDelegate.h"
+#import "SharedChannelTableController.h"
 #import "ChannelCell.h"
+#import "AppDelegate.h"
+#import "UserInfo.h"
+#import "ChannelInfo.h"
 #import "FunServer.h"
 #import "PlayerInfo.h"
-#import "ChannelInfo.h"
 #import <MJRefresh.h>
+
+
+
 
 
 static  NSString *kChannelCellID = @"ChannelCellID";
 static const CGFloat kCellHeight = 80;
 static const CGFloat kRefreshSleepTime = 0.5;
 
-
-@interface ChannelGroupController ()
+@interface SharedChannelTableController ()
 {
     AppDelegate *appDelegate;
+    NSMutableArray *sharedChannelGroup;
+    FunServer *funServer;
     ChannelInfo *currentChannelInfo;
+    
 }
-
-@property (nonatomic, strong) ChannelGroup *channelGroup;
-@property (nonatomic, strong) FunServer *funServer;
-@property (nonatomic, readonly, copy) NSString *channelGroupName;
-@property (nonatomic, assign) ChannelType channelGroupType;
 
 
 @end
 
-@implementation ChannelGroupController
-
-- (instancetype)initWithChannelGroupName:(NSString *)channelGroupName
-{
-    self = [super init];
-    if (self)
-    {
-        appDelegate = [[UIApplication sharedApplication] delegate];
-        _funServer = [[FunServer alloc] init];
-        _channelGroupName = channelGroupName;
-        _channelGroupType = [Utils gennerateChannelGroupTypeWithChannelName:channelGroupName];
-    }
-    
-    return self;
-}
+@implementation SharedChannelTableController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.tableView.backgroundColor = HORIZONALBACKGROUNDCOLOR;
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    funServer = [[FunServer alloc] init];
+    self.title = @"我的频道";
     
     //添加MJRefresh
-    __weak ChannelGroupController *weakSelf = self;
+    __weak SharedChannelTableController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^
     {
         [weakSelf refreshData];
     }];
     self.tableView.mj_header = header;
-    [self fetchChannelGroupData];
-    //注册ChannelCell,注意不能传const引起警告
+    [self fetchSharedChannelData];
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelCellID];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    
-   
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)refreshData
 {
     //刷新另外开辟异步线程执行
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-    {
-        [self fetchChannelGroupData];
-    });
+                   {
+                       [self fetchSharedChannelData];
+                   });
     //刷新完后，暂停若干时间
     [NSThread sleepForTimeInterval:kRefreshSleepTime];
     
     [self.tableView.mj_header endRefreshing];
+
 }
 
-- (void)fetchChannelGroupData
+- (void)fetchSharedChannelData
 {
-    //本案中，因为数据从本地读取的，故当读取一次后不再读取
-    if (!_channelGroup)
+    if (!sharedChannelGroup)
     {
-        [_funServer fmGetChannelWithTypeInLocal:_channelGroupType];
-        _channelGroup = appDelegate.currentChannelGroup;
+        sharedChannelGroup = appDelegate.currentUserInfo.userSharedChannelLists;
     }
 }
 
-
-#pragma mark - Tableview Delegate
+#pragma mark -TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _channelGroup.channelArray.count;
+    return sharedChannelGroup.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChannelCell *channelCell = [tableView dequeueReusableCellWithIdentifier:kChannelCellID forIndexPath:indexPath];
-    ChannelInfo *channelInfo= _channelGroup.channelArray[indexPath.row];
-    channelCell.backgroundColor = HORIZONALBACKGROUNDCOLOR;
+    ChannelInfo *channelInfo = sharedChannelGroup[indexPath.row];
     [channelCell setUpChannelCellWithChannelInfo:channelInfo];
-
-    
     return channelCell;
 }
 
@@ -130,9 +107,9 @@ static const CGFloat kRefreshSleepTime = 0.5;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ChannelInfo *selectChannelInfo = _channelGroup.channelArray[indexPath.row];
+    ChannelInfo *selectChannelInfo = sharedChannelGroup[indexPath.row];
     currentChannelInfo = [appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelInfo];
-    [_funServer fmSongOperationWithType:SongOperationTypeNext];
+    [funServer fmSongOperationWithType:SongOperationTypeNext];
     //跳转至首页音乐播放界面
     if (_presidentView)
     {
@@ -144,7 +121,24 @@ static const CGFloat kRefreshSleepTime = 0.5;
 
 
 
+#pragma tableviewCell delete
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return TRUE;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [sharedChannelGroup removeObjectAtIndex:indexPath.row];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+}
 
 
 @end

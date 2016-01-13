@@ -95,18 +95,6 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
          //[item setImage:[UIImage imageNamed:[images[idx] stringByAppendingString:@"-TabBarItem"]]];
           
      }];
-    
-//**********************************************SetBlockFunction********************************************
-    mineViewCtl.presentView = ^(NSInteger indexPath)
-    {
-        weakSelf.selectedIndex = indexPath;
-    };
-    tweetViewCtl.presidentView = ^(NSInteger indexPath)
-    {
-        weakSelf.selectedIndex = indexPath;
-    };
-//**********************************************************************************************************
-    
 }
 
 

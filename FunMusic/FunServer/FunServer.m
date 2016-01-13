@@ -9,6 +9,7 @@
 #import "FunServer.h"
 #import "AppDelegate.h"
 #import "ChannelInfo.h"
+#import "ChannelGroup.h"
 #import "SongInfo.h"
 #import "PlayerInfo.h"
 #import "TweetInfo.h"
@@ -97,50 +98,6 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-
-- (void)fmGetChannelWithType:(ChannelType)channelType
-{
-    NSString *channelURL = [self generateChannelURLWithType:channelType];
-    fmManager = [self gennerateFMManagerWithType:managerTypeJOSN];
-    [fmManager GET:channelURL
-        parameters:nil
-          progress:nil
-           success:^(NSURLSessionDataTask *task, NSDictionary *channelsDictionary)
-     {
-         //Do Anything For future
-     }
-           failure:^(NSURLSessionDataTask *task, NSError *error)
-     {
-         //Do Anything For future
-     }];
-    
-    
-}
-
-
-//架构搭好，暂时没有得到各分组channel连接，只能全部都用一个连接获取全部channel，然后人工分组了.
-//正常来说，应该每个分组一个URL，所以先这样架构
-- (NSString *)generateChannelURLWithType:(ChannelType)channelType
-{
-    NSString *channelURL;
-    switch (channelType)
-    {
-        case ChannelTypeFeeling:
-            return channelURL = TOTALCHINNELSTRING;
-            break;
-        case ChannelTypeLanguage:
-            return channelURL = TOTALCHINNELSTRING;
-            break;
-        case ChannelTypeRecomand:
-            return channelURL = TOTALCHINNELSTRING;
-            break;
-        case ChannelTypeSongStyle:
-            return channelURL = TOTALCHINNELSTRING;
-            break;
-    }
-    
-    return channelURL;
-}
 
 - (ChannelInfo *)searchChannelInfoWithName:(NSString *)channelName
 {
@@ -308,6 +265,43 @@ typedef NS_ENUM(NSUInteger, managerType)
     //针对服务器应该有一个post操作，因为没有现成服务器，暂且空余, 也可以统一定时更新
     //TO DO...
 }
+
+- (void)fmUpdateMySharedChannelListWithChannelName:(NSString *)channelName
+{
+    if (![self fmIsChannelInMySharedChannelList:channelName])
+    {
+        if (!appDelegate.allChannelGroup)
+        {
+            appDelegate.allChannelGroup = [self fmGetAllChannelInfos];
+        }
+        for (ChannelGroup *singleChannelGroup in appDelegate.allChannelGroup)
+        {
+            for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
+            {
+                if ([singleChannelInfo.channelName isEqualToString:channelName])
+                {
+                    [appDelegate.currentUserInfo.userSharedChannelLists insertObject:singleChannelInfo atIndex:0];
+                }
+            }
+            
+        }
+
+    }
+}
+
+- (BOOL)fmIsChannelInMySharedChannelList:(NSString *)channelName
+{
+    for (ChannelInfo *singleChannelInfo in appDelegate.currentUserInfo.userSharedChannelLists)
+    {
+        if ([singleChannelInfo.channelName isEqualToString:channelName])
+        {
+            return TRUE;
+        }
+    }
+    
+    return FALSE;
+}
+
 
 
 - (NSInteger)searchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine

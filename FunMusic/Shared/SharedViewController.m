@@ -218,6 +218,7 @@ static const CGFloat kLabelWidthDistance     = 10;
 {
     sharedTweetInfo = [[TweetInfo alloc] initWithTweeterCommentByLocal:_inputTextView.text Local:appDelegate];
     [funServer fmSharedTweeterWithTweetInfo:sharedTweetInfo];
+    [funServer fmUpdateMySharedChannelListWithChannelName:sharedTweetInfo.channelName];
     [self.navigationController popViewControllerAnimated:NO];
     if (_presidentView)
     {

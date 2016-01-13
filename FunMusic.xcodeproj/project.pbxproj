@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1019678C1C45EFFE00935768 /* SharedChannelTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1019678B1C45EFFE00935768 /* SharedChannelTableController.m */; };
 		10EA69181C37730100B189EB /* TweetInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA69171C37730100B189EB /* TweetInfo.m */; };
 		10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA691B1C37A89000B189EB /* NSDate+Util.m */; };
 		10EA691F1C37B03B00B189EB /* TweetTableVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EA691E1C37B03B00B189EB /* TweetTableVIewController.m */; };
@@ -74,6 +75,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1019678A1C45EFFE00935768 /* SharedChannelTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedChannelTableController.h; path = Channel/SharedChannelTableController/SharedChannelTableController.h; sourceTree = "<group>"; };
+		1019678B1C45EFFE00935768 /* SharedChannelTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedChannelTableController.m; path = Channel/SharedChannelTableController/SharedChannelTableController.m; sourceTree = "<group>"; };
 		10EA69161C37730100B189EB /* TweetInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetInfo.h; path = Model/TweetInfo/TweetInfo.h; sourceTree = "<group>"; };
 		10EA69171C37730100B189EB /* TweetInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetInfo.m; path = Model/TweetInfo/TweetInfo.m; sourceTree = "<group>"; };
 		10EA691A1C37A89000B189EB /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Util.h"; path = "Categories/NSDate+Util.h"; sourceTree = "<group>"; };
@@ -190,6 +193,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		101967891C45EFB400935768 /* SharedChannelTableController */ = {
+			isa = PBXGroup;
+			children = (
+				1019678A1C45EFFE00935768 /* SharedChannelTableController.h */,
+				1019678B1C45EFFE00935768 /* SharedChannelTableController.m */,
+			);
+			name = SharedChannelTableController;
+			sourceTree = "<group>";
+		};
 		10EA69151C3772DD00B189EB /* TweetInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +488,7 @@
 		10F0A9B81C2E5234001E76DE /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				101967891C45EFB400935768 /* SharedChannelTableController */,
 				10F0A9BB1C2E52BA001E76DE /* ChannelViewController */,
 				10F0A9C81C2FADA3001E76DE /* ChannelGroupController */,
 				10F0A9BA1C2E52A5001E76DE /* HorizonalTableController */,
@@ -795,6 +808,7 @@
 				10EF32471C43850300D91DA5 /* MainView.m in Sources */,
 				10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */,
 				10EF32531C4490A200D91DA5 /* SideMenuCell.m in Sources */,
+				1019678C1C45EFFE00935768 /* SharedChannelTableController.m in Sources */,
 				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
 				10F0A9C41C2E66F3001E76DE /* HorizonalTableViewController.m in Sources */,
 				10EB09C81C2CEB1400A76210 /* SongInfo.m in Sources */,

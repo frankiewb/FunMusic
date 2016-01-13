@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType;
 - (ChannelInfo *)searchChannelInfoWithName:(NSString *)channelName;
 - (NSMutableArray *)fmGetAllChannelInfos;
+- (void)fmUpdateMySharedChannelListWithChannelName:(NSString *)channelName;
 
 #pragma TweeterOperation
 - (void)fmGetTweetInfoInLocal;

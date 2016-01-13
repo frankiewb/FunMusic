@@ -37,6 +37,7 @@
         _userImage = dic[@"image"];
         _userName  = dic[@"name"];
         _userTweeterList = [[NSMutableArray alloc] init];
+        _userSharedChannelLists = [[NSMutableArray alloc] init];
     }
     
     return self;

@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "SideMenuViewController.h"
 #import "TweetTableVIewController.h"
+#import "SharedChannelTableController.h"
 #import <RESideMenu.h>
 #import <Masonry.h>
 
@@ -150,21 +151,18 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void) mineOpeationWithType:(mineOPType)type
 {
-    if (_presentView)
+    switch (type)
     {
-        switch (type)
-        {
-            case mineOPTypeChannel:
-                _presentView(1);
-                break;
-            case mineOPTypeTweeter:
-                [self pushMyTweeterView];
-                break;
-            case mineOPTypeClearCache:
-                break;
-            case mineOPTypeNightMode:
-                break;
-        }
+        case mineOPTypeChannel:
+            [self pushMyChannelView];
+            break;
+        case mineOPTypeTweeter:
+            [self pushMyTweeterView];
+            break;
+        case mineOPTypeClearCache:
+            break;
+        case mineOPTypeNightMode:
+            break;
 
     }
 }
@@ -240,6 +238,40 @@ typedef NS_ENUM(NSInteger, mineOPType)
     }
 }
 
+- (void)pushMyChannelView
+{
+    if ([appDelegate isLogin])
+    {
+        SharedChannelTableController *sharedChannelCtl = [[SharedChannelTableController alloc] init];
+        __weak MineTableViewController *weakSelf = self;
+        __weak SharedChannelTableController *weakSharedChannelCtl = sharedChannelCtl;
+        sharedChannelCtl.presidentView = ^(NSInteger indexPath)
+        {
+            ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = indexPath;
+            [weakSharedChannelCtl.navigationController popViewControllerAnimated:NO];
+        };
+        sharedChannelCtl.hidesBottomBarWhenPushed = YES;
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:nil
+                                                                                action:nil];
+        [self.navigationController pushViewController:sharedChannelCtl animated:YES];
+        
+        
+    }
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您还未登录"
+                                                                                 message:@"请登录后再进入我的频道"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -20,7 +20,7 @@ static const CGFloat kChannelDesLabelFontSize = 14;
 
 static const CGFloat kChannelImageHeightWidthDistance = 60;
 static const CGFloat kChannelImageCornerRadius = 30;
-static const CGFloat kChannelCellUIEdgeDistance = 5;
+static const CGFloat kChannelCellUIEdgeDistance = 10;
 
 @interface ChannelCell ()
 
