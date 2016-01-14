@@ -13,10 +13,10 @@
 
 
 
-static const CGFloat kTitleBarHeight = 36;
-static const CGFloat kFirstButtonScale = 1.2;
+static const CGFloat kTitleBarHeight      = 36;
+static const CGFloat kFirstButtonScale    = 1.2;
 static const CGFloat kNavigationbarHeight = 64;
-static const CGFloat kTabbarHeight = 49;
+static const CGFloat kTabbarHeight        = 49;
 
 
 @interface ChannelViewController () <UIScrollViewDelegate>

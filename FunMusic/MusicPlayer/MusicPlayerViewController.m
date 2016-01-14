@@ -22,13 +22,13 @@
 
 
 
-static const CGFloat kLabelFont = 15;
-static const CGFloat kBigLabelFont = 22;
+static const CGFloat kLabelFont      = 15;
+static const CGFloat kBigLabelFont   = 22;
 static const CGFloat kScrollDuration = 80;
-static const CGFloat kFadeLength = 10;
+static const CGFloat kFadeLength     = 10;
 static const CGFloat kNOPlayingAlpha = 0.2;
-static const CGFloat kPlayingAlpha = 1;
-static const CGFloat kTimeInterval = 0.02;
+static const CGFloat kPlayingAlpha   = 1;
+static const CGFloat kTimeInterval   = 0.02;
 
 
 //该页面在不同屏幕下会有形变，建议采用比例坐标约束
@@ -169,14 +169,14 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
     //初始化TimeProgressBar,具体属性再调整
     _timeProgressBar = [[LDProgressView alloc] init];
-    _timeProgressBar.color = [UIColor standerGreenTextColor];
-    _timeProgressBar.flat = @YES;
-    _timeProgressBar.showText = @NO;
-    _timeProgressBar.showStroke = @NO;
-    _timeProgressBar.showBackground = @NO;
-    _timeProgressBar.progressInset = @3;
+    _timeProgressBar.color            = [UIColor standerGreenTextColor];
+    _timeProgressBar.flat             = @YES;
+    _timeProgressBar.showText         = @NO;
+    _timeProgressBar.showStroke       = @NO;
+    _timeProgressBar.showBackground   = @NO;
+    _timeProgressBar.progressInset    = @3;
     _timeProgressBar.outerStrokeWidth = @2;
-    _timeProgressBar.animate = @YES;
+    _timeProgressBar.animate          = @YES;
     _timeProgressBar.type = LDProgressSolid;
     [self.view addSubview:_timeProgressBar];
         

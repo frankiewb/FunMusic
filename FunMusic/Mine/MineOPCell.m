@@ -11,11 +11,12 @@
 #import "UIColor+Util.h"
 #import <Masonry.h>
 
-static const CGFloat kOPImageSide = 25;
-static const CGFloat kNameLabeHeight = 40;
-static const CGFloat KNameLabelWidth = 100;
+static const CGFloat kOPImageSide        = 25;
+static const CGFloat kNameLabeHeight     = 40;
+static const CGFloat KNameLabelWidth     = 100;
 static const CGFloat kLabelWidthDistance = 10;
-static const CGFloat kEdgeDistance = 10;
+static const CGFloat kEdgeDistance       = 10;
+
 
 
 

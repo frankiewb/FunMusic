@@ -25,8 +25,11 @@
 
 
 
-static NSString *kTweetCellID = @"TweetCellID";
-static const CGFloat kRefreshSleepTime = 0.5;
+
+static const CGFloat kRefreshSleepTime           = 0.5;
+static const CGFloat kSeperatorLineLeftDistance  = 10;
+static const CGFloat kSeperatorLineRightDistance = 10;
+static NSString *kTweetCellID                    = @"TweetCellID";
 
 @interface TweetTableVIewController ()
 {
@@ -74,6 +77,8 @@ static const CGFloat kRefreshSleepTime = 0.5;
     [self fetchTweetData];
     [self.tableView registerClass:[TweetCell class] forCellReuseIdentifier:kTweetCellID];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    //解决分割线的距离问题
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
 
 
 }

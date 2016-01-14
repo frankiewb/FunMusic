@@ -18,9 +18,11 @@
 #import <MJRefresh.h>
 
 
-static  NSString *kChannelCellID = @"ChannelCellID";
-static const CGFloat kCellHeight = 80;
-static const CGFloat kRefreshSleepTime = 0.5;
+static  NSString *kChannelCellID                 = @"ChannelCellID";
+static const CGFloat kCellHeight                 = 80;
+static const CGFloat kRefreshSleepTime           = 0.5;
+static const CGFloat kSeperatorLineLeftDistance  = 90;
+static const CGFloat kSeperatorLineRightDistance = 15;
 
 
 @interface ChannelGroupController ()
@@ -69,6 +71,8 @@ static const CGFloat kRefreshSleepTime = 0.5;
     [self fetchChannelGroupData];
     //注册ChannelCell,注意不能传const引起警告
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelCellID];
+    //解决分割线的左右距离问题
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
     
     
    

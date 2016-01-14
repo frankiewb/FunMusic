@@ -19,10 +19,12 @@
 
 
 
-static const CGFloat kFootHeight = 0.1;
-static const CGFloat kTitleHeight = 30;
-static const CGFloat kRowHeight = 80;
-static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
+static const CGFloat kFootHeight                 = 0.1;
+static const CGFloat kTitleHeight                = 30;
+static const CGFloat kRowHeight                  = 80;
+static const CGFloat kSeperatorLineLeftDistance  = 30;
+static const CGFloat kSeperatorLineRightDistance = 15;
+static NSString *kChannelSearchCellID            = @"ChannelSearchCellID";
 
 
 @interface SearchViewController ()<UISearchResultsUpdating, UISearchBarDelegate>
@@ -95,6 +97,8 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     
     //注册channelCell
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelSearchCellID];
+    //解决分割线的距离问题
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
 }
 
 - (void)dismissSearchView

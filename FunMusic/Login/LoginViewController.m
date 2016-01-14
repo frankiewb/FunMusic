@@ -14,7 +14,6 @@
 
 
 static const CGFloat kTextFont             = 18;
-
 static const CGFloat kTextFielTop          = 20;
 static const CGFloat kTextFieldHeight      = 30;
 static const CGFloat kEdgeDistance         = 20;

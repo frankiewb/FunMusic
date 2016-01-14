@@ -20,8 +20,8 @@
 
 
 
-static  NSString *kChannelCellID = @"ChannelCellID";
-static const CGFloat kCellHeight = 80;
+static  NSString *kChannelCellID       = @"ChannelCellID";
+static const CGFloat kCellHeight       = 80;
 static const CGFloat kRefreshSleepTime = 0.5;
 
 @interface SharedChannelTableController ()

@@ -14,14 +14,13 @@
 #import <Masonry.h>
 
 
-static const CGFloat kChannelLabelNameFontSize = 18;
-static const CGFloat kChannelDesLabelRate = 10;
-static const CGFloat kChannelDesLabelFadeLength = 10;
-static const CGFloat kChannelDesLabelFontSize = 14;
-
+static const CGFloat kChannelLabelNameFontSize        = 18;
+static const CGFloat kChannelDesLabelRate             = 10;
+static const CGFloat kChannelDesLabelFadeLength       = 10;
+static const CGFloat kChannelDesLabelFontSize         = 14;
 static const CGFloat kChannelImageHeightWidthDistance = 60;
-static const CGFloat kChannelImageCornerRadius = 30;
-static const CGFloat kChannelCellUIEdgeDistance = 15;
+static const CGFloat kChannelImageCornerRadius        = 30;
+static const CGFloat kChannelCellUIEdgeDistance       = 15;
 
 @interface ChannelCell ()
 

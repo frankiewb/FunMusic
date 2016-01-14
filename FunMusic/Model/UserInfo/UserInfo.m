@@ -32,11 +32,11 @@
     self = [super init];
     if (self)
     {
-        _isLogin   = TRUE;
-        _userID    = dic[@"id"];
-        _userImage = dic[@"image"];
-        _userName  = dic[@"name"];
-        _userTweeterList = [[NSMutableArray alloc] init];
+        _isLogin                = TRUE;
+        _userID                 = dic[@"id"];
+        _userImage              = dic[@"image"];
+        _userName               = dic[@"name"];
+        _userTweeterList        = [[NSMutableArray alloc] init];
         _userSharedChannelLists = [[NSMutableArray alloc] init];
     }
     

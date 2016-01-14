@@ -27,7 +27,7 @@
 
 
 static const CGFloat kTabbarItemTextFont = 12;
-static const CGFloat kRefreshSleepTime = 0.8;
+static const CGFloat kRefreshSleepTime   = 0.8;
 
 
 typedef NS_ENUM(NSInteger, tabBarControllerType)

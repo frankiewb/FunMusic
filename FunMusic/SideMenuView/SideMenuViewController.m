@@ -18,14 +18,16 @@
 #import <RESideMenu.h>
 #import <Masonry.h>
 
-static const CGFloat kHeaderViewHeight = 200;
-static const CGFloat kUserImageViewSide = 80;
+static const CGFloat kHeaderViewHeight            = 200;
+static const CGFloat kUserImageViewSide           = 80;
 static const CGFloat kUserImageViewHeightDistance = 50;
-static const CGFloat kLabelHeightDistance = 10;
-static const CGFloat kLabelHeight = 40;
-static const CGFloat kEdgeDistance = 10;
-static const CGFloat kCellHeight = 50;
-static const CGFloat kNameFont = 20;
+static const CGFloat kLabelHeightDistance         = 10;
+static const CGFloat kLabelHeight                 = 40;
+static const CGFloat kEdgeDistance                = 10;
+static const CGFloat kCellHeight                  = 50;
+static const CGFloat kNameFont                    = 20;
+static const CGFloat kSeperatorLineLeftDistance   = 80;
+static const CGFloat kSeperatorLineRightDistance  = 160;
 
 static NSString *kOPCellID = @"opCellID";
 
@@ -65,6 +67,8 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     [self.tableView registerClass:[SideMenuCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    //解决分割线的距离问题
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
 }
 
 

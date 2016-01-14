@@ -17,12 +17,11 @@
     self = [super init];
     if (self)
     {
-        _currentSong = [[SongInfo alloc] init];
-        _currentChannel = [[ChannelInfo alloc] init];
-        _currentSong.songId = @"0";
-        
-        _currentChannel.channelID = @"1";
-        _currentChannel.channelName = @"华语";
+        _currentSong                 = [[SongInfo alloc] init];
+        _currentChannel              = [[ChannelInfo alloc] init];
+        _currentSong.songId          = @"0";
+        _currentChannel.channelID    = @"1";
+        _currentChannel.channelName  = @"华语";
         _currentChannel.channelImage = @"华语";
     }
     

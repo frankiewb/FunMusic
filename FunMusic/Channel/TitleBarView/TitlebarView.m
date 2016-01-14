@@ -12,9 +12,9 @@
 
 @implementation TitlebarView
 
-static const CGFloat kContentSizeHeight = 25;
+static const CGFloat kContentSizeHeight  = 25;
 static const CGFloat kTitleLabelFontSize = 15;
-static const CGFloat kFirstButtonScale = 1.2;
+static const CGFloat kFirstButtonScale   = 1.2;
 
 - (instancetype)initWithFrame:(CGRect)frame titleNames:(NSArray *)titleArray
 {

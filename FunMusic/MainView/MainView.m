@@ -11,7 +11,7 @@
 #import "SideMenuViewController.h"
 #import "MineTableViewController.h"
 
-static const CGFloat kContentScaleValue = 0.95;
+static const CGFloat kContentScaleValue   = 0.95;
 static const CGFloat kContentShadowRadius = 4.5;
 @interface MainView ()
 

@@ -353,13 +353,6 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 
 
-
-
-
-
-
-
-
 #pragma Common Fuction
 
 - (AFHTTPSessionManager *)gennerateFMManagerWithType:(managerType)type

@@ -12,7 +12,6 @@
 
 static const CGFloat kNameFontSize        = 16;
 static const CGFloat kDateLikeFontSize    = 12;
-
 static const CGFloat kSmallLabelHeight    = 20;
 static const CGFloat kTweeterLabelWidth   = 50;
 static const CGFloat kTweeterImageHeight  = 30;
