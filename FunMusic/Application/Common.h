@@ -10,16 +10,3 @@
 
 
 
-//ChannelView Macro
-
-#define TITLECOLOR [UIColor whiteColor]
-#define TITLEBUTTONBACKGROUNDCOLOR [UIColor orangeColor]
-#define FIRSTTITLECOLOR [UIColor redColor]
-
-
-//HorizonalTableViewController Macro
-#define HORIZONALBACKGROUNDCOLOR [UIColor whiteColor]
-
-//SwipableViewController
-#define TITLEBARBACKGROUNDCOLOR [UIColor clearColor]
-

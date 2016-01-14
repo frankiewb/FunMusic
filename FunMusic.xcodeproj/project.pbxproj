@@ -28,6 +28,7 @@
 		10EB09D41C2D10B200A76210 /* FunServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09D31C2D10B200A76210 /* FunServer.m */; };
 		10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DB1C2D15A300A76210 /* ChannelGroup.m */; };
 		10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */; };
+		10EC14A01C4652D300E080C4 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC149F1C4652D300E080C4 /* UIColor+Util.m */; };
 		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
 		10ECA4A71C31134C00F745DC /* channelSongStyle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A61C31134C00F745DC /* channelSongStyle.plist */; };
 		10ECA4BA1C33723D00F745DC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10ECA4B91C33723D00F745DC /* SearchViewController.m */; };
@@ -116,6 +117,8 @@
 		10EB09DB1C2D15A300A76210 /* ChannelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelGroup.m; path = Model/ChannelGroup/ChannelGroup.m; sourceTree = "<group>"; };
 		10EB09DE1C2D206D00A76210 /* AFHTTPSessionManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPSessionManager+Util.h"; path = "Categories/AFHTTPSessionManager+Util.h"; sourceTree = "<group>"; };
 		10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+Util.m"; path = "Categories/AFHTTPSessionManager+Util.m"; sourceTree = "<group>"; };
+		10EC149E1C4652D300E080C4 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Util.h"; path = "Categories/UIColor+Util.h"; sourceTree = "<group>"; };
+		10EC149F1C4652D300E080C4 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Util.m"; path = "Categories/UIColor+Util.m"; sourceTree = "<group>"; };
 		10ECA4A41C31112500F745DC /* channelRecomand.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelRecomand.plist; path = Resource/channelRecomand.plist; sourceTree = "<group>"; };
 		10ECA4A61C31134C00F745DC /* channelSongStyle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelSongStyle.plist; path = Resource/channelSongStyle.plist; sourceTree = "<group>"; };
 		10ECA4B81C33723D00F745DC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Search/SearchViewController.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				10EDEB311C364650008A9769 /* NSTimer+Util.m */,
 				10EA691A1C37A89000B189EB /* NSDate+Util.h */,
 				10EA691B1C37A89000B189EB /* NSDate+Util.m */,
+				10EC149E1C4652D300E080C4 /* UIColor+Util.h */,
+				10EC149F1C4652D300E080C4 /* UIColor+Util.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -835,6 +840,7 @@
 				10FB509F1C3DFB6E00572D04 /* MineTableViewController.m in Sources */,
 				10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */,
 				10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */,
+				10EC14A01C4652D300E080C4 /* UIColor+Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

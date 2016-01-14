@@ -8,6 +8,7 @@
 
 #import "ChannelViewController.h"
 #import "TitlebarView.h"
+#import "UIColor+Util.h"
 #include "Common.h"
 
 
@@ -37,7 +38,6 @@ extern const CGFloat kFirstButtonScale;
         //IOS7 鼓励全屏布局，默认值为UIRectEdgeAll，四周边缘延伸，
         //即如果视图中上有navigationBar，下有tabBar，那么视图仍然会延展覆盖到四周，解决办法采用UIRectEdgeNone
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.view.backgroundColor = [UIColor redColor];
         
         //添加titleBar
         if (title)
@@ -47,27 +47,15 @@ extern const CGFloat kFirstButtonScale;
         CGFloat titleBarHeight = kTitleBarHeight;
         _titleBar = [[TitlebarView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, titleBarHeight)
                                              titleNames:subTitles];
-        
-        _titleBar.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_titleBar];
-        
-        
         //添加ViewPager
         _viewPager = [[HorizonalTableViewController alloc] initWithViewControllers:controllers];
         CGFloat viewPagerHeight = self.view.bounds.size.height - kTitleBarHeight - kNavigationbarHeight - kTabbarHeight;
         _viewPager.view.frame = CGRectMake(0, kTitleBarHeight, self.view.bounds.size.width, viewPagerHeight);
-        
-        
-        _viewPager.tableView.backgroundColor = [UIColor yellowColor];
-        
-        
         [self addChildViewController:self.viewPager];
         [self.view addSubview:_viewPager.view];
         
-        
-       
-         //set block operation for TitlebarView and HorizonalTableviewController
-        
+         //set block operation for TitlebarView and HorizonalTableviewController        
         __weak TitlebarView *weakTitleBar = _titleBar;
         __weak HorizonalTableViewController *weakViewPager = _viewPager;
         
@@ -78,12 +66,12 @@ extern const CGFloat kFirstButtonScale;
             {
                 if (button.tag != index)
                 {
-                    [button setTitleColor:TITLECOLOR forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor standerTextColor] forState:UIControlStateNormal];
                     button.transform = CGAffineTransformIdentity;
                 }
                 else
                 {
-                    [button setTitleColor:FIRSTTITLECOLOR forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor standerGreenTextColor] forState:UIControlStateNormal];
                     button.transform = CGAffineTransformMakeScale(kFirstButtonScale, kFirstButtonScale);
                 }
             }
@@ -109,7 +97,7 @@ extern const CGFloat kFirstButtonScale;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = HORIZONALBACKGROUNDCOLOR;
+    self.view.backgroundColor = [UIColor themeColor];
 }
 
 - (void)didReceiveMemoryWarning {

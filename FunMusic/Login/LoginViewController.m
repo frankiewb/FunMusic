@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "LogInfo.h"
 #import "FunServer.h"
+#import "UIColor+Util.h"
 #import <Masonry.h>
 
 
@@ -37,8 +38,7 @@ static const CGFloat kButtonHeightDistance = 20;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"登陆";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"登陆";    
     [self setUpLoginUI];
     [self setLoginLayOut];
 
@@ -48,6 +48,8 @@ static const CGFloat kButtonHeightDistance = 20;
 - (void)setUpLoginUI
 {
     NSMutableArray *UIList = [[NSMutableArray alloc] init];
+    //self
+    self.view.backgroundColor = [UIColor themeColor];
     
     //loginNameTextField
     _loginNameTextField = [[UITextField alloc] init];
@@ -66,6 +68,7 @@ static const CGFloat kButtonHeightDistance = 20;
     
     for (UITextField *loginTextField in UIList)
     {
+        loginTextField.textColor = [UIColor standerTextColor];
         loginTextField.borderStyle = UITextBorderStyleRoundedRect;
         loginTextField.textAlignment = NSTextAlignmentLeft;
         loginTextField.font = [UIFont systemFontOfSize:kTextFont];
@@ -92,7 +95,7 @@ static const CGFloat kButtonHeightDistance = 20;
         
     //loginButton
     _loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _loginButton.backgroundColor = [UIColor orangeColor];
+    _loginButton.backgroundColor = [UIColor standerGreenFillColor];
     _loginButton.layer.cornerRadius = 6;
     [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_loginButton setTitle:@"登陆" forState:UIControlStateNormal];

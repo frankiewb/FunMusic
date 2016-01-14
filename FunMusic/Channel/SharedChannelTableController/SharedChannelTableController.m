@@ -13,6 +13,7 @@
 #import "ChannelInfo.h"
 #import "FunServer.h"
 #import "PlayerInfo.h"
+#import "UIColor+Util.h"
 #import <MJRefresh.h>
 
 
@@ -40,6 +41,7 @@ static const CGFloat kRefreshSleepTime = 0.5;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundColor = [UIColor themeColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     appDelegate = [[UIApplication sharedApplication] delegate];
     funServer = [[FunServer alloc] init];

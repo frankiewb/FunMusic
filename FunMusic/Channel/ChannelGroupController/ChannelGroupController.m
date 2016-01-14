@@ -14,6 +14,7 @@
 #import "FunServer.h"
 #import "PlayerInfo.h"
 #import "ChannelInfo.h"
+#import "UIColor+Util.h"
 #import <MJRefresh.h>
 
 
@@ -56,7 +57,7 @@ static const CGFloat kRefreshSleepTime = 0.5;
 {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.tableView.backgroundColor = HORIZONALBACKGROUNDCOLOR;
+    self.tableView.backgroundColor = [UIColor themeColor];
     
     //添加MJRefresh
     __weak ChannelGroupController *weakSelf = self;
@@ -116,7 +117,6 @@ static const CGFloat kRefreshSleepTime = 0.5;
 {
     ChannelCell *channelCell = [tableView dequeueReusableCellWithIdentifier:kChannelCellID forIndexPath:indexPath];
     ChannelInfo *channelInfo= _channelGroup.channelArray[indexPath.row];
-    channelCell.backgroundColor = HORIZONALBACKGROUNDCOLOR;
     [channelCell setUpChannelCellWithChannelInfo:channelInfo];
 
     

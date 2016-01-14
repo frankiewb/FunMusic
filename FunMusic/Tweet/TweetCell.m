@@ -8,6 +8,7 @@
 
 #import "TweetCell.h"
 #import "TweetInfo.h"
+#import "UIColor+Util.h"
 #import <UIImageView+WebCache.h>
 #import <Masonry.h>
 
@@ -85,6 +86,9 @@
 
 - (void)setUpUI
 {
+    //self
+    self.contentView.backgroundColor = [UIColor themeColor];
+    
     //tweeterImageView
     _tweeterImageView = [[UIImageView alloc] init];
     _tweeterImageView.userInteractionEnabled = YES;
@@ -106,8 +110,9 @@
     
     //channelName
     _channelNameLabel = [[UILabel alloc] init];
+    _channelNameLabel.textColor = [UIColor standerTextColor];
     _channelNameLabel.font = [UIFont systemFontOfSize:kNameFontSize];
-    _channelNameLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1.0];
+    _channelNameLabel.backgroundColor = [UIColor standerTextBackGroudColor];
     //UILabel默认是不允许交互的！！！
     _channelNameLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *scrolViewTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(channelNameImageClicked)];
@@ -126,26 +131,30 @@
     [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
     _deleteButton.titleLabel.font = [UIFont systemFontOfSize:kDateLikeFontSize];
     [_deleteButton addTarget:self action:@selector(deleteButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [_deleteButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_deleteButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     [self.contentView addSubview:_deleteButton];
     
     //tweeterTypeLabel
     _tweeterTypeLabel = [[UILabel alloc] init];
+    _tweeterTypeLabel.textColor = [UIColor standerGreyTextColor];
     _tweeterTypeLabel.font = [UIFont systemFontOfSize:kDateLikeFontSize];
     [self.contentView addSubview:_tweeterTypeLabel];
     
     //tweeterDataLabel
     _tweetDateLabel = [[UILabel alloc] init];
+    _tweetDateLabel.textColor = [UIColor standerGreyTextColor];
     _tweetDateLabel.font = [UIFont systemFontOfSize:kDateLikeFontSize];
     [self.contentView addSubview:_tweetDateLabel];
     
     //likeCountLabel
     _likeCountLabel = [[UILabel alloc] init];
+    _likeCountLabel.textColor = [UIColor standerTextColor];
     _likeCountLabel.font = [UIFont systemFontOfSize:kDateLikeFontSize];
     [self.contentView addSubview:_likeCountLabel];
     
     //tweeterComment
     _tweeterCommentLabel = [[UILabel alloc] init];
+    _tweeterCommentLabel.textColor = [UIColor standerTextColor];
     _tweeterCommentLabel.font = [UIFont systemFontOfSize:kDateLikeFontSize];
     //计算多行文本数据高度必须设置为0
     _tweeterCommentLabel.numberOfLines = 0;

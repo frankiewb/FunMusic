@@ -18,9 +18,9 @@ static const CGFloat kTweeterLabelWidth   = 50;
 static const CGFloat kTweeterImageHeight  = 30;
 static const CGFloat kMainlabelHeight     = 60;
 static const CGFloat kMainImageHeight     = 60;
-static const CGFloat kLabelWidthDistance  = 10;
+static const CGFloat kLabelWidthDistance  = 15;
 static const CGFloat kLabelHeightDistance = 10;
-static const CGFloat kCellEdgeDistance    = 5;
+static const CGFloat kCellEdgeDistance    = 15;
 
 @interface TweetCell : UITableViewCell
 

@@ -16,6 +16,7 @@
 #import "SideMenuViewController.h"
 #import "TweetTableVIewController.h"
 #import "SharedChannelTableController.h"
+#import "UIColor+Util.h"
 #import <RESideMenu.h>
 #import <Masonry.h>
 
@@ -61,6 +62,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundColor = [UIColor themeColor];
     self.title = @"我";
     appDelegate = [[UIApplication sharedApplication] delegate];
     [self setUpOperationInfo];
@@ -74,7 +76,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)setUpOperationInfo
 {
     NSArray *operationNameLists = @[@"我的频道",@"我的音乐圈",@"清除缓存",@"夜间模式"];
-    //NSArray *operationImageNameLists = @[@"我的频道",@"我的音乐圈",@"缓存",@"夜间模式"];
+    NSArray *operationImageNameLists = @[@"频道",@"音乐圈",@"缓存",@"夜间模式"];
     if (!mineOperationLists)
     {
         mineOperationLists = [[NSMutableArray alloc] init];
@@ -85,8 +87,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     {
         MineOperationInfo *opInfo = [[MineOperationInfo alloc] init];
         opInfo.operationName = opName;
-        //opInfo.operationImageName = operationImageNameLists[idx];
-        opInfo.operationImageName = @"小白虾";
+        opInfo.operationImageName = operationImageNameLists[idx];
         [weakMineOpLists addObject:opInfo];
     }];
 }
@@ -112,6 +113,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     //userNameLabel
     _userNameLabel = [[UILabel alloc] init];
     _userNameLabel.textAlignment = NSTextAlignmentCenter;
+    _userNameLabel.textColor = [UIColor orangeColor];
     _userNameLabel.font = [UIFont systemFontOfSize:kNameFont];
     
     [self refreshUserView];

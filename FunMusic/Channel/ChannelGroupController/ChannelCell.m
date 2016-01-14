@@ -9,6 +9,7 @@
 #import "ChannelCell.h"
 #import "ChannelInfo.h"
 #import "Common.h"
+#import "UIColor+Util.h"
 #import <MarqueeLabel.h>
 #import <Masonry.h>
 
@@ -20,7 +21,7 @@ static const CGFloat kChannelDesLabelFontSize = 14;
 
 static const CGFloat kChannelImageHeightWidthDistance = 60;
 static const CGFloat kChannelImageCornerRadius = 30;
-static const CGFloat kChannelCellUIEdgeDistance = 10;
+static const CGFloat kChannelCellUIEdgeDistance = 15;
 
 @interface ChannelCell ()
 
@@ -42,7 +43,6 @@ static const CGFloat kChannelCellUIEdgeDistance = 10;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        self.contentView.backgroundColor = HORIZONALBACKGROUNDCOLOR;
         [self setUpUI];
         [self setUpChannelLayOut];
         //选中后不显示颜色
@@ -54,17 +54,22 @@ static const CGFloat kChannelCellUIEdgeDistance = 10;
 
 - (void)setUpUI
 {
+    //self
+    self.contentView.backgroundColor = [UIColor themeColor];
+    
     //Image
     _channelImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:_channelImageView];
     
     //NameLabel
     _channelNameLabel = [[UILabel alloc] init];
+    _channelNameLabel.textColor = [UIColor standerTextColor];
     _channelNameLabel.font = [UIFont systemFontOfSize:kChannelLabelNameFontSize];
     [self.contentView addSubview:_channelNameLabel];
     
     //DesLabel
     _channelDescriptionLabel = [[MarqueeLabel alloc] init];
+    _channelDescriptionLabel.textColor = [UIColor standerGreyTextColor];
     _channelDescriptionLabel.rate = kChannelDesLabelRate;
     _channelDescriptionLabel.fadeLength = kChannelDesLabelFadeLength;
     _channelDescriptionLabel.animationCurve = UIViewAnimationCurveEaseIn;

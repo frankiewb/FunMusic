@@ -14,6 +14,7 @@
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
 #import "ContentTabBarController.h"
+#import "UIColor+Util.h"
 #import <RESideMenu.h>
 #import <Masonry.h>
 
@@ -56,6 +57,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundColor = [UIColor themeColor];
     appDelegate = [[UIApplication sharedApplication] delegate];
     [self setUpOperationInfo];
     [self setUpHeaderView];
@@ -70,7 +72,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 - (void)setUpOperationInfo
 {
     NSArray *operationNameLists = @[@"频道",@"音乐圈",@"清除缓存",@"夜间模式",@"注销登录"];
-    //NSArray *operationImageNameLists = @[@"频道",@"音乐圈",@"缓存",@"夜间模式",@"注销登录"];
+    NSArray *operationImageNameLists = @[@"频道",@"音乐圈",@"缓存",@"夜间模式",@"注销"];
     if (!sideMenuOperationLists)
     {
         sideMenuOperationLists = [[NSMutableArray alloc] init];
@@ -82,8 +84,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
      {
          SideMenuInfo *opInfo = [[SideMenuInfo alloc] init];
          opInfo.operationName = opName;
-         //opInfo.operationImageName = operationNameLists[idx];
-         opInfo.operationImageName = @"辰溪";
+         opInfo.operationImageName = operationImageNameLists[idx];
          [weakSideMenuOpLists addObject:opInfo];
      }];
 }
@@ -108,6 +109,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     
     //userNameLabel
     _userNameLabel = [[UILabel alloc] init];
+    _userNameLabel.textColor = [UIColor orangeColor];
     _userNameLabel.textAlignment = NSTextAlignmentCenter;
     _userNameLabel.font = [UIFont systemFontOfSize:kNameFont];
     

@@ -18,6 +18,7 @@
 #import "MineTableViewController.h"
 #import "ContentTabBarController.h"
 #import "Utils.h"
+#import "UIColor+Util.h"
 #import <MJRefresh.h>
 #import <RESideMenu.h>
 
@@ -61,6 +62,7 @@ static const CGFloat kRefreshSleepTime = 0.5;
 {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.tableView.backgroundColor = [UIColor themeColor];
     
     //添加MJrefresh
     __weak TweetTableVIewController *weakSelf = self;

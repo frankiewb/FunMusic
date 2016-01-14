@@ -14,13 +14,14 @@
 #import "PlayerInfo.h"
 #import "FunServer.h"
 #import "Utils.h"
+#import "UIColor+Util.h"
 #import "AppDelegate.h"
 
 
 
 static const CGFloat kFootHeight = 0.1;
 static const CGFloat kTitleHeight = 30;
-static const CGFloat kRowHeight = 70;
+static const CGFloat kRowHeight = 80;
 static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 
 
@@ -71,7 +72,12 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     [super viewDidLoad];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    
+   
     self.searchController.searchResultsUpdater = self;
+    self.searchController.searchBar.backgroundColor = [UIColor themeColor];
+    self.searchController.searchBar.showsCancelButton = YES;
+    self.searchController.searchBar.barStyle = UIBarMetricsDefault;
     self.searchController.dimsBackgroundDuringPresentation = false;
     self.searchController.hidesNavigationBarDuringPresentation = NO;
     self.searchController.searchBar.placeholder = @"输入要查找的频道名称";
@@ -80,6 +86,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！
     [self.searchController loadViewIfNeeded];
     
+    self.tableView.backgroundColor = [UIColor themeColor];    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:nil
@@ -249,8 +256,14 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     return [Utils gennerateChannelGroupNameWithChannelType:type isChineseLanguage:TRUE];
 }
 
-
-
+#pragma mark修改每组标题字体颜色
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *HeaderView = (UITableViewHeaderFooterView *)view;
+    [HeaderView.textLabel setTextColor:[UIColor standerGreenTextColor]];
+    [HeaderView.contentView setBackgroundColor:[UIColor themeColor]];
+    
+}
 
 
 

@@ -8,13 +8,14 @@
 
 #import "SideMenuCell.h"
 #import "SideMenuInfo.h"
+#import "UIColor+Util.h"
 #import <Masonry.h>
 
-static const CGFloat kOPImageSide = 40;
+static const CGFloat kOPImageSide = 25;
 static const CGFloat kNameLabeHeight = 40;
 static const CGFloat KNameLabelWidth = 100;
 static const CGFloat kLabelWidthDistance = 10;
-static const CGFloat kEdgeDistance = 5;
+static const CGFloat kEdgeDistance = 10;
 
 
 @interface SideMenuCell ()
@@ -42,13 +43,16 @@ static const CGFloat kEdgeDistance = 5;
 
 - (void)setUpUI
 {
+    self.backgroundColor=[UIColor themeColor];    
     //opImageView
     _sideMenuImageView = [[UIImageView alloc] init];
+    _sideMenuImageView.contentMode = UIViewContentModeScaleAspectFit;
     _sideMenuImageView.layer.cornerRadius = kOPImageSide / 2;
     [self.contentView addSubview:_sideMenuImageView];
     
     //opNameLabel
     _sideMenuNameLabel = [[UILabel alloc] init];
+    _sideMenuNameLabel.textColor = [UIColor standerTextColor];
     [self.contentView addSubview:_sideMenuNameLabel];
 }
 

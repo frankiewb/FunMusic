@@ -14,6 +14,7 @@
 #import "ChannelGroup.h"
 #import "FunServer.h"
 #import "NSTimer+Util.h"
+#import "UIColor+Util.h"
 #import <LDProgressView.h>
 #import <MarqueeLabel.h>
 #import <Masonry.h>
@@ -38,19 +39,20 @@ static const CGFloat kTimeLabelTopFactor          = 1.083;
 static const CGFloat kTimeProgressBarTopFactor    = 1.060;
 static const CGFloat kSongTitleTopFactor          = 1.055;
 static const CGFloat kSongArtistTopFactor         = 1.055;
-static const CGFloat kButtonTopFactor             = 1.1;
+static const CGFloat kButtonTopFactor             = 1.17;
 static const CGFloat kLabelWidthFactor            = 0.56;
 static const CGFloat kLabelHeightFactor           = 0.053;
 static const CGFloat kProgressBarHeight           = 10;
 static const CGFloat kButtonHeightWidthFactor     = 0.083;
-static const CGFloat kButtonXFactor               = 0.4;
+static const CGFloat kPauseButtonXFactor          = 0.35;
+static const CGFloat kHeartButtonXFactor          = 1;
+static const CGFloat kNextButtonXFactor           = 1.65;
 
 
 typedef NS_ENUM(NSInteger, songButtonType)
 {
     songButtonTypePause = 1,
     songButtonTypeLike,
-    songButtonTypeDelete,
     songButtonTypSkip
 };
 
@@ -144,7 +146,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
 - (void)setUpUI
 {
     //初始化背景颜色
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor themeColor];
     
     //初始化PlayerImage界面
     _musicPlayerImage = [[UIImageView alloc] init];
@@ -160,13 +162,14 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
     //初始化TimeLabel
     _timeLabel = [[UILabel alloc] init];
+    _timeLabel.textColor = [UIColor standerGreyTextColor];
     _timeLabel.font = [UIFont systemFontOfSize:kLabelFont];
     _timeLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_timeLabel];
     
     //初始化TimeProgressBar,具体属性再调整
     _timeProgressBar = [[LDProgressView alloc] init];
-    _timeProgressBar.color = [UIColor redColor];
+    _timeProgressBar.color = [UIColor standerGreenTextColor];
     _timeProgressBar.flat = @YES;
     _timeProgressBar.showText = @NO;
     _timeProgressBar.showStroke = @NO;
@@ -179,6 +182,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
         
     //初始化SongTitle
     _songTitleLabel = [[MarqueeLabel alloc] init];
+    _songTitleLabel.textColor = [UIColor standerTextColor];
     _songTitleLabel.scrollDuration = kScrollDuration;
     _songTitleLabel.fadeLength = kFadeLength;
     _songTitleLabel.animationCurve = UIViewAnimationCurveEaseIn;
@@ -190,6 +194,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
     //初始化SongArtist
     _songArtistLabel = [[MarqueeLabel alloc] init];
+    _songArtistLabel.textColor = [UIColor standerGreyTextColor];
     _songArtistLabel.scrollDuration = kScrollDuration;
     _songArtistLabel.fadeLength = kFadeLength;
     _songArtistLabel.animationCurve = UIViewAnimationCurveEaseIn;
@@ -200,9 +205,8 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
     //初始化音乐操作按键
     NSArray *buttonImageNameLists = @[@"pause-musicPlayer",
-                                  @"heart1-musicPlayer",
-                                  @"delete-musicPlayer",
-                                  @"next-musicPlayer"];
+                                      @"heart1-musicPlayer",
+                                      @"next-musicPlayer"];
     songOperationButtonList = [[NSMutableArray alloc] initWithCapacity:buttonImageNameLists.count];
     
     [buttonImageNameLists enumerateObjectsUsingBlock:^(NSString *buttonImageName, NSUInteger idx, BOOL *stop)
@@ -278,7 +282,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
          [button mas_makeConstraints:^(MASConstraintMaker *make)
           {
               make.top.equalTo(_songArtistLabel.mas_bottom).multipliedBy(kButtonTopFactor);
-              make.centerX.equalTo(self.view.mas_centerX).with.multipliedBy(kButtonXFactor * (idx+1));
+              make.centerX.equalTo(self.view.mas_centerX).with.multipliedBy([self getButtonXFactor:(idx+1)]);
               make.width.and.height.equalTo(self.view.mas_width).with.multipliedBy(kButtonHeightWidthFactor);
           }];
 
@@ -397,9 +401,6 @@ typedef NS_ENUM(NSInteger, songButtonType)
         case songButtonTypeLike:
             [self likeClicked];
             break;
-        case songButtonTypeDelete:
-            [self deleteClicked];
-            break;
         case songButtonTypSkip:
             [self skipClicked];
             break;
@@ -446,18 +447,6 @@ typedef NS_ENUM(NSInteger, songButtonType)
     }
 }
 
-- (void)deleteClicked
-{
-    if (!isPlaying)
-    {
-        isPlaying = YES;
-        _musicPlayerImage.alpha = kPlayingAlpha;
-        _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock-musicPlayer"];
-        [appDelegate.MusicPlayer play];
-        [songOperationButtonList[0] setBackgroundImage:[UIImage imageNamed:@"pause-musicPlayer"] forState:UIControlStateNormal];
-    }
-    [funServer fmSongOperationWithType:SongOperationTypeDelete];
-}
 
 
 - (void)skipClicked
@@ -473,12 +462,32 @@ typedef NS_ENUM(NSInteger, songButtonType)
 }
 
 
+- (CGFloat)getButtonXFactor:(NSInteger)buttonIndex
+{
+    switch (buttonIndex)
+    {
+        case 1:
+            return kPauseButtonXFactor;
+            break;
+        case 2:
+            return kHeartButtonXFactor;
+            break;
+        case 3:
+            return kNextButtonXFactor;
+            break;
+        default:
+            return 1;
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TitlebarView.h"
+#import "UIColor+Util.h"
 #import "Common.h"
 
 @implementation TitlebarView
@@ -20,6 +21,7 @@ static const CGFloat kFirstButtonScale = 1.2;
     self = [super initWithFrame:frame];
     if (self)
     {
+        self.backgroundColor = [UIColor themeColor];
         _currentIndex = 0;
         _titleButtonArray = [[NSMutableArray alloc] init];
         
@@ -29,9 +31,9 @@ static const CGFloat kFirstButtonScale = 1.2;
         [titleArray enumerateObjectsUsingBlock:^(NSString *titleName, NSUInteger idx, BOOL *stop)
          {
              UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-             button.backgroundColor = TITLEBUTTONBACKGROUNDCOLOR;
+             button.backgroundColor = [UIColor themeColor];
              button.titleLabel.font = [UIFont systemFontOfSize:kTitleLabelFontSize];
-             [button setTitleColor:TITLECOLOR forState:UIControlStateNormal];
+             [button setTitleColor:[UIColor standerTextColor] forState:UIControlStateNormal];
              [button setTitle:titleName forState:UIControlStateNormal];
              
              button.frame = CGRectMake(buttonWidth * idx, 0, buttonWidth, buttonHeight);
@@ -47,7 +49,7 @@ static const CGFloat kFirstButtonScale = 1.2;
         self.contentSize = CGSizeMake(frame.size.width, kContentSizeHeight);
         self.showsHorizontalScrollIndicator = NO;
         UIButton *firstTitle = _titleButtonArray[0];
-        [firstTitle setTitleColor:FIRSTTITLECOLOR forState:UIControlStateNormal];
+        [firstTitle setTitleColor:[UIColor standerGreenTextColor] forState:UIControlStateNormal];
         //让firstbutton X轴Y轴放大
         firstTitle.transform = CGAffineTransformMakeScale(kFirstButtonScale, kFirstButtonScale);
     }
@@ -58,11 +60,11 @@ static const CGFloat kFirstButtonScale = 1.2;
 - (void)onClicked:(UIButton *)button
 {
     UIButton *oldFirstButton = _titleButtonArray[_currentIndex];
-    [oldFirstButton setTitleColor:TITLECOLOR forState:UIControlStateNormal];
+    [oldFirstButton setTitleColor:[UIColor standerTextColor] forState:UIControlStateNormal];
     //重置原坐标系
     oldFirstButton.transform = CGAffineTransformIdentity;
     
-    [button setTitleColor:FIRSTTITLECOLOR forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor standerGreenTextColor] forState:UIControlStateNormal];
     button.transform = CGAffineTransformMakeScale(kFirstButtonScale, kFirstButtonScale);
     
     _currentIndex = button.tag;

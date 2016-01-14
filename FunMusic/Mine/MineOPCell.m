@@ -8,13 +8,14 @@
 
 #import "MineOPCell.h"
 #import "MineOperationInfo.h"
+#import "UIColor+Util.h"
 #import <Masonry.h>
 
-static const CGFloat kOPImageSide = 40;
+static const CGFloat kOPImageSide = 25;
 static const CGFloat kNameLabeHeight = 40;
 static const CGFloat KNameLabelWidth = 100;
 static const CGFloat kLabelWidthDistance = 10;
-static const CGFloat kEdgeDistance = 5;
+static const CGFloat kEdgeDistance = 10;
 
 
 
@@ -35,6 +36,7 @@ static const CGFloat kEdgeDistance = 5;
     {
         [self setUpUI];
         [self setOPCellLayOut];
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -43,13 +45,18 @@ static const CGFloat kEdgeDistance = 5;
 
 - (void)setUpUI
 {
+    //self
+    self.contentView.backgroundColor = [UIColor themeColor];
+    
     //opImageView
     _opImageView = [[UIImageView alloc] init];
+    _opImageView.contentMode = UIViewContentModeScaleAspectFit;
     _opImageView.layer.cornerRadius = kOPImageSide / 2;
     [self.contentView addSubview:_opImageView];
     
     //opNameLabel
     _opNameLabel = [[UILabel alloc] init];
+    _opNameLabel.textColor = [UIColor standerTextColor];
     [self.contentView addSubview:_opNameLabel];
 }
 

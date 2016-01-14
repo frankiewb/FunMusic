@@ -12,6 +12,7 @@
 #import "PlayerInfo.h"
 #import "ChannelInfo.h"
 #import "AppDelegate.h"
+#import "UIColor+Util.h"
 #import <Masonry.h>
 
 static const NSInteger kMaxWordCount         = 140;
@@ -81,21 +82,18 @@ static const CGFloat kLabelWidthDistance     = 10;
 }
 
 
-
-
-
 - (void)setUpUI
 {
     //self
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor themeColor];
     
     //inPutTextView
     _inputTextView = [[UITextView alloc] init];
+    _inputTextView.textColor = [UIColor standerTextColor];
     _inputTextView.editable = YES;
     _inputTextView.scrollEnabled = YES;
     //使用代理的时候记得设置代理！！！！费死劲了！
     _inputTextView.delegate = self;
-    
     _inputTextView.font = [UIFont systemFontOfSize:kTextWordFont];
     _inputTextView.layer.borderWidth = kTextViewBorderWidth;
     _inputTextView.layer.cornerRadius = kTextViewCornerRadius;
@@ -110,7 +108,7 @@ static const CGFloat kLabelWidthDistance     = 10;
     _placeHolderLabel.numberOfLines = 0;
     _placeHolderLabel.text = @"说点什么";
     _placeHolderLabel.backgroundColor = [UIColor clearColor];
-    _placeHolderLabel.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
+    _placeHolderLabel.textColor = [UIColor standerGreyTextColor];
     [self.view addSubview:_placeHolderLabel];
     
     //residueLabel
@@ -118,13 +116,14 @@ static const CGFloat kLabelWidthDistance     = 10;
     _residueLabel.backgroundColor = [UIColor clearColor];
     _residueLabel.font = [UIFont systemFontOfSize:kTextWordFont];
     _residueLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)kMaxWordCount,(long)kMaxWordCount];
-    _residueLabel.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
+    _residueLabel.textColor = [UIColor standerGreyTextColor];
     [self.view addSubview:_residueLabel];
     
     //ChannelNameLabel
     _channelNameLabel = [[UILabel alloc] init];
+    _channelNameLabel.textColor = [UIColor standerTextColor];
     _channelNameLabel.font = [UIFont systemFontOfSize:kChannelNameFont];
-    _channelNameLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1.0];
+    _channelNameLabel.backgroundColor = [UIColor standerTextBackGroudColor];
     _channelNameLabel.text = [NSString stringWithFormat:@"    频道 ：%@",currentChannel.channelName];
     [self.view addSubview:_channelNameLabel];
     

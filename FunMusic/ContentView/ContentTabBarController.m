@@ -20,6 +20,7 @@
 #import "FunServer.h"
 #import "AppDelegate.h"
 #import "SideMenuViewController.h"
+#import "UIColor+Util.h"
 #import <MBProgressHUD.h>
 #import <RESideMenu.h>
 
@@ -83,17 +84,26 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                              [self addNavigationItemForViewController:tweetViewCtl tabBarControllerType:tabBarControllerTypeTweeter],
                              [self addNavigationItemForViewController:mineViewCtl tabBarControllerType:tabBarControllerTypeMine]];
     
-    NSArray *titles = @[@"音乐",@"FM频道",@"音乐圈",@"我"];
-    //NSArray *images = @[];
+    NSArray *titles = @[@"音乐",@"频道",@"音乐圈",@"我"];
+    NSArray *images = @[@"音乐",@"频道",@"音乐圈",@"我"];
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop)
      {
          [item setTitle:titles[idx]];
          //设置属性
          [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                       [UIColor standerTextColor],NSForegroundColorAttributeName,
                                        [UIFont systemFontOfSize:kTabbarItemTextFont],NSFontAttributeName,nil]
                              forState:UIControlStateNormal];
-         //[item setImage:[UIImage imageNamed:[images[idx] stringByAppendingString:@"-TabBarItem"]]];
-          
+         [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                       [UIColor standerGreenTextColor],NSForegroundColorAttributeName,
+                                       [UIFont systemFontOfSize:kTabbarItemTextFont],NSFontAttributeName,nil]
+                             forState:UIControlStateSelected];
+         item.selectedImage = [[UIImage imageNamed:[images[idx] stringByAppendingString:@"-sTabBar"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+         
+         item.image = [[UIImage imageNamed:[images[idx] stringByAppendingString:@"-uTabBar"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+         
+         
+         
      }];
 }
 
@@ -102,7 +112,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 - (UINavigationController *)addNavigationItemForViewController:(UIViewController *)viewController tabBarControllerType:(tabBarControllerType)type
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    navigationController.navigationBar.tintColor = [UIColor redColor];
+    navigationController.navigationBar.tintColor = [UIColor standerGreenTextColor];
+    [navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor standerTextColor],NSForegroundColorAttributeName, nil]];
+
     navigationController.navigationBar.translucent = NO;
     viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar-sidebar"]
                                                                                        style:UIBarButtonItemStylePlain

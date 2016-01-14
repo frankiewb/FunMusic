@@ -7,6 +7,7 @@
 //
 
 #import "HorizonalTableViewController.h"
+#import "UIColor+Util.h"
 #import "Common.h"
 
 
@@ -51,7 +52,7 @@ static NSString *kHorizonalCellID = @"HorizonalCell";
     //实现手势每次滑动一次只移动一页或者一页的倍数（cell），默认的paging机制时每个page的高度和tableview frame的高度一样
     //个人使用过程中不太好使，有误操作和bug，还是决定手动实现翻页，确保一次只能翻一页
     self.tableView.pagingEnabled = YES;
-    self.tableView.backgroundColor = HORIZONALBACKGROUNDCOLOR;
+    self.tableView.backgroundColor = [UIColor themeColor];
     //当scrollview滚动到边界时，再继续滚动不让其反弹
     self.tableView.bounces = NO;
     
@@ -91,7 +92,6 @@ static NSString *kHorizonalCellID = @"HorizonalCell";
     
     //将已经逆时针90度转向的tableview中的cell再顺时针转向90度，这样cell就正过来了
     cell.contentView.transform = CGAffineTransformMakeRotation(M_PI_2);
-    cell.contentView.backgroundColor = [UIColor blueColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     //每当选中哪个cell，展示哪个controller对应的view
