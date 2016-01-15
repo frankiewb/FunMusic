@@ -10,18 +10,34 @@
 #import "UIColor+Util.h"
 #import "Common.h"
 
-@implementation TitlebarView
 
 static const CGFloat kContentSizeHeight  = 25;
 static const CGFloat kTitleLabelFontSize = 15;
 static const CGFloat kFirstButtonScale   = 1.2;
+
+
+@implementation TitlebarView
+
+
+- (void)dawnAndNightMode
+{
+    self.backgroundColor = [UIColor themeColor];
+    for (UIButton *singleButton in _titleButtonArray)
+    {
+        singleButton.backgroundColor = [UIColor titlebarColor];
+        [singleButton setTitleColor:[UIColor standerTextColor] forState:UIControlStateNormal];
+    }
+    [_titleButtonArray[_currentIndex] setTitleColor:[UIColor standerGreenTextColor] forState:UIControlStateNormal];
+}
+
+
 
 - (instancetype)initWithFrame:(CGRect)frame titleNames:(NSArray *)titleArray
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor themeColor];
+        self.backgroundColor = [UIColor titlebarColor];
         _currentIndex = 0;
         _titleButtonArray = [[NSMutableArray alloc] init];
         
@@ -31,7 +47,7 @@ static const CGFloat kFirstButtonScale   = 1.2;
         [titleArray enumerateObjectsUsingBlock:^(NSString *titleName, NSUInteger idx, BOOL *stop)
          {
              UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-             button.backgroundColor = [UIColor themeColor];
+             button.backgroundColor = [UIColor titlebarColor];
              button.titleLabel.font = [UIFont systemFontOfSize:kTitleLabelFontSize];
              [button setTitleColor:[UIColor standerTextColor] forState:UIControlStateNormal];
              [button setTitle:titleName forState:UIControlStateNormal];

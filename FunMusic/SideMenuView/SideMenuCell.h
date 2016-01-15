@@ -12,6 +12,12 @@
 
 @interface SideMenuCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView *sideMenuImageView;
+@property (nonatomic, strong) UILabel *sideMenuNameLabel;
+
 - (void)setSideMenuCellWithOPInfo:(SideMenuInfo *)sideMenuInfo;
+
+- (void)dawnAndNightMode;
+
 
 @end

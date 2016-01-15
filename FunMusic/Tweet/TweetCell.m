@@ -33,6 +33,9 @@
 
 @implementation TweetCell
 
+
+
+
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -84,9 +87,22 @@
 }
 
 
+- (void)dawnAndNightMode
+{
+    self.contentView.backgroundColor  = [UIColor themeColor];
+    self.backgroundColor              = [UIColor themeColor];
+    _channelNameLabel.backgroundColor = [UIColor standerTextBackGroudColor];
+    _channelNameLabel.textColor       = [UIColor standerTextColor];
+    _tweeterTypeLabel.textColor       = [UIColor standerGreyTextColor];
+    _tweetDateLabel.textColor         = [UIColor standerGreyTextColor];
+    _likeCountLabel.textColor         = [UIColor standerTextColor];
+    _tweeterCommentLabel.textColor    = [UIColor standerTextColor];
+}
+
 - (void)setUpUI
 {
     //self
+    self.backgroundColor = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
     
     //tweeterImageView

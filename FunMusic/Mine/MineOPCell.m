@@ -19,16 +19,19 @@ static const CGFloat kEdgeDistance       = 10;
 
 
 
-
 @interface MineOPCell ()
-
-@property (nonatomic, strong) UIImageView *opImageView;
-@property (nonatomic, strong) UILabel *opNameLabel;
 
 @end
 
 
 @implementation MineOPCell
+
+- (void)dawnAndNightMode
+{
+    self.backgroundColor = [UIColor themeColor];
+    self.contentView.backgroundColor = [UIColor themeColor];
+    _opNameLabel.textColor = [UIColor standerTextColor];
+}
 
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -47,6 +50,7 @@ static const CGFloat kEdgeDistance       = 10;
 - (void)setUpUI
 {
     //self
+    self.backgroundColor = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
     
     //opImageView

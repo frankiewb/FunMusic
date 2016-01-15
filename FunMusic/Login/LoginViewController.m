@@ -35,9 +35,10 @@ static const CGFloat kButtonHeightDistance = 20;
 
 @implementation LoginViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"登陆";    
+    self.title = @"登陆";
     [self setUpLoginUI];
     [self setLoginLayOut];
 
@@ -53,6 +54,7 @@ static const CGFloat kButtonHeightDistance = 20;
     //loginNameTextField
     _loginNameTextField = [[UITextField alloc] init];
     _loginNameTextField.placeholder = @"邮箱 ／ 用户名";
+    _loginNameTextField.backgroundColor = [UIColor inputColor];
     [UIList addObject:_loginNameTextField];
     
     
@@ -60,6 +62,7 @@ static const CGFloat kButtonHeightDistance = 20;
     _loginPassWordTextField = [[UITextField alloc] init];
     _loginPassWordTextField.placeholder = @"密码";
     _loginPassWordTextField.secureTextEntry = YES;
+    _loginPassWordTextField.backgroundColor = [UIColor inputColor];
     [UIList addObject:_loginPassWordTextField];
     
     

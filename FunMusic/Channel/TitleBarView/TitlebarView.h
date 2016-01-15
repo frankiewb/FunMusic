@@ -17,4 +17,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame titleNames:(NSArray *)titleArray;
 
+- (void)dawnAndNightMode;
+
 @end

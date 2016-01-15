@@ -13,4 +13,6 @@
 
 - (void)refreshUserView;
 
+- (void)dawnAndNightMode;
+
 @end

@@ -20,11 +20,12 @@
 
 
 
-static  NSString *kChannelCellID       = @"ChannelCellID";
-static const CGFloat kCellHeight       = 80;
-static const CGFloat kRefreshSleepTime = 0.5;
+
+static const CGFloat kCellHeight                 = 80;
+static const CGFloat kRefreshSleepTime           = 0.5;
 static const CGFloat kSeperatorLineLeftDistance  = 90;
 static const CGFloat kSeperatorLineRightDistance = 15;
+static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 @interface SharedChannelTableController ()
 {
@@ -32,13 +33,13 @@ static const CGFloat kSeperatorLineRightDistance = 15;
     NSMutableArray *sharedChannelGroup;
     FunServer *funServer;
     ChannelInfo *currentChannelInfo;
-    
 }
 
 
 @end
 
 @implementation SharedChannelTableController
+
 
 - (void)viewDidLoad
 {

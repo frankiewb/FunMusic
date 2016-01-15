@@ -28,6 +28,7 @@
         _currentPlayerInfo = [[PlayerInfo alloc] init];
         _tweetInfoGroup = [[NSMutableArray alloc] init];
         _currentUserInfo = [[UserInfo alloc] init];
+        _isNightMode = NO;
         
         //后台播放MusicPlayer
         AVAudioSession *session = [AVAudioSession sharedInstance];

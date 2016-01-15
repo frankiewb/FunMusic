@@ -31,7 +31,8 @@ static const CGFloat kNameFont                    = 20;
 static const CGFloat kSeperatorLineLeftDistance   = 80;
 static const CGFloat kSeperatorLineRightDistance  = 10;
 
-static NSString *kOPCellID = @"opCellID";
+static NSString *kOPCellID         = @"opCellID";
+static NSString *kDawnAndNightMode = @"dawnAndNightMode";
 
 
 typedef NS_ENUM(NSInteger, mineOPType)
@@ -59,6 +60,18 @@ typedef NS_ENUM(NSInteger, mineOPType)
 @end
 
 @implementation MineTableViewController
+
+- (void)dawnAndNightMode
+{
+    self.tableView.backgroundColor = [UIColor themeColor];
+    self.mineHeaderView.backgroundColor = [UIColor themeColor];
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        [self.tableView reloadData];
+    });
+}
+
+
 
 - (instancetype)init
 {
@@ -118,6 +131,8 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)setUpHeaderUI
 {
+    //self
+    self.mineHeaderView.backgroundColor = [UIColor themeColor];
     //userImageView
     _userImageView = [[UIImageView alloc] init];
     _userImageView.layer.cornerRadius = kUserImageViewSide / 2;
@@ -178,6 +193,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
         case mineOPTypeClearCache:
             break;
         case mineOPTypeNightMode:
+            [self pushDawnAndNightMode];
             break;
 
     }
@@ -194,8 +210,14 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MineOPCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
+    [opCell dawnAndNightMode];
     MineOperationInfo *opInfo = mineOperationLists[indexPath.row];
     [opCell setMineOPCellWithOPInfo:opInfo];
+    if (indexPath.row == 3 && appDelegate.isNightMode)
+    {
+        [opCell.opImageView setImage:[UIImage imageNamed:@"日间模式"]];
+        opCell.opNameLabel.text = @"日间模式";
+    }
     return opCell;
 }
 
@@ -207,6 +229,21 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self mineOpeationWithType:indexPath.row];
+}
+
+#pragma common function
+
+- (void)pushDawnAndNightMode
+{
+    if (appDelegate.isNightMode)
+    {
+        appDelegate.isNightMode = FALSE;
+    }
+    else
+    {
+        appDelegate.isNightMode = YES;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDawnAndNightMode object:nil];
 }
 
 - (void)pushLoginView

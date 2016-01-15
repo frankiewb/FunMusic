@@ -31,4 +31,6 @@ static const CGFloat kCellEdgeDistance    = 15;
 
 - (void)setUpTweetCellWithTweetInfo:(TweetInfo *)tweetInfo;
 
+- (void)dawnAndNightMode;
+
 @end

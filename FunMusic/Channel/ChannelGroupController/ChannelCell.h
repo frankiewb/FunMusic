@@ -19,8 +19,7 @@
 
 - (void)setUpChannelCellWithChannelInfo:(ChannelInfo *)channelInfo;
 
-
-
+- (void)dawnAndNightMode;
 
 
 @end

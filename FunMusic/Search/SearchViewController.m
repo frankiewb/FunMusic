@@ -24,7 +24,7 @@ static const CGFloat kTitleHeight                = 30;
 static const CGFloat kRowHeight                  = 80;
 static const CGFloat kSeperatorLineLeftDistance  = 30;
 static const CGFloat kSeperatorLineRightDistance = 15;
-static NSString *kChannelSearchCellID            = @"ChannelSearchCellID";
+static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 
 
 @interface SearchViewController ()<UISearchResultsUpdating, UISearchBarDelegate>
@@ -38,7 +38,6 @@ static NSString *kChannelSearchCellID            = @"ChannelSearchCellID";
 @end
 
 @implementation SearchViewController
-
 
 - (instancetype)init
 {
@@ -72,10 +71,7 @@ static NSString *kChannelSearchCellID            = @"ChannelSearchCellID";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    
-   
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.backgroundColor = [UIColor themeColor];
     self.searchController.searchBar.showsCancelButton = YES;

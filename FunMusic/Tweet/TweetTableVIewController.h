@@ -13,4 +13,6 @@
 - (instancetype)initWithUserID:(NSString *)ID TweeterName:(NSString *)name;
 - (void)fetchTweetData;
 
+- (void)dawnAndNightMode;
+
 @end

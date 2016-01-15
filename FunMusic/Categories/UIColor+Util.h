@@ -23,4 +23,14 @@
 
 + (UIColor *)standerTextBackGroudColor;
 
++ (UIColor *)navigationBarColor;
+
++ (UIColor *)navigationBarTextColor;
+
++ (UIColor *)tabbarColor;
+
++ (UIColor *)titlebarColor;
+
++ (UIColor *)inputColor;
+
 @end

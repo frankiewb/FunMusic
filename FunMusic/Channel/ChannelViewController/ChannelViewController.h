@@ -15,7 +15,7 @@
 @property (nonatomic, strong) HorizonalTableViewController *viewPager;
 @property (nonatomic, strong) TitlebarView *titleBar;
 
-
+- (void)dawnAndNightMode;
 
 - (instancetype)initWithTitle:(NSString *)title subTitles:(NSArray *)subTitles subTitleCOntrollers:(NSArray *)controllers;
 

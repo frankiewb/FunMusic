@@ -20,13 +20,19 @@ static const CGFloat kEdgeDistance       = 10;
 
 @interface SideMenuCell ()
 
-@property (nonatomic, strong) UIImageView *sideMenuImageView;
-@property (nonatomic, strong) UILabel *sideMenuNameLabel;
+
 
 @end
 
 
 @implementation SideMenuCell
+
+- (void)dawnAndNightMode
+{
+    self.backgroundColor = [UIColor themeColor];
+    self.contentView.backgroundColor = [UIColor themeColor];
+    _sideMenuNameLabel.textColor = [UIColor standerTextColor];
+}
 
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -43,7 +49,9 @@ static const CGFloat kEdgeDistance       = 10;
 
 - (void)setUpUI
 {
-    self.backgroundColor=[UIColor themeColor];    
+    //self
+    self.backgroundColor = [UIColor themeColor];
+    self.contentView.backgroundColor = [UIColor themeColor];
     //opImageView
     _sideMenuImageView = [[UIImageView alloc] init];
     _sideMenuImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -80,7 +88,6 @@ static const CGFloat kEdgeDistance       = 10;
     [_sideMenuImageView setImage:[UIImage imageNamed:sideMenuInfo.operationImageName]];
     _sideMenuNameLabel.text = sideMenuInfo.operationName;
 }
-
 
 
 

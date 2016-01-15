@@ -24,6 +24,7 @@
 @property (nonatomic, strong) ChannelGroup *currentChannelGroup;
 @property (nonatomic, strong) NSMutableArray *tweetInfoGroup;
 @property (nonatomic, strong) NSMutableArray *allChannelGroup;
+@property (nonatomic, assign) BOOL isNightMode;
 
 
 

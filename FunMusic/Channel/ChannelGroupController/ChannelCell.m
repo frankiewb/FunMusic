@@ -37,6 +37,16 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
 @implementation ChannelCell
 
 
+- (void)dawnAndNightMode
+{
+    self.backgroundColor = [UIColor themeColor];
+    self.contentView.backgroundColor = [UIColor themeColor];
+    _channelNameLabel.textColor = [UIColor standerTextColor];
+    _channelDescriptionLabel.textColor = [UIColor standerGreyTextColor];
+
+}
+
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -54,6 +64,7 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
 - (void)setUpUI
 {
     //self
+    self.backgroundColor = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
     
     //Image

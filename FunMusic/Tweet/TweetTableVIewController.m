@@ -29,7 +29,7 @@
 static const CGFloat kRefreshSleepTime           = 0.5;
 static const CGFloat kSeperatorLineLeftDistance  = 10;
 static const CGFloat kSeperatorLineRightDistance = 10;
-static NSString *kTweetCellID                    = @"TweetCellID";
+static NSString *kTweetCellID      = @"TweetCellID";
 
 @interface TweetTableVIewController ()
 {
@@ -43,6 +43,17 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 @end
 
 @implementation TweetTableVIewController
+
+
+- (void)dawnAndNightMode
+{
+    self.tableView.backgroundColor = [UIColor themeColor];
+    dispatch_async(dispatch_get_main_queue(), ^
+    {        
+        [self.tableView reloadData];
+    });
+}
+
 
 - (instancetype)initWithUserID:(NSString *)ID TweeterName:(NSString *)name
 {
@@ -156,6 +167,7 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TweetCell *tweetCell = [tableView dequeueReusableCellWithIdentifier:kTweetCellID forIndexPath:indexPath];
+    [tweetCell dawnAndNightMode];
     TweetInfo *tweetInfo = tweetInfoGroup[indexPath.row];
     [tweetCell setUpTweetCellWithTweetInfo:tweetInfo];
     

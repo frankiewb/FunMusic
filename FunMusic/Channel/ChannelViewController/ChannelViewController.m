@@ -28,6 +28,21 @@ extern const CGFloat kFirstButtonScale;
 
 @implementation ChannelViewController
 
+- (void)dawnAndNightMode
+{
+    [_titleBar dawnAndNightMode];
+    [_viewPager.controllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    {
+        UITableViewController *channelGroupCtl = obj;
+        channelGroupCtl.tableView.backgroundColor = [UIColor themeColor];
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [channelGroupCtl.tableView reloadData];
+        });        
+    }];
+}
+
+
 
 
 - (instancetype)initWithTitle:(NSString *)title subTitles:(NSArray *)subTitles subTitleCOntrollers:(NSArray *)controllers
@@ -38,7 +53,7 @@ extern const CGFloat kFirstButtonScale;
         //IOS7 鼓励全屏布局，默认值为UIRectEdgeAll，四周边缘延伸，
         //即如果视图中上有navigationBar，下有tabBar，那么视图仍然会延展覆盖到四周，解决办法采用UIRectEdgeNone
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        
+
         //添加titleBar
         if (title)
         {

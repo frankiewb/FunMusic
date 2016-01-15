@@ -29,7 +29,8 @@ static const CGFloat kNameFont                    = 20;
 static const CGFloat kSeperatorLineLeftDistance   = 80;
 static const CGFloat kSeperatorLineRightDistance  = 160;
 
-static NSString *kOPCellID = @"opCellID";
+static NSString *kOPCellID         = @"opCellID";
+static NSString *kDawnAndNightMode = @"dawnAndNightMode";
 
 typedef NS_ENUM(NSInteger, sideMenuOPType)
 {
@@ -56,6 +57,21 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 @implementation SideMenuViewController
 
+- (void)dawnAndNightMode:(NSNotification *)center
+{
+    self.sideHeaderView.backgroundColor = [UIColor themeColor];
+    self.tableView.backgroundColor = [UIColor themeColor];
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        [self.tableView reloadData];
+    });
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDawnAndNightMode object:nil];
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -73,13 +89,15 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor themeColor];    
+    self.tableView.backgroundColor = [UIColor themeColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
     [self setUpOperationInfo];
     [self setUpHeaderView];
     self.tableView.tableHeaderView = _sideHeaderView;
     [self.tableView registerClass:[SideMenuCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView.backgroundColor = [UIColor themeColor];
     //解决分割线的距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
 }
@@ -117,6 +135,8 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)setUpHeaderUI
 {
+    //self
+    self.sideHeaderView.backgroundColor = [UIColor themeColor];
     //userImageView
     _userImageView = [[UIImageView alloc] init];
     _userImageView.layer.cornerRadius = kUserImageViewSide / 2;
@@ -182,12 +202,27 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
         case sideMenuOPTypeClearCache:
             break;
         case sideMenuOPTypeNightMode:
+            [self presentDawnAndNightMode];
             break;
         case sideMenuOPTypeLogOut:
             [self logOut];
             break;
         
     }
+}
+
+
+- (void)presentDawnAndNightMode
+{
+    if (appDelegate.isNightMode)
+    {
+        appDelegate.isNightMode = FALSE;
+    }
+    else
+    {
+        appDelegate.isNightMode = YES;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDawnAndNightMode object:nil];
 }
 
 
@@ -261,8 +296,15 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SideMenuCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
+    [opCell dawnAndNightMode];
     SideMenuInfo *opInfo = sideMenuOperationLists[indexPath.row];
     [opCell setSideMenuCellWithOPInfo:opInfo];
+    if (indexPath.row == 3 && appDelegate.isNightMode)
+    {
+        [opCell.sideMenuImageView setImage:[UIImage imageNamed:@"日间模式"]];
+        opCell.sideMenuNameLabel.text = @"日间模式";
+    }
+
     return opCell;
 }
 

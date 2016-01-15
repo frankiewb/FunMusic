@@ -86,6 +86,15 @@ typedef NS_ENUM(NSInteger, songButtonType)
 @implementation MusicPlayerViewController
 
 
+- (void)dawnAndNightMode
+{
+    self.view.backgroundColor  = [UIColor themeColor];
+    _timeLabel.textColor       = [UIColor standerGreyTextColor];
+    _songTitleLabel.textColor  = [UIColor standerTextColor];
+    _songArtistLabel.textColor = [UIColor standerGreyTextColor];
+}
+
+
 
 - (void)viewDidLoad
 {
@@ -103,7 +112,6 @@ typedef NS_ENUM(NSInteger, songButtonType)
                                              repeates:YES];
     
     [self refreshMusicPlayer];
-    
     //************************************Block Function**********************************************************
     funServer.getSongListFail = ^()
     {

@@ -53,6 +53,7 @@ static const CGFloat kLabelWidthDistance     = 10;
 
 @implementation SharedViewController
 
+
 - (instancetype)init
 {
     self = [super init];
@@ -89,6 +90,7 @@ static const CGFloat kLabelWidthDistance     = 10;
     
     //inPutTextView
     _inputTextView = [[UITextView alloc] init];
+    _inputTextView.backgroundColor = [UIColor inputColor];
     _inputTextView.textColor = [UIColor standerTextColor];
     _inputTextView.editable = YES;
     _inputTextView.scrollEnabled = YES;
@@ -98,7 +100,6 @@ static const CGFloat kLabelWidthDistance     = 10;
     _inputTextView.layer.borderWidth = kTextViewBorderWidth;
     _inputTextView.layer.cornerRadius = kTextViewCornerRadius;
     _inputTextView.layer.borderColor = UIColor.grayColor.CGColor;
-    //_inputTextView.keyboardAppearance = UIKeyboardTypeTwitter;
     _inputTextView.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:_inputTextView];
     

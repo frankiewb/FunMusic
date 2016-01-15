@@ -25,9 +25,10 @@
 #import <RESideMenu.h>
 
 
-
+static const CGFloat kNavigationTextFont = 17;
 static const CGFloat kTabbarItemTextFont = 12;
 static const CGFloat kRefreshSleepTime   = 0.8;
+static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 
 
 typedef NS_ENUM(NSInteger, tabBarControllerType)
@@ -50,10 +51,74 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 @implementation ContentTabBarController
 
+- (void)dawnAndNightMode:(NSNotification *)center
+{
+    [[UINavigationBar appearance] setBarTintColor:[UIColor themeColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor themeColor]];
+    [self.viewControllers enumerateObjectsUsingBlock:^(UINavigationController *nav, NSUInteger idx, BOOL *stop)
+     {
+        if (idx == 0)
+        {
+            MusicPlayerViewController *musicPlayerCtl = nav.viewControllers[0];
+            [musicPlayerCtl dawnAndNightMode];
+            [musicPlayerCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
+            [musicPlayerCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
+            [musicPlayerCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                       [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
+                                                                                       [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
+        }
+        else if (idx == 1)
+        {
+            ChannelViewController *channelCtl = nav.viewControllers[0];
+            [channelCtl dawnAndNightMode];
+            [channelCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
+            [channelCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
+            [channelCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                       [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
+                                                                                       [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
+        }
+        else if (idx == 2)
+        {
+            TweetTableVIewController *tweetCtl = nav.viewControllers[0];
+            [tweetCtl dawnAndNightMode];
+            [tweetCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
+            [tweetCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
+            [tweetCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                   [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
+                                                                                   [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
+        }
+        else if (idx == 3)
+        {
+            MineTableViewController *mineCtl = nav.viewControllers[0];
+            [mineCtl dawnAndNightMode];
+            [mineCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
+            [mineCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
+            [mineCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                 [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
+                                                                                 [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
+        }
+     }];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDawnAndNightMode object:nil];
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //之所以放在这里主要是照顾到TabBar和NavigationBar的颜色设置问题
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     appDelegate = [[UIApplication sharedApplication] delegate];
+    
     
     NSArray *channelGroupNames = @[@"推荐",@"语言",@"风格",@"心情"];
     NSMutableArray *channelGroupCtrList = [[NSMutableArray alloc] init];
@@ -113,7 +178,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     navigationController.navigationBar.tintColor = [UIColor standerGreenTextColor];
-    [navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor standerTextColor],NSForegroundColorAttributeName, nil]];
+    [navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,
+                                                                [UIColor navigationBarTextColor],NSForegroundColorAttributeName, nil]];
 
     navigationController.navigationBar.translucent = NO;
     viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar-sidebar"]
@@ -156,6 +223,10 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                                              target:self
                                                                                                              action:@selector(pushSearchViewController)];
+            viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                                               style:UIBarButtonItemStylePlain
+                                                                                              target:nil
+                                                                                              action:nil];
             break;
         
     }

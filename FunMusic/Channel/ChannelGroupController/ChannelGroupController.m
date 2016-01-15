@@ -18,11 +18,12 @@
 #import <MJRefresh.h>
 
 
-static  NSString *kChannelCellID                 = @"ChannelCellID";
+
 static const CGFloat kCellHeight                 = 80;
 static const CGFloat kRefreshSleepTime           = 0.5;
 static const CGFloat kSeperatorLineLeftDistance  = 90;
 static const CGFloat kSeperatorLineRightDistance = 15;
+static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 
 @interface ChannelGroupController ()
@@ -40,6 +41,8 @@ static const CGFloat kSeperatorLineRightDistance = 15;
 @end
 
 @implementation ChannelGroupController
+
+
 
 - (instancetype)initWithChannelGroupName:(NSString *)channelGroupName
 {
@@ -120,10 +123,9 @@ static const CGFloat kSeperatorLineRightDistance = 15;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChannelCell *channelCell = [tableView dequeueReusableCellWithIdentifier:kChannelCellID forIndexPath:indexPath];
+    [channelCell dawnAndNightMode];
     ChannelInfo *channelInfo= _channelGroup.channelArray[indexPath.row];
     [channelCell setUpChannelCellWithChannelInfo:channelInfo];
-
-    
     return channelCell;
 }
 
