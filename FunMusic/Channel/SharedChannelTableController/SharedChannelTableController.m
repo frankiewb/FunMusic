@@ -23,6 +23,8 @@
 static  NSString *kChannelCellID       = @"ChannelCellID";
 static const CGFloat kCellHeight       = 80;
 static const CGFloat kRefreshSleepTime = 0.5;
+static const CGFloat kSeperatorLineLeftDistance  = 90;
+static const CGFloat kSeperatorLineRightDistance = 15;
 
 @interface SharedChannelTableController ()
 {
@@ -57,6 +59,8 @@ static const CGFloat kRefreshSleepTime = 0.5;
     [self fetchSharedChannelData];
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelCellID];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    //解决分割线的左右距离问题
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
     
 }
 

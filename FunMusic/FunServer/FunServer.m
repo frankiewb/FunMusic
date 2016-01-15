@@ -75,7 +75,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     {
         appDelegate.allChannelGroup = [self fmGetAllChannelInfos];
     }
-    ChannelGroup *channelGroup;
+    ChannelGroup *channelGroup = nil;
     switch (channelType)
     {
         case ChannelTypeFeeling:
