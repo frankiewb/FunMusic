@@ -71,9 +71,27 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType
 {
-    NSString *channelName = [Utils gennerateChannelGroupNameWithChannelType:channelType isChineseLanguage:FALSE];
-    NSDictionary *channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:channelName];
-    appDelegate.currentChannelGroup = [[ChannelGroup alloc] initWithChannelType:channelType channelName:channelName channelGroupDictionary:channelGroupDic];
+    if (!appDelegate.allChannelGroup)
+    {
+        appDelegate.allChannelGroup = [self fmGetAllChannelInfos];
+    }
+    ChannelGroup *channelGroup;
+    switch (channelType)
+    {
+        case ChannelTypeFeeling:
+            channelGroup = appDelegate.allChannelGroup[0];
+            break;
+        case ChannelTypeLanguage:
+            channelGroup = appDelegate.allChannelGroup[1];
+            break;
+        case ChannelTypeRecomand:
+            channelGroup = appDelegate.allChannelGroup[2];
+            break;
+        case ChannelTypeSongStyle:
+            channelGroup = appDelegate.allChannelGroup[3];
+            break;
+    }
+    appDelegate.currentChannelGroup = channelGroup;
 }
 
 
