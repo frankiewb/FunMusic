@@ -56,11 +56,24 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 @implementation SideMenuViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        appDelegate = [[UIApplication sharedApplication] delegate];
+    }
+    
+    return self;
+}
+
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor themeColor];
-    appDelegate = [[UIApplication sharedApplication] delegate];
+    self.tableView.backgroundColor = [UIColor themeColor];    
     [self setUpOperationInfo];
     [self setUpHeaderView];
     self.tableView.tableHeaderView = _sideHeaderView;

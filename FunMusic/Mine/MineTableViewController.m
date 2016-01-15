@@ -60,14 +60,24 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 @implementation MineTableViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        appDelegate = [[UIApplication sharedApplication] delegate];
+    }
+    
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor themeColor];
     self.title = @"我";
-    appDelegate = [[UIApplication sharedApplication] delegate];
-    [self setUpOperationInfo];
+        [self setUpOperationInfo];
     [self setUpHeaderView];
     self.tableView.tableHeaderView = _mineHeaderView;
     [self.tableView registerClass:[MineOPCell class] forCellReuseIdentifier:kOPCellID];
