@@ -213,7 +213,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     [opCell dawnAndNightMode];
     MineOperationInfo *opInfo = mineOperationLists[indexPath.row];
     [opCell setMineOPCellWithOPInfo:opInfo];
-    if (indexPath.row == 3 && appDelegate.isNightMode)
+    if (indexPath.row == mineOPTypeNightMode && appDelegate.isNightMode)
     {
         [opCell.opImageView setImage:[UIImage imageNamed:@"日间模式"]];
         opCell.opNameLabel.text = @"日间模式";

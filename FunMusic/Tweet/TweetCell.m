@@ -9,6 +9,7 @@
 #import "TweetCell.h"
 #import "TweetInfo.h"
 #import "UIColor+Util.h"
+#import "AppDelegate.h"
 #import <UIImageView+WebCache.h>
 #import <Masonry.h>
 
@@ -102,7 +103,7 @@
 - (void)setUpUI
 {
     //self
-    self.backgroundColor = [UIColor themeColor];
+    self.backgroundColor             = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
     
     //tweeterImageView
@@ -305,7 +306,7 @@
     if (_scrollView)
     {
         NSArray *channelName = [_channelNameLabel.text componentsSeparatedByString:@"："];
-        _scrollView(0, channelName[1]);
+        _scrollView(funViewTypeMusic, channelName[1]);
     }
 }
 

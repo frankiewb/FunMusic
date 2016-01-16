@@ -14,6 +14,15 @@
 @class PlayerInfo;
 @class ChannelGroup;
 
+
+typedef NS_ENUM(NSInteger,funViewType)
+{
+    funViewTypeMusic = 0,
+    funViewTypeChannel,
+    funViewTypeTweeter,
+    funViewTypeMine,
+};
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;

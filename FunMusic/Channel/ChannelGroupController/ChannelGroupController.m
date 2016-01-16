@@ -142,8 +142,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     //跳转至首页音乐播放界面
     if (_presidentView)
     {
-        //后面变成ENUM
-        _presidentView(0);
+        _presidentView(funViewTypeMusic);
     }
     
 }

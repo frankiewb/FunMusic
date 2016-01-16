@@ -194,10 +194,10 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     switch (type)
     {
         case sideMenuOPTypeChannel:
-            [self presentViewWithIndex:1];
+            [self presentViewWithIndex:funViewTypeChannel];
             break;
         case sideMenuOPTypeTweeter:
-            [self presentViewWithIndex:2];
+            [self presentViewWithIndex:funViewTypeTweeter];
             break;
         case sideMenuOPTypeClearCache:
             break;
@@ -299,7 +299,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     [opCell dawnAndNightMode];
     SideMenuInfo *opInfo = sideMenuOperationLists[indexPath.row];
     [opCell setSideMenuCellWithOPInfo:opInfo];
-    if (indexPath.row == 3 && appDelegate.isNightMode)
+    if (indexPath.row == sideMenuOPTypeNightMode && appDelegate.isNightMode)
     {
         [opCell.sideMenuImageView setImage:[UIImage imageNamed:@"日间模式"]];
         opCell.sideMenuNameLabel.text = @"日间模式";

@@ -222,7 +222,7 @@ static const CGFloat kLabelWidthDistance     = 10;
     [self.navigationController popViewControllerAnimated:NO];
     if (_presidentView)
     {
-        _presidentView(2);
+        _presidentView(funViewTypeTweeter);
     }
 }
 

@@ -31,15 +31,6 @@ static const CGFloat kRefreshSleepTime   = 0.8;
 static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 
 
-typedef NS_ENUM(NSInteger, tabBarControllerType)
-{
-    tabBarControllerTypePlayer = 1,
-    tabBarControllerTypeChannel,
-    tabBarControllerTypeTweeter,
-    tabBarControllerTypeMine
-};
-
-
 
 @interface ContentTabBarController ()
 {
@@ -53,11 +44,9 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 - (void)dawnAndNightMode:(NSNotification *)center
 {
-    [[UINavigationBar appearance] setBarTintColor:[UIColor themeColor]];
-    [[UITabBar appearance] setBarTintColor:[UIColor themeColor]];
     [self.viewControllers enumerateObjectsUsingBlock:^(UINavigationController *nav, NSUInteger idx, BOOL *stop)
      {
-        if (idx == 0)
+        if (idx == funViewTypeMusic)
         {
             MusicPlayerViewController *musicPlayerCtl = nav.viewControllers[0];
             [musicPlayerCtl dawnAndNightMode];
@@ -67,7 +56,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                                                                        [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
                                                                                        [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
         }
-        else if (idx == 1)
+        else if (idx == funViewTypeChannel)
         {
             ChannelViewController *channelCtl = nav.viewControllers[0];
             [channelCtl dawnAndNightMode];
@@ -77,7 +66,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                                                                        [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
                                                                                        [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
         }
-        else if (idx == 2)
+        else if (idx == funViewTypeTweeter)
         {
             TweetTableVIewController *tweetCtl = nav.viewControllers[0];
             [tweetCtl dawnAndNightMode];
@@ -87,7 +76,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                                                                    [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
                                                                                    [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
         }
-        else if (idx == 3)
+        else if (idx == funViewTypeMine)
         {
             MineTableViewController *mineCtl = nav.viewControllers[0];
             [mineCtl dawnAndNightMode];
@@ -110,8 +99,10 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor themeColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor themeColor]];
     //之所以放在这里主要是照顾到TabBar和NavigationBar的颜色设置问题
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
 }
 
 - (void)viewDidLoad
@@ -144,10 +135,10 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
     _weakMineCtl = mineViewCtl;
     //取消navigationBar的半透明效果
     self.tabBar.translucent = NO;
-    self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtl tabBarControllerType:tabBarControllerTypePlayer],
-                             [self addNavigationItemForViewController:channelViewCtl tabBarControllerType:tabBarControllerTypeChannel],
-                             [self addNavigationItemForViewController:tweetViewCtl tabBarControllerType:tabBarControllerTypeTweeter],
-                             [self addNavigationItemForViewController:mineViewCtl tabBarControllerType:tabBarControllerTypeMine]];
+    self.viewControllers = @[[self addNavigationItemForViewController:musicViewCtl funViewControllerType:funViewTypeMusic],
+                             [self addNavigationItemForViewController:channelViewCtl funViewControllerType:funViewTypeChannel],
+                             [self addNavigationItemForViewController:tweetViewCtl funViewControllerType:funViewTypeTweeter],
+                             [self addNavigationItemForViewController:mineViewCtl funViewControllerType:funViewTypeMine]];
     
     NSArray *titles = @[@"音乐",@"频道",@"音乐圈",@"我"];
     NSArray *images = @[@"音乐",@"频道",@"音乐圈",@"我"];
@@ -174,7 +165,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
 
 
 
-- (UINavigationController *)addNavigationItemForViewController:(UIViewController *)viewController tabBarControllerType:(tabBarControllerType)type
+- (UINavigationController *)addNavigationItemForViewController:(UIViewController *)viewController funViewControllerType:(funViewType)type
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     navigationController.navigationBar.tintColor = [UIColor standerGreenTextColor];
@@ -189,7 +180,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                                                                       action:@selector(onClickMenuButton)];
     switch (type)
     {
-        case tabBarControllerTypeChannel:
+        case funViewTypeChannel:
 
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                                              target:self
@@ -200,7 +191,7 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                                                                               action:nil];
            
             break;
-        case tabBarControllerTypePlayer:
+        case funViewTypeMusic:
             
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                                              target:self
@@ -213,13 +204,13 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
                                                                                               action:nil];
 
             break;
-        case tabBarControllerTypeTweeter:
+        case funViewTypeTweeter:
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                                              target:self
                                                                                                              action:@selector(refreshTweeter)];
 
             break;
-        case tabBarControllerTypeMine:
+        case funViewTypeMine:
             viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                                              target:self
                                                                                                              action:@selector(pushSearchViewController)];
@@ -303,16 +294,15 @@ typedef NS_ENUM(NSInteger, tabBarControllerType)
         hud.mode = MBProgressHUDModeIndeterminate;
         //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-                       {
-                           [_weakTweetCtl fetchTweetData];
-                           [_weakTweetCtl.tableView reloadData];
-                           [NSThread sleepForTimeInterval:kRefreshSleepTime];
-                           dispatch_async(dispatch_get_main_queue(), ^
-                                          {
-                                              [hud hide:YES];
-                                          });
-                       });
-
+        {
+            [_weakTweetCtl fetchTweetData];
+            [_weakTweetCtl.tableView reloadData];
+            [NSThread sleepForTimeInterval:kRefreshSleepTime];
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
+                [hud hide:YES];
+            });
+        });
     }
     else
     {

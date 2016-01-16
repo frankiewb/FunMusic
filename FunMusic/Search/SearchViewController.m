@@ -113,9 +113,9 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 {
     [self channelSearchFilterWithSearchText:self.searchController.searchBar.text];
     dispatch_async(dispatch_get_main_queue(), ^
-                   {
-                       [self.tableView reloadData];
-                   });
+    {
+        [self.tableView reloadData];
+    });
 }
 
 - (void)channelSearchFilterWithSearchText:(NSString *)searchText
@@ -237,7 +237,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     //跳转页面
     if (_presidentView)
     {
-        _presidentView(0);
+        _presidentView(funViewTypeMusic);
     }
     
 

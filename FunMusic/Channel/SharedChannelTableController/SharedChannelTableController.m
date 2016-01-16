@@ -74,9 +74,9 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 {
     //刷新另外开辟异步线程执行
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-                   {
-                       [self fetchSharedChannelData];
-                   });
+    {
+        [self fetchSharedChannelData];
+    });
     //刷新完后，暂停若干时间
     [NSThread sleepForTimeInterval:kRefreshSleepTime];
     
@@ -120,8 +120,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     //跳转至首页音乐播放界面
     if (_presidentView)
     {
-        //后面变成ENUM
-        _presidentView(0);
+        _presidentView(funViewTypeMusic);
     }
     
 }

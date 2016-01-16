@@ -29,7 +29,7 @@
 static const CGFloat kRefreshSleepTime           = 0.5;
 static const CGFloat kSeperatorLineLeftDistance  = 10;
 static const CGFloat kSeperatorLineRightDistance = 10;
-static NSString *kTweetCellID      = @"TweetCellID";
+static NSString *kTweetCellID                    = @"TweetCellID";
 
 @interface TweetTableVIewController ()
 {
@@ -108,9 +108,9 @@ static NSString *kTweetCellID      = @"TweetCellID";
         //开辟异步并发线程
         //子线程更新数据，主线程可以用来显示数据状态，注意GCD可以嵌套
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-                       {
-                           [self fetchTweetData];
-                       });
+        {
+            [self fetchTweetData];
+        });
         //刷新完后，暂停若干时间
         [self.tableView reloadData];
         [NSThread sleepForTimeInterval:kRefreshSleepTime];
