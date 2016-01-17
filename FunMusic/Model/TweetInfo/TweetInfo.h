@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, infoType)
 };
 
 @class AppDelegate;
-@interface TweetInfo : NSObject
+@interface TweetInfo : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *tweeterImage;
 @property (nonatomic, copy) NSString *tweeterName;
@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, infoType)
 
 
 - (instancetype) initWithTweetDic:(NSDictionary *)dict;
+- (instancetype) initWithTweetInfo:(TweetInfo *)tweetInfo;
 - (instancetype) initWithTweeterCommentByLocal:(NSString *)comment Local:(AppDelegate *)appDelegate;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ChannelInfo : NSObject
+@interface ChannelInfo : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *channelID;
 @property (nonatomic, copy) NSString *channelName;

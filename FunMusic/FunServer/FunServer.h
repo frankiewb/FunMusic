@@ -38,12 +38,13 @@ typedef NS_ENUM(NSUInteger, SongOperationType)
 - (ChannelInfo *)searchChannelInfoWithName:(NSString *)channelName;
 - (NSMutableArray *)fmGetAllChannelInfos;
 - (void)fmUpdateMySharedChannelListWithChannelName:(NSString *)channelName;
+- (void)fmDeleteMySharedChannelListWithChannelIndex:(NSInteger)channelIndex;
 
 #pragma TweeterOperation
 - (void)fmGetTweetInfoInLocal;
 - (NSMutableArray *)fmGetTweetInfoWithUserID:(NSString *)userID;
 - (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo;
-- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike;
+- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike isMineTweet:(BOOL)isMine;
 - (NSInteger)searchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine;
 
 #pragma LoginOperation

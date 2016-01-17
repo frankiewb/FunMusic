@@ -19,6 +19,7 @@
 #import "ContentTabBarController.h"
 #import "Utils.h"
 #import "UIColor+Util.h"
+#import "Config.h"
 #import <MJRefresh.h>
 #import <RESideMenu.h>
 
@@ -138,9 +139,12 @@ static NSString *kTweetCellID                    = @"TweetCellID";
     //这是针对该app情况设计的逻辑，如果有真正的服务器，逻辑应该比此逻辑简单。
     if (!tweetInfoGroup)
     {
-        if ([userID isEqualToString:@"localTweetData"])
+        if ([userID isEqualToString:@"localTweetData"] )
         {
-            [funServer fmGetTweetInfoInLocal];
+            if ([appDelegate.tweetInfoGroup count] == 0)
+            {
+                [funServer fmGetTweetInfoInLocal];
+            }
             tweetInfoGroup = appDelegate.tweetInfoGroup;
         }
         else if ([userID isEqualToString:@"mine"])
@@ -184,6 +188,10 @@ static NSString *kTweetCellID                    = @"TweetCellID";
         [weakTweetInfoGroup removeObjectAtIndex:tweetIndex];
         NSInteger myTweetIndex = [weakFunServer searchTweetInfoWithID:tweetID isMyTweetGroup:YES];
         [weakMyTweetInfoGroup removeObjectAtIndex:myTweetIndex];
+        //************调试模式下还需要用，暂且不删********************
+        [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
+        [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+        //********************************************************
         
         //TO DO ...
         //updateServer()
@@ -200,13 +208,16 @@ static NSString *kTweetCellID                    = @"TweetCellID";
     {
         ChannelInfo *channelInfo = [weakFunServer searchChannelInfoWithName:channelName];
         currentChannelInfo = [weakAppDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:channelInfo];
+        //************调试模式下还需要用，暂且不删********************
+        [Config saveCurrentChannelInfo:currentChannelInfo];
+        //*******************************************************
         [weakFunServer fmSongOperationWithType:SongOperationTypeNext];
         ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = 0;
     };
     
-    tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike)
+    tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike, BOOL isMine)
     {
-        [weakFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike];
+        [weakFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike isMineTweet:isMine];
         [self.tableView reloadData];
         if (![userID isEqualToString:@"localTweetData"])
         {

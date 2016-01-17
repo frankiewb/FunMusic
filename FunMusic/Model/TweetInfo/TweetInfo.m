@@ -27,6 +27,20 @@ extern const CGFloat kCellEdgeDistance;
 
 static const CGFloat kIdealTweetCommentHeight = 60;
 
+static NSString *kTweetID        = @"tweetID";
+static NSString *kTweetImage     = @"tweetImage";
+static NSString *kTweetName      = @"tweetName";
+static NSString *kChannelImage   = @"channelImage";
+static NSString *kChannelName    = @"channelName";
+static NSString *kTweeterComment = @"tweeterComment";
+static NSString *kTweetDate      = @"tweetDate";
+static NSString *kIsLike         = @"isLike";
+static NSString *kLikeCount      = @"likeCount";
+static NSString *kTweeterType    = @"tweeterType";
+static NSString *kInfoType       = @"infoType";
+static NSString *kCellHeight     = @"cellHeight";
+
+
 
 #define USERIMAGEURL @"http://img3.douban.com/icon/ul%@-1.jpg"
 @implementation TweetInfo
@@ -59,6 +73,7 @@ static const CGFloat kIdealTweetCommentHeight = 60;
     
     return  self;
 }
+
 
 
 - (instancetype)initWithTweeterCommentByLocal:(NSString *)comment Local:(AppDelegate *)appDelegate
@@ -121,6 +136,28 @@ static const CGFloat kIdealTweetCommentHeight = 60;
 
 }
 
+- (instancetype)initWithTweetInfo:(TweetInfo *)tweetInfo
+{
+    self = [super init];
+    if (self)
+    {
+        _tweetID        = tweetInfo.tweetID;
+        _tweeterImage   = tweetInfo.tweeterImage;
+        _tweeterName    = tweetInfo.tweeterName;
+        _channelImage   = tweetInfo.channelImage;
+        _channelName    = tweetInfo.channelName;
+        _tweeterComment = tweetInfo.tweeterComment;
+        _tweetDate      = tweetInfo.tweetDate;
+        _isLike         = tweetInfo.isLike;
+        _likeCount      = tweetInfo.likeCount;
+        _tweeterType    = tweetInfo.tweeterType;
+        _infoType       = tweetInfo.infoType;
+        _cellHeight     = tweetInfo.cellHeight;
+    }
+    
+    return self;
+}
+
 
 
 - (void)setTweetHeight
@@ -134,6 +171,45 @@ static const CGFloat kIdealTweetCommentHeight = 60;
     CGFloat cellheight = textSize.height + (kSmallLabelHeight * 2) + kMainImageHeight + (kCellEdgeDistance * 2) + (kLabelHeightDistance * 3);
     _cellHeight = cellheight;
 
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.tweetID forKey:kTweetID];
+    [aCoder encodeObject:self.tweeterImage forKey:kTweetImage];
+    [aCoder encodeObject:self.tweeterName forKey:kTweetName];
+    [aCoder encodeObject:self.channelImage forKey:kChannelImage];
+    [aCoder encodeObject:self.channelName forKey:kChannelName];
+    [aCoder encodeObject:self.tweeterComment forKey:kTweeterComment];
+    [aCoder encodeObject:self.tweetDate forKey:kTweetDate];
+    [aCoder encodeObject:self.isLike forKey:kIsLike];
+    [aCoder encodeInteger:self.likeCount forKey:kLikeCount];
+    [aCoder encodeInteger:self.tweeterType forKey:kTweeterType];
+    [aCoder encodeInteger:self.infoType forKey:kInfoType];
+    [aCoder encodeInteger:self.cellHeight forKey:kCellHeight];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self)
+    {
+        self.tweetID        = [aDecoder decodeObjectForKey:kTweetID];
+        self.tweeterImage   = [aDecoder decodeObjectForKey:kTweetImage];
+        self.tweeterName    = [aDecoder decodeObjectForKey:kTweetName];
+        self.channelImage   = [aDecoder decodeObjectForKey:kChannelImage];
+        self.channelName    = [aDecoder decodeObjectForKey:kChannelName];
+        self.tweeterComment = [aDecoder decodeObjectForKey:kTweeterComment];
+        self.tweetDate      = [aDecoder decodeObjectForKey:kTweetDate];
+        self.isLike         = [aDecoder decodeObjectForKey:kIsLike];
+        self.likeCount      = [aDecoder decodeIntegerForKey:kLikeCount];
+        self.tweeterType    = [aDecoder decodeIntegerForKey:kTweeterType];
+        self.infoType       = [aDecoder decodeIntegerForKey:kInfoType];
+        self.cellHeight     = [aDecoder decodeIntegerForKey:kCellHeight];
+    }
+    
+    return self;
 }
 
 

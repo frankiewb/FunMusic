@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "PlayerInfo.h"
 #import "UserInfo.h"
+#import "Config.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface AppDelegate ()
@@ -24,11 +25,11 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^
     {
-        _MusicPlayer = [[MPMoviePlayerController alloc] init];
+        _MusicPlayer       = [[MPMoviePlayerController alloc] init];
         _currentPlayerInfo = [[PlayerInfo alloc] init];
-        _tweetInfoGroup = [[NSMutableArray alloc] init];
-        _currentUserInfo = [[UserInfo alloc] init];
-        _isNightMode = NO;
+        _tweetInfoGroup    = [Config getTweetInfoGroup];
+        _currentUserInfo   = [Config getUserInfo];
+        _isNightMode       = [Config getDawnAndNightMode];
         
         //后台播放MusicPlayer
         AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -47,26 +48,26 @@
 
 - (void)logOut
 {
-    _currentUserInfo = [_currentUserInfo init];
+    _currentUserInfo.isLogin = FALSE;
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveUserInfo:_currentUserInfo];
+    //********************************************************
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    //保存夜间模式状态
+    [Config saveDawnAndNightMode:_isNightMode];
+    //保存当前播放频道
+    [Config saveCurrentChannelInfo:_currentPlayerInfo.currentChannel];
+    //保存用户信息
+    [Config saveUserInfo:_currentUserInfo];
+    //保存总TweetGroup信息
+    [Config saveTweetInfoGroup:_tweetInfoGroup];
+}
 
 
 
@@ -91,10 +92,6 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.

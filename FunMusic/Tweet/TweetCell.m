@@ -10,6 +10,7 @@
 #import "TweetInfo.h"
 #import "UIColor+Util.h"
 #import "AppDelegate.h"
+#import "UserInfo.h"
 #import <UIImageView+WebCache.h>
 #import <Masonry.h>
 
@@ -292,9 +293,11 @@
         _isLike = NO;
         _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)--count];
     }
+    BOOL isMine = FALSE;
+    [_tweeterNameLabel.text isEqualToString:(((AppDelegate *)[UIApplication sharedApplication].delegate).currentUserInfo.userName)] ? (isMine = TRUE) : (isMine = FALSE);    
     if (_updateTweetLikeCount)
     {
-        _updateTweetLikeCount(_tweetID,_isLike);
+        _updateTweetLikeCount(_tweetID,_isLike,isMine);
     }
 }
 

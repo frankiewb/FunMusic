@@ -17,6 +17,7 @@
 #import "LogInfo.h"
 #import "AFHTTPSessionManager+Util.h"
 #import "Utils.h"
+#import "Config.h"
 #import <AFNetworking.h>
 
 
@@ -236,6 +237,9 @@ typedef NS_ENUM(NSUInteger, managerType)
     NSString *tweetGroupName = @"localTweetData";
     NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
     [self gennrateTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:appDelegate.tweetInfoGroup];
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+    //********************************************************
     
 }
 
@@ -264,24 +268,56 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo
 {
+    if ([appDelegate.tweetInfoGroup count] == 0)
+    {
+        [self fmGetTweetInfoInLocal];
+    }
     NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
     NSMutableArray *userTweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
     NSAssert(tweetInfoGroup, @"tweetInfoGroup invalid !!");
     [tweetInfoGroup insertObject:tweetInfo atIndex:0];
-    [userTweetInfoGroup insertObject:tweetInfo atIndex:0];
+    //无奈之举，本地化NSUserdefault后，仍然会额外产生一份内存tweetInfo，索性直接在这里生成好了，避免其他逻辑错误
+    TweetInfo *userTweetInfo = [[TweetInfo alloc] initWithTweetInfo:tweetInfo];
+    [userTweetInfoGroup insertObject:userTweetInfo atIndex:0];
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveUserTweetList:userTweetInfoGroup];
+    [Config saveTweetInfoGroup:tweetInfoGroup];
+    //********************************************************
     //向服务器更新Tweet信息
     //TO DO...
 }
 
 
-- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike
+- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike isMineTweet:(BOOL)isMine
 {
-    NSInteger index = [self searchTweetInfoWithID:tweetID isMyTweetGroup:NO];
+    NSInteger index = [self searchTweetInfoWithID:tweetID isMyTweetGroup:NO];    
     TweetInfo *updatedTweetInfo = appDelegate.tweetInfoGroup[index];
     isLike ? (updatedTweetInfo.likeCount++) : (updatedTweetInfo.likeCount--);
     isLike ? (updatedTweetInfo.isLike = @"2") : (updatedTweetInfo.isLike = @"1");
-    //针对服务器应该有一个post操作，因为没有现成服务器，暂且空余, 也可以统一定时更新
+    if (isMine)
+    {
+        NSInteger mineIndex = [self searchTweetInfoWithID:tweetID isMyTweetGroup:YES];
+        TweetInfo *mineUpdateTweetInfo = appDelegate.currentUserInfo.userTweeterList[mineIndex];
+        isLike ? (mineUpdateTweetInfo.likeCount++) : (mineUpdateTweetInfo.likeCount--);
+        isLike ? (mineUpdateTweetInfo.isLike = @"2") : (mineUpdateTweetInfo.isLike = @"1");
+        //************调试模式下还需要用，暂且不删*********************************
+        [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
+        //********************************************************************
+    }
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+    //********************************************************
+    //向服务器更新Tweet信息
     //TO DO...
+}
+
+
+- (void)fmDeleteMySharedChannelListWithChannelIndex:(NSInteger)channelIndex
+{
+    [appDelegate.currentUserInfo.userSharedChannelLists removeObjectAtIndex:channelIndex];
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveUserSharedChannelList:appDelegate.currentUserInfo.userSharedChannelLists];
+    //********************************************************
 }
 
 - (void)fmUpdateMySharedChannelListWithChannelName:(NSString *)channelName
@@ -299,6 +335,9 @@ typedef NS_ENUM(NSUInteger, managerType)
                 if ([singleChannelInfo.channelName isEqualToString:channelName])
                 {
                     [appDelegate.currentUserInfo.userSharedChannelLists insertObject:singleChannelInfo atIndex:0];
+                    //************调试模式下还需要用，暂且不删********************
+                    [Config saveUserSharedChannelList:appDelegate.currentUserInfo.userSharedChannelLists];
+                    //********************************************************
                 }
             }
             
@@ -331,7 +370,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     }
     else
     {
-        if (!appDelegate.tweetInfoGroup)
+        if ([appDelegate.tweetInfoGroup count] == 0)
         {
             [self fmGetTweetInfoInLocal];
         }
@@ -364,6 +403,9 @@ typedef NS_ENUM(NSUInteger, managerType)
     {
         NSDictionary *userDic = [Utils gennerateDicitonaryWithPlistFile:@"userData"];
         currentUserInfo = [appDelegate.currentUserInfo initWithDictionary:userDic];
+        //************调试模式下还需要用，暂且不删********************
+        [Config saveUserInfo:currentUserInfo];
+        //********************************************************
         return TRUE;
     }
     return FALSE;

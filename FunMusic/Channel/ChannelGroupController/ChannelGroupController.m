@@ -15,6 +15,7 @@
 #import "PlayerInfo.h"
 #import "ChannelInfo.h"
 #import "UIColor+Util.h"
+#import "Config.h"
 #import <MJRefresh.h>
 
 
@@ -138,6 +139,9 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 {
     ChannelInfo *selectChannelInfo = _channelGroup.channelArray[indexPath.row];
     currentChannelInfo = [appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelInfo];
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveCurrentChannelInfo:currentChannelInfo];
+    //*******************************************************
     [_funServer fmSongOperationWithType:SongOperationTypeNext];
     //跳转至首页音乐播放界面
     if (_presidentView)

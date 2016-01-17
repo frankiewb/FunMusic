@@ -14,6 +14,7 @@
 #import "FunServer.h"
 #import "PlayerInfo.h"
 #import "UIColor+Util.h"
+#import "Config.h"
 #import <MJRefresh.h>
 
 
@@ -116,6 +117,9 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 {
     ChannelInfo *selectChannelInfo = sharedChannelGroup[indexPath.row];
     currentChannelInfo = [appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelInfo];
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveCurrentChannelInfo:currentChannelInfo];
+    //*******************************************************
     [funServer fmSongOperationWithType:SongOperationTypeNext];
     //跳转至首页音乐播放界面
     if (_presidentView)
@@ -141,9 +145,8 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [sharedChannelGroup removeObjectAtIndex:indexPath.row];
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    
+    [funServer fmDeleteMySharedChannelListWithChannelIndex:indexPath.row];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];    
 }
 
 

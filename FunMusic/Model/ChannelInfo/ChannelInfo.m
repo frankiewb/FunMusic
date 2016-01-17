@@ -8,6 +8,11 @@
 
 #import "ChannelInfo.h"
 
+static NSString *kChannelID    = @"channelID";
+static NSString *kChannelName  = @"channelName";
+static NSString *kChannelIntro = @"channelIntro";
+static NSString *kChannelImage = @"channelImage";
+
 @implementation ChannelInfo
 
 
@@ -38,5 +43,33 @@
     
     return self;
 }
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.channelID forKey:kChannelID];
+    [aCoder encodeObject:self.channelName forKey:kChannelName];
+    [aCoder encodeObject:self.channelIntro forKey:kChannelIntro];
+    [aCoder encodeObject:self.channelImage forKey:kChannelImage];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self)
+    {
+        self.channelID    = [aDecoder decodeObjectForKey:kChannelID];
+        self.channelName  = [aDecoder decodeObjectForKey:kChannelName];
+        self.channelIntro = [aDecoder decodeObjectForKey:kChannelIntro];
+        self.channelImage = [aDecoder decodeObjectForKey:kChannelImage];
+    }
+    
+    return self;
+}
+
+
+
+
+
+
 
 @end

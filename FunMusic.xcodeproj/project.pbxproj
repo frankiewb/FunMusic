@@ -28,6 +28,7 @@
 		10EB09D41C2D10B200A76210 /* FunServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09D31C2D10B200A76210 /* FunServer.m */; };
 		10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DB1C2D15A300A76210 /* ChannelGroup.m */; };
 		10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */; };
+		10EBBB821C4B62B600D2612F /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EBBB811C4B62B600D2612F /* Config.m */; };
 		10EC14A01C4652D300E080C4 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC149F1C4652D300E080C4 /* UIColor+Util.m */; };
 		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
 		10ECA4A71C31134C00F745DC /* channelSongStyle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A61C31134C00F745DC /* channelSongStyle.plist */; };
@@ -117,6 +118,8 @@
 		10EB09DB1C2D15A300A76210 /* ChannelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelGroup.m; path = Model/ChannelGroup/ChannelGroup.m; sourceTree = "<group>"; };
 		10EB09DE1C2D206D00A76210 /* AFHTTPSessionManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPSessionManager+Util.h"; path = "Categories/AFHTTPSessionManager+Util.h"; sourceTree = "<group>"; };
 		10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+Util.m"; path = "Categories/AFHTTPSessionManager+Util.m"; sourceTree = "<group>"; };
+		10EBBB801C4B62B600D2612F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = Config/Config.h; sourceTree = "<group>"; };
+		10EBBB811C4B62B600D2612F /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Config.m; path = Config/Config.m; sourceTree = "<group>"; };
 		10EC149E1C4652D300E080C4 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Util.h"; path = "Categories/UIColor+Util.h"; sourceTree = "<group>"; };
 		10EC149F1C4652D300E080C4 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Util.m"; path = "Categories/UIColor+Util.m"; sourceTree = "<group>"; };
 		10ECA4A41C31112500F745DC /* channelRecomand.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelRecomand.plist; path = Resource/channelRecomand.plist; sourceTree = "<group>"; };
@@ -251,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				10EB09A71C2CE87C00A76210 /* Application */,
+				10EBBB7F1C4B629B00D2612F /* Config */,
 				10F0A9B41C2E4783001E76DE /* Utils */,
 				10EB09D11C2CF20E00A76210 /* FunServer */,
 				10EF32441C4384B100D91DA5 /* MainView */,
@@ -404,6 +408,15 @@
 				10EC149F1C4652D300E080C4 /* UIColor+Util.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		10EBBB7F1C4B629B00D2612F /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				10EBBB801C4B62B600D2612F /* Config.h */,
+				10EBBB811C4B62B600D2612F /* Config.m */,
+			);
+			name = Config;
 			sourceTree = "<group>";
 		};
 		10ECA4A91C32307200F745DC /* Search */ = {
@@ -806,6 +819,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10F471E81C2FEACE006DECAC /* ChannelViewController.m in Sources */,
+				10EBBB821C4B62B600D2612F /* Config.m in Sources */,
 				10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */,
 				10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */,
 				10EA69221C37B49000B189EB /* TweetCell.m in Sources */,

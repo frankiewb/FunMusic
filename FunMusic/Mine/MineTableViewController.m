@@ -17,8 +17,10 @@
 #import "TweetTableVIewController.h"
 #import "SharedChannelTableController.h"
 #import "UIColor+Util.h"
+#import "Config.h"
 #import <RESideMenu.h>
 #import <Masonry.h>
+#import <MBProgressHUD.h>
 
 static const CGFloat kHeaderViewHeight            = 160;
 static const CGFloat kUserImageViewSide           = 80;
@@ -30,6 +32,7 @@ static const CGFloat kCellHeight                  = 50;
 static const CGFloat kNameFont                    = 20;
 static const CGFloat kSeperatorLineLeftDistance   = 80;
 static const CGFloat kSeperatorLineRightDistance  = 10;
+static const CGFloat kRefreshSleepTime            = 1;
 
 static NSString *kOPCellID         = @"opCellID";
 static NSString *kDawnAndNightMode = @"dawnAndNightMode";
@@ -153,9 +156,18 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)refreshUserView
 {
-    ([appDelegate isLogin]) ? (_userImageView.userInteractionEnabled = NO) : (_userImageView.userInteractionEnabled = YES);
-    [_userImageView setImage:[UIImage imageNamed:appDelegate.currentUserInfo.userImage]];
-    _userNameLabel.text = appDelegate.currentUserInfo.userName;
+    if ([appDelegate isLogin])
+    {
+        _userImageView.userInteractionEnabled = NO;
+        [_userImageView setImage:[UIImage imageNamed:appDelegate.currentUserInfo.userImage]];
+        _userNameLabel.text = appDelegate.currentUserInfo.userName;
+    }
+    else
+    {
+        _userImageView.userInteractionEnabled = YES;
+        [_userImageView setImage:[UIImage imageNamed:@"userDefaultImage"]];
+        _userNameLabel.text = @"未登录";        
+    }
 }
 
 
@@ -191,6 +203,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
             [self pushMyTweeterView];
             break;
         case mineOPTypeClearCache:
+            [self clearAllUserDefaultData];
             break;
         case mineOPTypeNightMode:
             [self pushDawnAndNightMode];
@@ -233,6 +246,26 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 #pragma common function
 
+
+- (void)clearAllUserDefaultData
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+    hud.labelText = @"清理缓存中";
+    hud.mode = MBProgressHUDModeIndeterminate;
+    //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    {
+        [Config clearAllDataInUserDefaults];
+        [NSThread sleepForTimeInterval:kRefreshSleepTime];
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [hud hide:YES];
+        });
+    });
+}
+
+
+
 - (void)pushDawnAndNightMode
 {
     if (appDelegate.isNightMode)
@@ -243,6 +276,9 @@ typedef NS_ENUM(NSInteger, mineOPType)
     {
         appDelegate.isNightMode = YES;
     }
+    //************调试模式下还需要用，暂且不删********************
+    [Config saveDawnAndNightMode:appDelegate.isNightMode];
+    //*******************************************************
     [[NSNotificationCenter defaultCenter] postNotificationName:kDawnAndNightMode object:nil];
 }
 
