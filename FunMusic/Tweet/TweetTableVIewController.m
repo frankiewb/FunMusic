@@ -13,7 +13,6 @@
 #import "PlayerInfo.h"
 #import "UserInfo.h"
 #import "FunServer.h"
-#import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
 #import "ContentTabBarController.h"
@@ -34,11 +33,10 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 
 @interface TweetTableVIewController ()
 {
-    AppDelegate *appDelegate;
     FunServer *funServer;
     NSMutableArray *tweetInfoGroup;
     ChannelInfo *currentChannelInfo;
-    NSString *userID;
+    tweetViewType tweetType;
 }
 
 @end
@@ -56,21 +54,18 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 }
 
 
-- (instancetype)initWithUserID:(NSString *)ID TweeterName:(NSString *)name
+- (instancetype)initWithType:(tweetViewType)type TweeterName:(NSString *)name
 {
     self = [super init];
     if (self)
     {
-        appDelegate = [[UIApplication sharedApplication] delegate];
         funServer = [[FunServer alloc] init];
-        userID = ID;
+        tweetType = type;
         self.title = name;
     }
     
     return self;
 }
-
-
 
 
 - (void)viewDidLoad
@@ -104,7 +99,7 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 {
     //refresh之前检查是否登录
     
-    if (appDelegate.isLogin)
+    if ([funServer fmIsLogin])
     {
         //开辟异步并发线程
         //子线程更新数据，主线程可以用来显示数据状态，注意GCD可以嵌套
@@ -135,29 +130,10 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 
 - (void)fetchTweetData
 {
-    //本案中，因为数据是从本地读取的，故当读取一次后不再读取
-    //这是针对该app情况设计的逻辑，如果有真正的服务器，逻辑应该比此逻辑简单。
     if (!tweetInfoGroup)
     {
-        if ([userID isEqualToString:@"localTweetData"] )
-        {
-            if ([appDelegate.tweetInfoGroup count] == 0)
-            {
-                [funServer fmGetTweetInfoInLocal];
-            }
-            tweetInfoGroup = appDelegate.tweetInfoGroup;
-        }
-        else if ([userID isEqualToString:@"mine"])
-        {
-            tweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
-        }
-        else
-        {
-            tweetInfoGroup = [funServer fmGetTweetInfoWithUserID:userID];
-        }
-        
+        tweetInfoGroup = [funServer fmGetTweetInfoWithType:tweetType];
     }
-    
 }
 
 
@@ -177,55 +153,35 @@ static NSString *kTweetCellID                    = @"TweetCellID";
     
     //**********************SetTweetBlock Function******************************************************
     __weak TweetTableVIewController *weakSelf = self;
-    __weak NSMutableArray *weakTweetInfoGroup = appDelegate.tweetInfoGroup;
-    __weak NSMutableArray *weakMyTweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
-    __weak AppDelegate *weakAppDelegate = appDelegate;
     __weak FunServer *weakFunServer = funServer;
     __weak TweetTableVIewController *weakMainTweetCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakTweetCtl;
     tweetCell.deleteTweetCell = ^(NSString *tweetID)
     {
-        NSInteger tweetIndex = [weakFunServer searchTweetInfoWithID:tweetID isMyTweetGroup:NO];
-        [weakTweetInfoGroup removeObjectAtIndex:tweetIndex];
-        NSInteger myTweetIndex = [weakFunServer searchTweetInfoWithID:tweetID isMyTweetGroup:YES];
-        [weakMyTweetInfoGroup removeObjectAtIndex:myTweetIndex];
-        //************调试模式下还需要用，暂且不删********************
-        [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
-        [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
-        //********************************************************
-        
-        //TO DO ...
-        //updateServer()
-        //Reload TableView
-        [self.tableView reloadData];
-        if (![userID isEqualToString:@"localTweetData"])
+        [weakFunServer fmDeleteTweetInfoWithTweetID:tweetID];
+        [weakSelf.tableView reloadData];
+        if (tweetType != tweetViewTypeLocal)
         {
             [weakMainTweetCtl.tableView reloadData];
         }
-        
     };
     
     tweetCell.scrollView = ^(NSInteger index, NSString *channelName)
     {
-        ChannelInfo *channelInfo = [weakFunServer searchChannelInfoWithName:channelName];
-        currentChannelInfo = [weakAppDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:channelInfo];
-        //************调试模式下还需要用，暂且不删********************
-        [Config saveCurrentChannelInfo:currentChannelInfo];
-        //*******************************************************
+        ChannelInfo *channelInfo = [weakFunServer fmSearchChannelInfoWithName:channelName];
+        [weakFunServer fmUpdateCurrentChannelInfo:channelInfo];
         [weakFunServer fmSongOperationWithType:SongOperationTypeNext];
-        ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = 0;
+        ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = funViewTypeMusic;
     };
     
     tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike, BOOL isMine)
     {
         [weakFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike isMineTweet:isMine];
-        [self.tableView reloadData];
-        if (![userID isEqualToString:@"localTweetData"])
+        [weakSelf.tableView reloadData];
+        if (tweetType != tweetViewTypeLocal)
         {
             [weakMainTweetCtl.tableView reloadData];
         }
-        
     };
-    
     //****************************************************************************************************
 
     return tweetCell;

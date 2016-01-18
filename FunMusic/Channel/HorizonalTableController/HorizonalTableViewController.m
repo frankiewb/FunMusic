@@ -8,7 +8,6 @@
 
 #import "HorizonalTableViewController.h"
 #import "UIColor+Util.h"
-#import "Common.h"
 
 
 static NSString *kHorizonalCellID = @"HorizonalCell";
@@ -81,27 +80,20 @@ static NSString *kHorizonalCellID = @"HorizonalCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //注意：此时table已经逆时针旋转90度，而且每个cell又顺时针旋转90度，又由于一个cell占满整个tableviewframe
-    //所有table中每个row的高度实际上是一个tableviewframe的宽度。
-    
+    //所有table中每个row的高度实际上是一个tableviewframe的宽度。    
     return tableView.frame.size.width;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kHorizonalCellID forIndexPath:indexPath];
-    
     //将已经逆时针90度转向的tableview中的cell再顺时针转向90度，这样cell就正过来了
     cell.contentView.transform = CGAffineTransformMakeRotation(M_PI_2);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     //每当选中哪个cell，展示哪个controller对应的view
     UIViewController *controller = _controllers[indexPath.row];
-    
     //严重区分！！Frame和size区别！！真是大坑！！ 
     controller.view.frame = cell.contentView.bounds;
-    
-    
-    
     [cell.contentView addSubview:controller.view];
     
     return cell;

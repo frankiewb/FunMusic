@@ -7,13 +7,12 @@
 //
 
 #import "SideMenuViewController.h"
-#import "SideMenuInfo.h"
-#import "AppDelegate.h"
 #import "UserInfo.h"
 #import "SideMenuCell.h"
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
 #import "ContentTabBarController.h"
+#import "FunServer.h"
 #import "UIColor+Util.h"
 #import "Config.h"
 #import <RESideMenu.h>
@@ -46,7 +45,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 @interface SideMenuViewController ()
 {
-    AppDelegate *appDelegate;
+    FunServer *funServer;
     NSMutableArray *sideMenuOperationLists;
 }
 
@@ -80,7 +79,8 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     self = [super init];
     if (self)
     {
-        appDelegate = [[UIApplication sharedApplication] delegate];
+        funServer = [[FunServer alloc] init];
+        
     }
     
     return self;
@@ -94,7 +94,10 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor themeColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
-    [self setUpOperationInfo];
+    if (!sideMenuOperationLists)
+    {
+        sideMenuOperationLists = [funServer fmGetSideMenuInfo];
+    }    
     [self setUpHeaderView];
     self.tableView.tableHeaderView = _sideHeaderView;
     [self.tableView registerClass:[SideMenuCell class] forCellReuseIdentifier:kOPCellID];
@@ -107,25 +110,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 
 
-- (void)setUpOperationInfo
-{
-    NSArray *operationNameLists = @[@"频道",@"音乐圈",@"清除缓存",@"夜间模式",@"注销登录"];
-    NSArray *operationImageNameLists = @[@"频道",@"音乐圈",@"缓存",@"夜间模式",@"注销"];
-    if (!sideMenuOperationLists)
-    {
-        sideMenuOperationLists = [[NSMutableArray alloc] init];
-    }
-    
-    __weak NSMutableArray *weakSideMenuOpLists = sideMenuOperationLists;
-    
-    [operationNameLists enumerateObjectsUsingBlock:^(NSString *opName, NSUInteger idx, BOOL *stop)
-     {
-         SideMenuInfo *opInfo = [[SideMenuInfo alloc] init];
-         opInfo.operationName = opName;
-         opInfo.operationImageName = operationImageNameLists[idx];
-         [weakSideMenuOpLists addObject:opInfo];
-     }];
-}
+
 
 - (void)setUpHeaderView
 {
@@ -179,11 +164,12 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)refreshUserView
 {
-    if ([appDelegate isLogin])
+    if ([funServer fmIsLogin])
     {
         _userImageView.userInteractionEnabled = NO;
-        [_userImageView setImage:[UIImage imageNamed:appDelegate.currentUserInfo.userImage]];
-        _userNameLabel.text = appDelegate.currentUserInfo.userName;
+        UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
+        [_userImageView setImage:[UIImage imageNamed:currentUserInfo.userImage]];
+        _userNameLabel.text = currentUserInfo.userName;
     }
     else
     {
@@ -234,7 +220,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [Config clearAllDataInUserDefaults];
+        [funServer fmClearAllData];
         [NSThread sleepForTimeInterval:kRefreshSleepTime];
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -248,17 +234,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)presentDawnAndNightMode
 {
-    if (appDelegate.isNightMode)
-    {
-        appDelegate.isNightMode = FALSE;
-    }
-    else
-    {
-        appDelegate.isNightMode = YES;
-    }
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveDawnAndNightMode:appDelegate.isNightMode];
-    //*******************************************************
+    [funServer fmGetNightMode] ? ([funServer fmSetNightMode:FALSE]) : ([funServer fmSetNightMode:YES]);
     [[NSNotificationCenter defaultCenter] postNotificationName:kDawnAndNightMode object:nil];
 }
 
@@ -298,9 +274,9 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)logOut
 {
-    if ([appDelegate isLogin])
+    if ([funServer fmIsLogin])
     {
-        [appDelegate logOut];
+        [funServer fmLogOut];
         __weak MineTableViewController *weakMineCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakMineCtl;
         [self refreshUserView];
         [weakMineCtl refreshUserView];
@@ -321,8 +297,6 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 }
 
 
-
-
 #pragma TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -336,7 +310,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     [opCell dawnAndNightMode];
     SideMenuInfo *opInfo = sideMenuOperationLists[indexPath.row];
     [opCell setSideMenuCellWithOPInfo:opInfo];
-    if (indexPath.row == sideMenuOPTypeNightMode && appDelegate.isNightMode)
+    if (indexPath.row == sideMenuOPTypeNightMode && [funServer fmGetNightMode])
     {
         [opCell.sideMenuImageView setImage:[UIImage imageNamed:@"日间模式"]];
         opCell.sideMenuNameLabel.text = @"日间模式";

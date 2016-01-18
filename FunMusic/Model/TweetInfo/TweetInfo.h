@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, infoType)
 
 - (instancetype) initWithTweetDic:(NSDictionary *)dict;
 - (instancetype) initWithTweetInfo:(TweetInfo *)tweetInfo;
-- (instancetype) initWithTweeterCommentByLocal:(NSString *)comment Local:(AppDelegate *)appDelegate;
+- (instancetype) initWithTweeterCommentByLocal:(NSString *)comment;
 
 @end
 

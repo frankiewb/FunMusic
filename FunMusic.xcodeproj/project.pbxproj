@@ -28,6 +28,7 @@
 		10EB09D41C2D10B200A76210 /* FunServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09D31C2D10B200A76210 /* FunServer.m */; };
 		10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DB1C2D15A300A76210 /* ChannelGroup.m */; };
 		10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */; };
+		10EB18521C4CC2DD00BE5701 /* MenuInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB18511C4CC2DD00BE5701 /* MenuInfo.m */; };
 		10EBBB821C4B62B600D2612F /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EBBB811C4B62B600D2612F /* Config.m */; };
 		10EC14A01C4652D300E080C4 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC149F1C4652D300E080C4 /* UIColor+Util.m */; };
 		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
@@ -40,7 +41,6 @@
 		10EF32471C43850300D91DA5 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32461C43850300D91DA5 /* MainView.m */; };
 		10EF32531C4490A200D91DA5 /* SideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32501C4490A200D91DA5 /* SideMenuCell.m */; };
 		10EF32541C4490A200D91DA5 /* SideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32521C4490A200D91DA5 /* SideMenuViewController.m */; };
-		10EF32571C44923900D91DA5 /* SideMenuInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF32561C44923900D91DA5 /* SideMenuInfo.m */; };
 		10F02B6B1C390125002DC9A1 /* localTweetData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F02B6A1C390125002DC9A1 /* localTweetData.plist */; };
 		10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9B61C2E47BE001E76DE /* Utils.m */; };
 		10F0A9BE1C2E5C65001E76DE /* TitlebarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */; };
@@ -54,7 +54,6 @@
 		10F471FA1C310901006DECAC /* channelFeeling.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F471F91C310901006DECAC /* channelFeeling.plist */; };
 		10F471FC1C310DA2006DECAC /* channelLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F471FB1C310DA1006DECAC /* channelLanguage.plist */; };
 		10FB509F1C3DFB6E00572D04 /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB509E1C3DFB6E00572D04 /* MineTableViewController.m */; };
-		10FB50A31C3E3AF500572D04 /* MineOperationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB50A21C3E3AF500572D04 /* MineOperationInfo.m */; };
 		10FB50A61C3E435700572D04 /* MineOPCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB50A51C3E435700572D04 /* MineOPCell.m */; };
 		1FADF1654E2BDF5DFD383F5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17D75A435202DCA54CA3194C /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -118,6 +117,8 @@
 		10EB09DB1C2D15A300A76210 /* ChannelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelGroup.m; path = Model/ChannelGroup/ChannelGroup.m; sourceTree = "<group>"; };
 		10EB09DE1C2D206D00A76210 /* AFHTTPSessionManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPSessionManager+Util.h"; path = "Categories/AFHTTPSessionManager+Util.h"; sourceTree = "<group>"; };
 		10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+Util.m"; path = "Categories/AFHTTPSessionManager+Util.m"; sourceTree = "<group>"; };
+		10EB18501C4CC2DD00BE5701 /* MenuInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuInfo.h; path = Model/MenuInfo/MenuInfo.h; sourceTree = "<group>"; };
+		10EB18511C4CC2DD00BE5701 /* MenuInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuInfo.m; path = Model/MenuInfo/MenuInfo.m; sourceTree = "<group>"; };
 		10EBBB801C4B62B600D2612F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = Config/Config.h; sourceTree = "<group>"; };
 		10EBBB811C4B62B600D2612F /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Config.m; path = Config/Config.m; sourceTree = "<group>"; };
 		10EC149E1C4652D300E080C4 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Util.h"; path = "Categories/UIColor+Util.h"; sourceTree = "<group>"; };
@@ -138,14 +139,11 @@
 		10EF32501C4490A200D91DA5 /* SideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuCell.m; path = SideMenuView/SideMenuCell.m; sourceTree = "<group>"; };
 		10EF32511C4490A200D91DA5 /* SideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuViewController.h; path = SideMenuView/SideMenuViewController.h; sourceTree = "<group>"; };
 		10EF32521C4490A200D91DA5 /* SideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuViewController.m; path = SideMenuView/SideMenuViewController.m; sourceTree = "<group>"; };
-		10EF32551C44923900D91DA5 /* SideMenuInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuInfo.h; path = Model/SideMenuInfo/SideMenuInfo.h; sourceTree = "<group>"; };
-		10EF32561C44923900D91DA5 /* SideMenuInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuInfo.m; path = Model/SideMenuInfo/SideMenuInfo.m; sourceTree = "<group>"; };
 		10F02B6A1C390125002DC9A1 /* localTweetData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = localTweetData.plist; path = Resource/localTweetData.plist; sourceTree = "<group>"; };
 		10F0A9B51C2E47BE001E76DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
 		10F0A9B61C2E47BE001E76DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Utils/Utils.m; sourceTree = "<group>"; };
 		10F0A9BC1C2E5C65001E76DE /* TitlebarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitlebarView.h; path = Channel/TitleBarView/TitlebarView.h; sourceTree = "<group>"; };
 		10F0A9BD1C2E5C65001E76DE /* TitlebarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitlebarView.m; path = Channel/TitleBarView/TitlebarView.m; sourceTree = "<group>"; };
-		10F0A9BF1C2E5F1A001E76DE /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Common.h; path = Application/Common.h; sourceTree = "<group>"; };
 		10F0A9C21C2E66F3001E76DE /* HorizonalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HorizonalTableViewController.h; path = Channel/HorizonalTableController/HorizonalTableViewController.h; sourceTree = "<group>"; };
 		10F0A9C31C2E66F3001E76DE /* HorizonalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HorizonalTableViewController.m; path = Channel/HorizonalTableController/HorizonalTableViewController.m; sourceTree = "<group>"; };
 		10F0A9CA1C2FAEDB001E76DE /* ChannelGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelGroupController.h; path = Channel/ChannelGroupController/ChannelGroupController.h; sourceTree = "<group>"; };
@@ -164,8 +162,6 @@
 		10F471FB1C310DA1006DECAC /* channelLanguage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = channelLanguage.plist; path = Resource/channelLanguage.plist; sourceTree = "<group>"; };
 		10FB509D1C3DFB6E00572D04 /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineTableViewController.h; path = Mine/MineTableViewController.h; sourceTree = "<group>"; };
 		10FB509E1C3DFB6E00572D04 /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineTableViewController.m; path = Mine/MineTableViewController.m; sourceTree = "<group>"; };
-		10FB50A11C3E3AF500572D04 /* MineOperationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineOperationInfo.h; path = Model/MineOperationInfo/MineOperationInfo.h; sourceTree = "<group>"; };
-		10FB50A21C3E3AF500572D04 /* MineOperationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineOperationInfo.m; path = Model/MineOperationInfo/MineOperationInfo.m; sourceTree = "<group>"; };
 		10FB50A41C3E435700572D04 /* MineOPCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineOPCell.h; path = Mine/MineOPCell.h; sourceTree = "<group>"; };
 		10FB50A51C3E435700572D04 /* MineOPCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineOPCell.m; path = Mine/MineOPCell.m; sourceTree = "<group>"; };
 		17D75A435202DCA54CA3194C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,7 +303,6 @@
 		10EB09A71C2CE87C00A76210 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				10F0A9BF1C2E5F1A001E76DE /* Common.h */,
 				10EB09A81C2CE90500A76210 /* AppDelegate.h */,
 				10EB09A91C2CE90500A76210 /* AppDelegate.m */,
 				10EB09821C2CE01500A76210 /* LaunchScreen.storyboard */,
@@ -319,8 +314,7 @@
 		10EB09AB1C2CE91200A76210 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				10EF324B1C43C0AB00D91DA5 /* SideMenuInfo */,
-				10FB50A01C3E3AC500572D04 /* MineOpertionInfo */,
+				10FB50A01C3E3AC500572D04 /* MenuInfo */,
 				10EA69151C3772DD00B189EB /* TweetInfo */,
 				10EB09CA1C2CEF7800A76210 /* UserInfo */,
 				10EB09C91C2CEF6600A76210 /* LogInfo */,
@@ -466,15 +460,6 @@
 			name = MainView;
 			sourceTree = "<group>";
 		};
-		10EF324B1C43C0AB00D91DA5 /* SideMenuInfo */ = {
-			isa = PBXGroup;
-			children = (
-				10EF32551C44923900D91DA5 /* SideMenuInfo.h */,
-				10EF32561C44923900D91DA5 /* SideMenuInfo.m */,
-			);
-			name = SideMenuInfo;
-			sourceTree = "<group>";
-		};
 		10F02B681C3900EB002DC9A1 /* ChannelData */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,13 +586,13 @@
 			name = Mine;
 			sourceTree = "<group>";
 		};
-		10FB50A01C3E3AC500572D04 /* MineOpertionInfo */ = {
+		10FB50A01C3E3AC500572D04 /* MenuInfo */ = {
 			isa = PBXGroup;
 			children = (
-				10FB50A11C3E3AF500572D04 /* MineOperationInfo.h */,
-				10FB50A21C3E3AF500572D04 /* MineOperationInfo.m */,
+				10EB18501C4CC2DD00BE5701 /* MenuInfo.h */,
+				10EB18511C4CC2DD00BE5701 /* MenuInfo.m */,
 			);
-			name = MineOpertionInfo;
+			name = MenuInfo;
 			sourceTree = "<group>";
 		};
 		412BB81B349FF85E37A68018 /* Frameworks */ = {
@@ -820,6 +805,7 @@
 			files = (
 				10F471E81C2FEACE006DECAC /* ChannelViewController.m in Sources */,
 				10EBBB821C4B62B600D2612F /* Config.m in Sources */,
+				10EB18521C4CC2DD00BE5701 /* MenuInfo.m in Sources */,
 				10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */,
 				10F0A9D01C2FC177001E76DE /* ChannelCell.m in Sources */,
 				10EA69221C37B49000B189EB /* TweetCell.m in Sources */,
@@ -834,8 +820,6 @@
 				10EA69181C37730100B189EB /* TweetInfo.m in Sources */,
 				10F0A9B71C2E47BE001E76DE /* Utils.m in Sources */,
 				10EB09D01C2CF07E00A76210 /* LogInfo.m in Sources */,
-				10FB50A31C3E3AF500572D04 /* MineOperationInfo.m in Sources */,
-				10EF32571C44923900D91DA5 /* SideMenuInfo.m in Sources */,
 				10EB09C21C2CEAE300A76210 /* PlayerInfo.m in Sources */,
 				10F1BEB51C3E7B490007AC3F /* LoginViewController.m in Sources */,
 				10EB09731C2CE01500A76210 /* main.m in Sources */,

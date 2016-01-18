@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MineOperationInfo : NSObject
+@interface MenuInfo : NSObject
 
-@property (nonatomic, copy) NSString *operationName;
-@property (nonatomic, copy) NSString *operationImageName;
+@property (nonatomic, copy) NSString *menuName;
+@property (nonatomic, copy) NSString *menuImageName;
 
 @end

@@ -39,20 +39,7 @@
     });
 }
 
-- (BOOL)isLogin
-{
-    BOOL islogin;
-    _currentUserInfo.isLogin ? (islogin = TRUE) : (islogin = FALSE);
-    return islogin;
-}
 
-- (void)logOut
-{
-    _currentUserInfo.isLogin = FALSE;
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveUserInfo:_currentUserInfo];
-    //********************************************************
-}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {

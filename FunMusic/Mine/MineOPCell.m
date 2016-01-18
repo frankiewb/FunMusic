@@ -7,7 +7,7 @@
 //
 
 #import "MineOPCell.h"
-#import "MineOperationInfo.h"
+#import "MenuInfo.h"
 #import "UIColor+Util.h"
 #import <Masonry.h>
 
@@ -84,10 +84,10 @@ static const CGFloat kEdgeDistance       = 10;
     }];
 }
 
-- (void)setMineOPCellWithOPInfo:(MineOperationInfo *)opInfo
+- (void)setMineOPCellWithOPInfo:(MenuInfo *)menuInfo
 {
-    [_opImageView setImage:[UIImage imageNamed:opInfo.operationImageName]];
-    _opNameLabel.text = opInfo.operationName;
+    [_opImageView setImage:[UIImage imageNamed:menuInfo.menuImageName]];
+    _opNameLabel.text = menuInfo.menuName;
 }
 
 @end

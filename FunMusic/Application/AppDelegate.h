@@ -15,14 +15,6 @@
 @class ChannelGroup;
 
 
-typedef NS_ENUM(NSInteger,funViewType)
-{
-    funViewTypeMusic = 0,
-    funViewTypeChannel,
-    funViewTypeTweeter,
-    funViewTypeMine,
-};
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
@@ -42,8 +34,6 @@ typedef NS_ENUM(NSInteger,funViewType)
 @property (nonatomic, readonly, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, readonly, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-- (BOOL)isLogin;
-- (void)logOut;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

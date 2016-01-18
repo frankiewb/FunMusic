@@ -11,7 +11,7 @@
 #import "ChannelInfo.h"
 #import "PlayerInfo.h"
 #import "UserInfo.h"
-#import "AppDelegate.h"
+#import "FunServer.h"
 #import "NSDate+Util.h"
 
 
@@ -40,9 +40,6 @@ static NSString *kTweeterType    = @"tweeterType";
 static NSString *kInfoType       = @"infoType";
 static NSString *kCellHeight     = @"cellHeight";
 
-
-
-#define USERIMAGEURL @"http://img3.douban.com/icon/ul%@-1.jpg"
 @implementation TweetInfo
 
 
@@ -76,12 +73,12 @@ static NSString *kCellHeight     = @"cellHeight";
 
 
 
-- (instancetype)initWithTweeterCommentByLocal:(NSString *)comment Local:(AppDelegate *)appDelegate
+- (instancetype)initWithTweeterCommentByLocal:(NSString *)comment
 {
     self = [super init];
     if (self)
     {
-        NSDictionary *localTweet = [self gennerateLocalTweeterDictionaryWithComment:comment Local:appDelegate];
+        NSDictionary *localTweet = [self gennerateLocalTweeterDictionaryWithComment:comment];
         return  [self initWithTweetDic:localTweet];
     }
     
@@ -89,13 +86,15 @@ static NSString *kCellHeight     = @"cellHeight";
 }
 
 
-- (NSDictionary *)gennerateLocalTweeterDictionaryWithComment:(NSString *)comment Local:(AppDelegate *)appDelegate
+- (NSDictionary *)gennerateLocalTweeterDictionaryWithComment:(NSString *)comment
 {
-    
-    NSString *tweeterImage = appDelegate.currentUserInfo.userImage;
-    NSString *tweeterName  = appDelegate.currentUserInfo.userName;
-    NSString *channelName  = appDelegate.currentPlayerInfo.currentChannel.channelName;
-    NSString *channelImage = appDelegate.currentPlayerInfo.currentChannel.channelImage;
+    FunServer *funServer = [[FunServer alloc] init];
+    UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
+    PlayerInfo *currentPlayerInfo = [funServer fmGetCurrentPlayerInfo];
+    NSString *tweeterImage = currentUserInfo.userImage;
+    NSString *tweeterName  = currentUserInfo.userName;
+    NSString *channelName  = currentPlayerInfo.currentChannel.channelName;
+    NSString *channelImage = currentPlayerInfo.currentChannel.channelImage;
     //理论上本地发布的时间应该以服务器时间为准，毕竟本地时间不实标准时间
     NSString *tweetDate = [NSDate gennerateCurrentTimeString];
     //本地产生的tweetID暂时采用时间作为标示，但是服务器后台应该有一个唯一的ID标示位

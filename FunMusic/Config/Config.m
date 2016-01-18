@@ -48,7 +48,6 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@(isNightMode) forKey:kNightModeKey];
     [userDefaults synchronize];
-    NSLog(@"夜间模式状态存档完毕");
 }
 
 //如果不存在返回NO
@@ -56,7 +55,6 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL isNightMode = [[userDefaults objectForKey:kNightModeKey] boolValue];
-    NSLog(@"夜间模式状态读档完毕");
     return isNightMode;
 }
 
@@ -73,7 +71,6 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     [self saveUserTweetList:userInfo.userTweeterList];
     [self saveUserSharedChannelList:userInfo.userSharedChannelLists];
     [userDefaults synchronize];
-    NSLog(@"用户信息存档完毕");
 }
 
 + (UserInfo *)getUserInfo
@@ -86,7 +83,6 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     userInfo.userImage = [userDefaults objectForKey:kUserImage];
     userInfo.userTweeterList = [self getUserTweetList];
     userInfo.userSharedChannelLists = [self getUserSharedChannelList];
-    NSLog(@"用户信息读档完毕");
     
     return userInfo;
     
@@ -207,7 +203,6 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     NSData *currentChannelData = [NSKeyedArchiver archivedDataWithRootObject:channelInfo];
     [userDefaults setObject:currentChannelData forKey:kCurrentChannelInfo];
     [userDefaults synchronize];
-    NSLog(@"当前频道存档完毕");
 }
 
 + (ChannelInfo *)getCurrentChannelInfo
@@ -215,7 +210,6 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *currentChannelData = [userDefaults objectForKey:kCurrentChannelInfo];
     ChannelInfo *currentChannelInfo = [NSKeyedUnarchiver unarchiveObjectWithData:currentChannelData];
-    NSLog(@"当前频道读档完毕");
     return currentChannelInfo;
 }
 

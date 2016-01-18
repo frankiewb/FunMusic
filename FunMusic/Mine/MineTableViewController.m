@@ -7,8 +7,6 @@
 //
 
 #import "MineTableViewController.h"
-#import "AppDelegate.h"
-#import "MineOperationInfo.h"
 #import "MineOPCell.h"
 #import "FunServer.h"
 #import "UserInfo.h"
@@ -18,6 +16,7 @@
 #import "SharedChannelTableController.h"
 #import "UIColor+Util.h"
 #import "Config.h"
+#import "FunServer.h"
 #import <RESideMenu.h>
 #import <Masonry.h>
 #import <MBProgressHUD.h>
@@ -49,9 +48,8 @@ typedef NS_ENUM(NSInteger, mineOPType)
 @interface MineTableViewController ()
 
 {
-    AppDelegate *appDelegate;
     FunServer *funServer;
-    NSMutableArray *mineOperationLists;
+    NSMutableArray *mineOperationList;
 }
 
 @property (nonatomic, strong) UIView *mineHeaderView;
@@ -81,7 +79,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     self = [super init];
     if (self)
     {
-        appDelegate = [[UIApplication sharedApplication] delegate];
+        funServer = [[FunServer alloc] init];
     }
     
     return self;
@@ -93,7 +91,11 @@ typedef NS_ENUM(NSInteger, mineOPType)
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor themeColor];
     self.title = @"我";
-        [self setUpOperationInfo];
+    if (!mineOperationList)
+    {
+        mineOperationList = [funServer fmGetMineMenuInfo];
+    }
+
     [self setUpHeaderView];
     self.tableView.tableHeaderView = _mineHeaderView;
     [self.tableView registerClass:[MineOPCell class] forCellReuseIdentifier:kOPCellID];
@@ -101,25 +103,6 @@ typedef NS_ENUM(NSInteger, mineOPType)
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //解决分割线的距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
-}
-
-- (void)setUpOperationInfo
-{
-    NSArray *operationNameLists = @[@"我的频道",@"我的音乐圈",@"清除缓存",@"夜间模式"];
-    NSArray *operationImageNameLists = @[@"频道",@"音乐圈",@"缓存",@"夜间模式"];
-    if (!mineOperationLists)
-    {
-        mineOperationLists = [[NSMutableArray alloc] init];
-    }
-    __weak NSMutableArray *weakMineOpLists = mineOperationLists;
-    
-    [operationNameLists enumerateObjectsUsingBlock:^(NSString *opName, NSUInteger idx, BOOL *stop)
-    {
-        MineOperationInfo *opInfo = [[MineOperationInfo alloc] init];
-        opInfo.operationName = opName;
-        opInfo.operationImageName = operationImageNameLists[idx];
-        [weakMineOpLists addObject:opInfo];
-    }];
 }
 
 
@@ -156,11 +139,12 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)refreshUserView
 {
-    if ([appDelegate isLogin])
+    if ([funServer fmIsLogin])
     {
         _userImageView.userInteractionEnabled = NO;
-        [_userImageView setImage:[UIImage imageNamed:appDelegate.currentUserInfo.userImage]];
-        _userNameLabel.text = appDelegate.currentUserInfo.userName;
+        UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
+        [_userImageView setImage:[UIImage imageNamed:currentUserInfo.userImage]];
+        _userNameLabel.text = currentUserInfo.userName;
     }
     else
     {
@@ -217,16 +201,16 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return mineOperationLists.count;
+    return mineOperationList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MineOPCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
     [opCell dawnAndNightMode];
-    MineOperationInfo *opInfo = mineOperationLists[indexPath.row];
+    MineOperationInfo *opInfo = mineOperationList[indexPath.row];
     [opCell setMineOPCellWithOPInfo:opInfo];
-    if (indexPath.row == mineOPTypeNightMode && appDelegate.isNightMode)
+    if (indexPath.row == mineOPTypeNightMode && [funServer fmGetNightMode])
     {
         [opCell.opImageView setImage:[UIImage imageNamed:@"日间模式"]];
         opCell.opNameLabel.text = @"日间模式";
@@ -255,7 +239,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [Config clearAllDataInUserDefaults];
+        [funServer fmClearAllData];
         [NSThread sleepForTimeInterval:kRefreshSleepTime];
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -268,17 +252,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)pushDawnAndNightMode
 {
-    if (appDelegate.isNightMode)
-    {
-        appDelegate.isNightMode = FALSE;
-    }
-    else
-    {
-        appDelegate.isNightMode = YES;
-    }
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveDawnAndNightMode:appDelegate.isNightMode];
-    //*******************************************************
+    [funServer fmGetNightMode] ? ([funServer fmSetNightMode:FALSE]) : ([funServer fmSetNightMode:YES]);
     [[NSNotificationCenter defaultCenter] postNotificationName:kDawnAndNightMode object:nil];
 }
 
@@ -302,9 +276,9 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)pushMyTweeterView
 {
-    if ([appDelegate isLogin])
+    if ([funServer fmIsLogin])
     {
-        TweetTableVIewController *myTweetCtl = [[TweetTableVIewController alloc] initWithUserID:@"mine" TweeterName:@"我的音乐圈"];
+        TweetTableVIewController *myTweetCtl = [[TweetTableVIewController alloc] initWithType:tweetViewTypeMine TweeterName:@"我的音乐圈"];
         myTweetCtl.hidesBottomBarWhenPushed = YES;
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                                  style:UIBarButtonItemStylePlain
@@ -329,7 +303,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)pushMyChannelView
 {
-    if ([appDelegate isLogin])
+    if ([funServer fmIsLogin])
     {
         SharedChannelTableController *sharedChannelCtl = [[SharedChannelTableController alloc] init];
         __weak MineTableViewController *weakSelf = self;

@@ -7,7 +7,7 @@
 //
 
 #import "SideMenuCell.h"
-#import "SideMenuInfo.h"
+#import "MenuInfo.h"
 #import "UIColor+Util.h"
 #import <Masonry.h>
 
@@ -83,10 +83,10 @@ static const CGFloat kEdgeDistance       = 10;
      }];
 }
 
-- (void)setSideMenuCellWithOPInfo:(SideMenuInfo *)sideMenuInfo
+- (void)setSideMenuCellWithOPInfo:(MenuInfo *)menuInfo
 {
-    [_sideMenuImageView setImage:[UIImage imageNamed:sideMenuInfo.operationImageName]];
-    _sideMenuNameLabel.text = sideMenuInfo.operationName;
+    [_sideMenuImageView setImage:[UIImage imageNamed:menuInfo.menuImageName]];
+    _sideMenuNameLabel.text = menuInfo.menuName;
 }
 
 

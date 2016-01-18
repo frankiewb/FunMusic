@@ -18,7 +18,6 @@
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
 #import "FunServer.h"
-#import "AppDelegate.h"
 #import "SideMenuViewController.h"
 #import "UIColor+Util.h"
 #import <MBProgressHUD.h>
@@ -35,7 +34,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 @interface ContentTabBarController ()
 {
     __weak ContentTabBarController *weakSelf;
-    AppDelegate *appDelegate;
+    FunServer *funServer;
 }
 
 @end
@@ -46,45 +45,32 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 {
     [self.viewControllers enumerateObjectsUsingBlock:^(UINavigationController *nav, NSUInteger idx, BOOL *stop)
      {
+         
+         UIViewController *viewCtl = nav.viewControllers[0];
+         [viewCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
+         [viewCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
+         [viewCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                    [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
+                                                                                    [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];         
         if (idx == funViewTypeMusic)
         {
             MusicPlayerViewController *musicPlayerCtl = nav.viewControllers[0];
             [musicPlayerCtl dawnAndNightMode];
-            [musicPlayerCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
-            [musicPlayerCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
-            [musicPlayerCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                       [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
-                                                                                       [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
         }
         else if (idx == funViewTypeChannel)
         {
             ChannelViewController *channelCtl = nav.viewControllers[0];
             [channelCtl dawnAndNightMode];
-            [channelCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
-            [channelCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
-            [channelCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                       [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
-                                                                                       [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
         }
         else if (idx == funViewTypeTweeter)
         {
             TweetTableVIewController *tweetCtl = nav.viewControllers[0];
             [tweetCtl dawnAndNightMode];
-            [tweetCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
-            [tweetCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
-            [tweetCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                   [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
-                                                                                   [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
         }
         else if (idx == funViewTypeMine)
         {
             MineTableViewController *mineCtl = nav.viewControllers[0];
             [mineCtl dawnAndNightMode];
-            [mineCtl.navigationController.navigationBar setBarTintColor:[UIColor navigationBarColor]];
-            [mineCtl.tabBarController.tabBar setBarTintColor:[UIColor tabbarColor]];
-            [mineCtl.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                 [UIColor navigationBarTextColor],NSForegroundColorAttributeName,
-                                                                                 [UIFont systemFontOfSize:kNavigationTextFont],NSFontAttributeName,nil]];
         }
      }];
 }
@@ -99,8 +85,8 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor themeColor]];
-    [[UITabBar appearance] setBarTintColor:[UIColor themeColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor navigationBarColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor tabbarColor]];
     //之所以放在这里主要是照顾到TabBar和NavigationBar的颜色设置问题
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
 }
@@ -108,8 +94,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    appDelegate = [[UIApplication sharedApplication] delegate];
-    
+    funServer = [[FunServer alloc] init];
     
     NSArray *channelGroupNames = @[@"推荐",@"语言",@"风格",@"心情"];
     NSMutableArray *channelGroupCtrList = [[NSMutableArray alloc] init];
@@ -130,7 +115,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
     
     MusicPlayerViewController *musicViewCtl = [[MusicPlayerViewController alloc] init];
     MineTableViewController *mineViewCtl = [[MineTableViewController alloc] init];
-    TweetTableVIewController *tweetViewCtl = [[TweetTableVIewController alloc] initWithUserID:@"localTweetData" TweeterName:@"音乐圈"];
+    TweetTableVIewController *tweetViewCtl = [[TweetTableVIewController alloc] initWithType:tweetViewTypeLocal TweeterName:@"音乐圈"];
     _weakTweetCtl = tweetViewCtl;
     _weakMineCtl = mineViewCtl;
     //取消navigationBar的半透明效果
@@ -244,7 +229,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 
 - (void)pushSharedViewController
 {
-    if ([appDelegate isLogin])
+    if ([funServer fmIsLogin])
     {
         SharedViewController *sharedViewCtl = [[SharedViewController alloc] init];
         
@@ -287,7 +272,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 
 - (void)refreshTweeter
 {
-    if ([appDelegate isLogin])
+    if ([funServer fmIsLogin])
     {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:_weakTweetCtl.tableView animated:YES];
         hud.labelText = @"刷新中";

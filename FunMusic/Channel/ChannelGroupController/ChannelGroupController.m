@@ -7,9 +7,7 @@
 //
 
 #import "ChannelGroupController.h"
-#import "Common.h"
 #import "Utils.h"
-#import "AppDelegate.h"
 #import "ChannelCell.h"
 #import "FunServer.h"
 #import "PlayerInfo.h"
@@ -29,7 +27,6 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 @interface ChannelGroupController ()
 {
-    AppDelegate *appDelegate;
     ChannelInfo *currentChannelInfo;
 }
 
@@ -50,7 +47,6 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     self = [super init];
     if (self)
     {
-        appDelegate = [[UIApplication sharedApplication] delegate];
         _funServer = [[FunServer alloc] init];
         _channelGroupName = channelGroupName;
         _channelGroupType = [Utils gennerateChannelGroupTypeWithChannelName:channelGroupName];
@@ -107,8 +103,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     //本案中，因为数据从本地读取的，故当读取一次后不再读取
     if (!_channelGroup)
     {
-        [_funServer fmGetChannelWithTypeInLocal:_channelGroupType];
-        _channelGroup = appDelegate.currentChannelGroup;
+        _channelGroup  = [_funServer fmGetChannelWithTypeInLocal:_channelGroupType];
     }
 }
 
@@ -138,10 +133,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChannelInfo *selectChannelInfo = _channelGroup.channelArray[indexPath.row];
-    currentChannelInfo = [appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelInfo];
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveCurrentChannelInfo:currentChannelInfo];
-    //*******************************************************
+    [_funServer fmUpdateCurrentChannelInfo:selectChannelInfo];
     [_funServer fmSongOperationWithType:SongOperationTypeNext];
     //跳转至首页音乐播放界面
     if (_presidentView)
@@ -150,10 +142,6 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     }
     
 }
-
-
-
-
 
 
 @end

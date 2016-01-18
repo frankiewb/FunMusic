@@ -8,7 +8,6 @@
 
 #import "ChannelCell.h"
 #import "ChannelInfo.h"
-#import "Common.h"
 #import "UIColor+Util.h"
 #import <MarqueeLabel.h>
 #import <Masonry.h>
@@ -131,12 +130,5 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
     _channelDescriptionLabel.text = channelInfo.channelIntro;
 }
 
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

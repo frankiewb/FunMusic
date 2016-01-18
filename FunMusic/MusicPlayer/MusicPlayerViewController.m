@@ -7,7 +7,6 @@
 //
 
 #import "MusicPlayerViewController.h"
-#import "AppDelegate.h"
 #import "PlayerInfo.h"
 #import "SongInfo.h"
 #import "ChannelInfo.h"
@@ -15,6 +14,7 @@
 #import "FunServer.h"
 #import "NSTimer+Util.h"
 #import "UIColor+Util.h"
+#import <MediaPlayer/MediaPlayer.h>
 #import <LDProgressView.h>
 #import <MarqueeLabel.h>
 #import <Masonry.h>
@@ -58,7 +58,6 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 @interface MusicPlayerViewController ()
 {
-    AppDelegate *appDelegate;
     BOOL isPlaying;
     NSTimer *timer;
     NSInteger currentTimeMinutes;
@@ -70,7 +69,8 @@ typedef NS_ENUM(NSInteger, songButtonType)
     NSMutableString *timerLabelSring;
     NSMutableArray *songOperationButtonList;
     FunServer *funServer;
-    
+    PlayerInfo *currentPlayerInfo;
+    MPMoviePlayerController *musicPlayer;
 }
 
 
@@ -100,8 +100,8 @@ typedef NS_ENUM(NSInteger, songButtonType)
 {
     [super viewDidLoad];
     funServer = [[FunServer alloc] init];
-    
-    appDelegate = [[UIApplication sharedApplication] delegate];
+    currentPlayerInfo = [funServer fmGetCurrentPlayerInfo];
+    musicPlayer = [funServer fmGetCurrentMusicPlayer];
     [self setUpUI];
     [self setAutoLayout];
     [self setMusicPlayerInfo];
@@ -131,8 +131,8 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 - (void)updateTimeProgress
 {
-    currentTimeMinutes = (unsigned)appDelegate.MusicPlayer.currentPlaybackTime / 60;
-    currentTimeSeconds = (unsigned)appDelegate.MusicPlayer.currentPlaybackTime % 60;
+    currentTimeMinutes = (unsigned)musicPlayer.currentPlaybackTime / 60;
+    currentTimeSeconds = (unsigned)musicPlayer.currentPlaybackTime % 60;
     
     //专辑图片旋转
     _musicPlayerImage.transform = CGAffineTransformRotate(_musicPlayerImage.transform, M_PI / 1440);
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     }
     timerLabelSring = [NSMutableString stringWithFormat:@"%@/%@",currentTimeString,totalTimeString];
     _timeLabel.text = timerLabelSring;
-    _timeProgressBar.progress = appDelegate.MusicPlayer.currentPlaybackTime/[appDelegate.currentPlayerInfo.currentSong.songTimeLong integerValue];
+    _timeProgressBar.progress = musicPlayer.currentPlaybackTime/[currentPlayerInfo.currentSong.songTimeLong integerValue];
 }
 
 
@@ -329,23 +329,25 @@ typedef NS_ENUM(NSInteger, songButtonType)
     if (![self isFirstResponder])
     {
         //远程控制
+        //************************************
         [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        //************************************
         [self becomeFirstResponder];
     }
     
     //重置旋转图片角度
     _musicPlayerImage.image = nil;
-    NSURL *imageURL = [NSURL URLWithString:appDelegate.currentPlayerInfo.currentSong.songPictureUrl];
+    NSURL *imageURL = [NSURL URLWithString:currentPlayerInfo.currentSong.songPictureUrl];
     [_musicPlayerImage sd_setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"albumBlock-musicPlayer"]];
     
     //初始化各UI界面
-    self.navigationItem.title = [NSString stringWithFormat:@"♪%@♪",appDelegate.currentPlayerInfo.currentChannel.channelName];
-    _songArtistLabel.text = [NSString stringWithFormat:@"——  %@  ——",appDelegate.currentPlayerInfo.currentSong.songArtist];
-    _songTitleLabel.text = [NSString stringWithFormat:@"%@",appDelegate.currentPlayerInfo.currentSong.songTitle];
+    self.navigationItem.title = [NSString stringWithFormat:@"♪%@♪",currentPlayerInfo.currentChannel.channelName];
+    _songArtistLabel.text = [NSString stringWithFormat:@"——  %@  ——",currentPlayerInfo.currentSong.songArtist];
+    _songTitleLabel.text = [NSString stringWithFormat:@"%@",currentPlayerInfo.currentSong.songTitle];
     
     //初始化TimeLabel时间
-    totalTimeSeconds = [appDelegate.currentPlayerInfo.currentSong.songTimeLong integerValue] %60;
-    totalTimeMinutes = [appDelegate.currentPlayerInfo.currentSong.songTimeLong integerValue] /60;
+    totalTimeSeconds = [currentPlayerInfo.currentSong.songTimeLong integerValue] %60;
+    totalTimeMinutes = [currentPlayerInfo.currentSong.songTimeLong integerValue] /60;
     if (totalTimeSeconds < 10)
     {
         totalTimeString = [NSMutableString stringWithFormat:@"%ld:0%ld",(long)totalTimeMinutes,(long)totalTimeSeconds];
@@ -356,7 +358,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     }
     
     //初始化likeButton的图像
-    if (![appDelegate.currentPlayerInfo.currentSong.songIsLike intValue])
+    if (![currentPlayerInfo.currentSong.songIsLike intValue])
     {
         [songOperationButtonList[1] setBackgroundImage:[UIImage imageNamed:@"heart1-musicPlayer"] forState:UIControlStateNormal];
     }
@@ -381,17 +383,17 @@ typedef NS_ENUM(NSInteger, songButtonType)
 {
     if (NSClassFromString(@"MPNowPlayingInfoCenter"))
     {
-        if (appDelegate.currentPlayerInfo.currentSong.songTitle != nil)
+        if (currentPlayerInfo.currentSong.songTitle != nil)
         {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            [dict setObject:appDelegate.currentPlayerInfo.currentSong.songTitle forKey:MPMediaItemPropertyTitle];
-            [dict setObject:appDelegate.currentPlayerInfo.currentSong.songArtist forKey:MPMediaItemPropertyArtist];
+            [dict setObject:currentPlayerInfo.currentSong.songTitle forKey:MPMediaItemPropertyTitle];
+            [dict setObject:currentPlayerInfo.currentSong.songArtist forKey:MPMediaItemPropertyArtist];
             UIImage *playerViewImage = _musicPlayerImage.image;
             if (playerViewImage !=nil)
             {
                 [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:playerViewImage] forKey:MPMediaItemPropertyArtwork];
             }
-            [dict setObject:[NSNumber numberWithFloat:[appDelegate.currentPlayerInfo.currentSong.songTimeLong floatValue]] forKey:MPMediaItemPropertyPlaybackDuration];
+            [dict setObject:[NSNumber numberWithFloat:[currentPlayerInfo.currentSong.songTimeLong floatValue]] forKey:MPMediaItemPropertyPlaybackDuration];
             [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
         }
     }
@@ -424,7 +426,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
         _musicPlayerImage.alpha = kNOPlayingAlpha;
         _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock2-musicPlayer"];
         [songOperationButtonList[0] setBackgroundImage:[UIImage imageNamed:@"play-musicPlayer"] forState:UIControlStateNormal];
-        [appDelegate.MusicPlayer pause];
+        [musicPlayer pause];
         //关闭计时器
         [timer setFireDate:[NSDate distantFuture]];
     }
@@ -434,7 +436,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
         _musicPlayerImage.alpha = kPlayingAlpha;
         _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock-musicPlayer"];
         [songOperationButtonList[0] setBackgroundImage:[UIImage imageNamed:@"pause-musicPlayer"] forState:UIControlStateNormal];
-        [appDelegate.MusicPlayer play];
+        [musicPlayer play];
         //开启计时器
         [timer setFireDate:[NSDate date]];
     }
@@ -442,15 +444,15 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 - (void)likeClicked
 {
-    if (![appDelegate.currentPlayerInfo.currentSong.songIsLike intValue])
+    if (![currentPlayerInfo.currentSong.songIsLike intValue])
     {
-        appDelegate.currentPlayerInfo.currentSong.songIsLike = @"1";
+        currentPlayerInfo.currentSong.songIsLike = @"1";
         [songOperationButtonList[1] setBackgroundImage:[UIImage imageNamed:@"heart2-musicPlayer"] forState:UIControlStateNormal];
         [funServer fmSongOperationWithType:SongOperationTypeLike];
     }
     else
     {
-        appDelegate.currentPlayerInfo.currentSong.songIsLike = @"0";
+        currentPlayerInfo.currentSong.songIsLike = @"0";
         [songOperationButtonList[1] setBackgroundImage:[UIImage imageNamed:@"heart1-musicPlayer"] forState:UIControlStateNormal];
     }
 }
@@ -460,7 +462,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
 - (void)skipClicked
 {
     [timer setFireDate:[NSDate distantFuture]];
-    [appDelegate.MusicPlayer pause];
+    [musicPlayer pause];
     if (!isPlaying)
     {
         _musicPlayerImage.alpha = kPlayingAlpha;

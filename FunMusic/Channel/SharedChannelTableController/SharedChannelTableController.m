@@ -8,7 +8,6 @@
 
 #import "SharedChannelTableController.h"
 #import "ChannelCell.h"
-#import "AppDelegate.h"
 #import "UserInfo.h"
 #import "ChannelInfo.h"
 #import "FunServer.h"
@@ -30,10 +29,8 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 @interface SharedChannelTableController ()
 {
-    AppDelegate *appDelegate;
     NSMutableArray *sharedChannelGroup;
     FunServer *funServer;
-    ChannelInfo *currentChannelInfo;
 }
 
 
@@ -47,7 +44,6 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor themeColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    appDelegate = [[UIApplication sharedApplication] delegate];
     funServer = [[FunServer alloc] init];
     self.title = @"我的频道";
     
@@ -89,7 +85,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 {
     if (!sharedChannelGroup)
     {
-        sharedChannelGroup = appDelegate.currentUserInfo.userSharedChannelLists;
+        sharedChannelGroup = [funServer fmGetMySharedChannelList];
     }
 }
 
@@ -116,10 +112,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChannelInfo *selectChannelInfo = sharedChannelGroup[indexPath.row];
-    currentChannelInfo = [appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelInfo];
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveCurrentChannelInfo:currentChannelInfo];
-    //*******************************************************
+    [funServer fmUpdateCurrentChannelInfo:selectChannelInfo];
     [funServer fmSongOperationWithType:SongOperationTypeNext];
     //跳转至首页音乐播放界面
     if (_presidentView)

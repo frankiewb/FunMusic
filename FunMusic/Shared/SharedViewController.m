@@ -11,7 +11,6 @@
 #import "TweetInfo.h"
 #import "PlayerInfo.h"
 #import "ChannelInfo.h"
-#import "AppDelegate.h"
 #import "UIColor+Util.h"
 #import <Masonry.h>
 
@@ -37,7 +36,6 @@ static const CGFloat kLabelWidthDistance     = 10;
 
 @interface SharedViewController ()<UITextViewDelegate>
 {
-    AppDelegate *appDelegate;
     FunServer *funServer;
     TweetInfo *sharedTweetInfo;
     ChannelInfo *currentChannel;
@@ -60,9 +58,8 @@ static const CGFloat kLabelWidthDistance     = 10;
     if (self)
     {
         //获取当前频道信息
-        appDelegate = [[UIApplication sharedApplication] delegate];
-        currentChannel = appDelegate.currentPlayerInfo.currentChannel;
         funServer = [[FunServer alloc] init];
+        currentChannel = [funServer fmGetCurrentChannel];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定"
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
@@ -216,7 +213,7 @@ static const CGFloat kLabelWidthDistance     = 10;
 
 - (void)sureButtonClicked
 {
-    sharedTweetInfo = [[TweetInfo alloc] initWithTweeterCommentByLocal:_inputTextView.text Local:appDelegate];
+    sharedTweetInfo = [[TweetInfo alloc] initWithTweeterCommentByLocal:_inputTextView.text];
     [funServer fmSharedTweeterWithTweetInfo:sharedTweetInfo];
     [funServer fmUpdateMySharedChannelListWithChannelName:sharedTweetInfo.channelName];
     [self.navigationController popViewControllerAnimated:NO];

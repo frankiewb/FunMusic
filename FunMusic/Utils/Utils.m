@@ -10,8 +10,6 @@
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
 #import "TweetInfo.h"
-#import "FunServer.h"
-#import "AppDelegate.h"
 
 @implementation Utils
 

@@ -15,7 +15,6 @@
 #import "FunServer.h"
 #import "Utils.h"
 #import "UIColor+Util.h"
-#import "AppDelegate.h"
 
 
 
@@ -33,7 +32,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 @property (nonatomic, strong)NSMutableArray *filteredChannelInfoCells;
 @property (nonatomic, strong)NSMutableArray *_allChannelInfoCells;
 @property (nonatomic, strong)FunServer *funServer;
-@property (nonatomic, weak)AppDelegate *appDelegate;
 
 @end
 
@@ -44,18 +42,9 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     self = [super init];
     if (self)
     {
-        _appDelegate = [[UIApplication sharedApplication] delegate];
         _funServer = [[FunServer alloc] init];
-        _filteredChannelInfoCells = [[NSMutableArray alloc] init];
-        if (!_appDelegate.allChannelGroup)
-        {
-            _appDelegate.allChannelGroup = [_funServer fmGetAllChannelInfos];
-
-        }
-        __allChannelInfoCells = _appDelegate.allChannelGroup;       
         //这个很关键，当从tabbar切换到查找页面时，隐藏tabber界面，回退时还可以恢复
         self.hidesBottomBarWhenPushed = YES;
-        
     }
     
     return self;
@@ -84,6 +73,9 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！
     [self.searchController loadViewIfNeeded];
     
+    _filteredChannelInfoCells = [[NSMutableArray alloc] init];
+    __allChannelInfoCells = [_funServer fmGetSearchChannelList];
+    
     self.tableView.backgroundColor = [UIColor themeColor];    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                              style:UIBarButtonItemStylePlain
@@ -95,14 +87,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelSearchCellID];
     //解决分割线的距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
-}
-
-- (void)dismissSearchView
-{
-    [self dismissViewControllerAnimated:YES completion:^
-     {
-         [(UINavigationController *)self.presentingViewController popToRootViewControllerAnimated:YES];
-     }];
 }
 
 
@@ -222,7 +206,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChannelInfo *selectChannelSearchInfo;
-    ChannelInfo *currentChannelInfo;
     if (self.searchController.active)
     {
         selectChannelSearchInfo = _filteredChannelInfoCells[indexPath.row];
@@ -232,7 +215,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
         ChannelGroup *singleChannelGroup = [__allChannelInfoCells objectAtIndex:indexPath.section];
         selectChannelSearchInfo = [singleChannelGroup.channelArray objectAtIndex:indexPath.row];
     }
-    currentChannelInfo = [_appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:selectChannelSearchInfo];
+    [_funServer fmUpdateCurrentChannelInfo:selectChannelSearchInfo];
     [_funServer fmSongOperationWithType:SongOperationTypeNext];
     //跳转页面
     if (_presidentView)

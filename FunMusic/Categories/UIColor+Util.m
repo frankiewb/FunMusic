@@ -62,8 +62,10 @@
     if (((AppDelegate *)[UIApplication sharedApplication].delegate).isNightMode)
     {
         return [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.0];
+
     }
     return [UIColor colorWithRed:252/255.0 green:252/255.0 blue:252/255.0 alpha:1.0];
+    
 }
 
 + (UIColor *)navigationBarTextColor
@@ -80,6 +82,7 @@
     if (((AppDelegate *)[UIApplication sharedApplication].delegate).isNightMode)
     {
         return [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.0];
+       
     }
     return [UIColor colorWithRed:252/255.0 green:252/255.0 blue:252/255.0 alpha:1.0];
 }

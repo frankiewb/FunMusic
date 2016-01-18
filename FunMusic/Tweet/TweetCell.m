@@ -9,8 +9,8 @@
 #import "TweetCell.h"
 #import "TweetInfo.h"
 #import "UIColor+Util.h"
-#import "AppDelegate.h"
 #import "UserInfo.h"
+#import "FunServer.h"
 #import <UIImageView+WebCache.h>
 #import <Masonry.h>
 
@@ -294,14 +294,14 @@
         _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)--count];
     }
     BOOL isMine = FALSE;
-    [_tweeterNameLabel.text isEqualToString:(((AppDelegate *)[UIApplication sharedApplication].delegate).currentUserInfo.userName)] ? (isMine = TRUE) : (isMine = FALSE);    
+    FunServer *funServer = [[FunServer alloc] init];
+    UserInfo *currentUser = [funServer fmGetCurrentUserInfo];
+    [_tweeterNameLabel.text isEqualToString:(currentUser.userName)] ? (isMine = TRUE) : (isMine = FALSE);
     if (_updateTweetLikeCount)
     {
         _updateTweetLikeCount(_tweetID,_isLike,isMine);
     }
 }
-
-
 
 
 - (void)channelNameImageClicked
@@ -312,8 +312,6 @@
         _scrollView(funViewTypeMusic, channelName[1]);
     }
 }
-
-
 
 //gesture的代理事件需要再UIView类型上来写
 

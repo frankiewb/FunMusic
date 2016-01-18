@@ -8,7 +8,6 @@
 
 #import "TitlebarView.h"
 #import "UIColor+Util.h"
-#import "Common.h"
 
 
 static const CGFloat kContentSizeHeight  = 25;
@@ -21,7 +20,7 @@ static const CGFloat kFirstButtonScale   = 1.2;
 
 - (void)dawnAndNightMode
 {
-    self.backgroundColor = [UIColor themeColor];
+    self.backgroundColor = [UIColor titlebarColor];
     for (UIButton *singleButton in _titleButtonArray)
     {
         singleButton.backgroundColor = [UIColor titlebarColor];

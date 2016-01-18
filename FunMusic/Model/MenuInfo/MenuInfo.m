@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Wang Bo. All rights reserved.
 //
 
-#import "MineOperationInfo.h"
+#import "MenuInfo.h"
 
-@implementation MineOperationInfo
+@implementation MenuInfo
 
 @end

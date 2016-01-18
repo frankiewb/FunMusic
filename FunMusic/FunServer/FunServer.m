@@ -15,6 +15,7 @@
 #import "TweetInfo.h"
 #import "UserInfo.h"
 #import "LogInfo.h"
+#import "MenuInfo.h"
 #import "AFHTTPSessionManager+Util.h"
 #import "Utils.h"
 #import "Config.h"
@@ -64,100 +65,30 @@ typedef NS_ENUM(NSUInteger, managerType)
     return self;
 }
 
-
-
-#pragma ChannelOperation Function
-//由于豆瓣ChannelID都是固定的，这里暂时采用读取本地JSON文档的方式获取Channel所有数据
-//为该APP将来的扩展留下接口
-
-- (void)fmGetChannelWithTypeInLocal:(ChannelType)channelType
-{
-    if (!appDelegate.allChannelGroup)
-    {
-        appDelegate.allChannelGroup = [self fmGetAllChannelInfos];
-    }
-    ChannelGroup *channelGroup = nil;
-    switch (channelType)
-    {
-        case ChannelTypeFeeling:
-            channelGroup = appDelegate.allChannelGroup[0];
-            break;
-        case ChannelTypeLanguage:
-            channelGroup = appDelegate.allChannelGroup[1];
-            break;
-        case ChannelTypeRecomand:
-            channelGroup = appDelegate.allChannelGroup[2];
-            break;
-        case ChannelTypeSongStyle:
-            channelGroup = appDelegate.allChannelGroup[3];
-            break;
-    }
-    appDelegate.currentChannelGroup = channelGroup;
-}
-
-
-
-- (NSMutableArray *)fmGetAllChannelInfos
-{
-    NSArray *channelsName = @[@"channelFeeling",
-                              @"channelLanguage",
-                              @"channelRecomand",
-                              @"channelSongStyle"];
-    
-    NSMutableArray *allChannelArray = [[NSMutableArray alloc] init];
-    for (NSString *singleChannelName in channelsName)
-    {
-        NSDictionary *channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:singleChannelName];
-        ChannelType type = [Utils gennerateChannelGroupTypeWithChannelName:singleChannelName];
-        ChannelGroup *channelGroup = [[ChannelGroup alloc] initWithChannelType:type channelName:singleChannelName channelGroupDictionary:channelGroupDic];
-        [allChannelArray addObject:channelGroup];
-    }
-    
-    return allChannelArray;
-}
-
-
-
-- (ChannelInfo *)searchChannelInfoWithName:(NSString *)channelName
-{
-    if (!appDelegate.allChannelGroup)
-    {
-        appDelegate.allChannelGroup = [self fmGetAllChannelInfos];
-    }
-    NSMutableArray *allChannelInfo = appDelegate.allChannelGroup;
-    
-    
-    for (ChannelGroup *singleChannelGroup in allChannelInfo)
-    {
-        for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
-        {
-            if ([channelName isEqualToString: singleChannelInfo.channelName])
-            {
-                return singleChannelInfo;
-            }
-        }
-    }
-    NSAssert(FALSE, @"ChannelData fault ! There is unknown ChannelInfoName in YINYUEQUAN");
-    return Nil;
-}
-
-
-
-
 #pragma SongOperation Function
+
+- (MPMoviePlayerController *)fmGetCurrentMusicPlayer
+{
+    return appDelegate.MusicPlayer;
+}
+
+- (PlayerInfo *)fmGetCurrentPlayerInfo
+{
+    return appDelegate.currentPlayerInfo;
+}
 
 
 - (void)fmSongOperationWithType:(SongOperationType)operationType
 {
-    NSString *operationString = [self generateOperationString:operationType];
-    NSString *playListURL = [self genneratePlayeListURLWithType:operationString];
+    NSString *operationString = [self fmGetOperationString:operationType];
+    NSString *playListURL = [self fmGetPlayeListURLWithType:operationString];
     
     
-    fmManager = [self gennerateFMManagerWithType:managerTypeJOSN];
+    fmManager = [self fmGennerateFMManagerWithType:managerTypeJOSN];
     [fmManager GET:playListURL
-       parameters:nil
-         progress:nil
-          success:^(NSURLSessionDataTask *task, NSDictionary *songDictionary)
+        parameters:nil
+          progress:nil
+           success:^(NSURLSessionDataTask *task, NSDictionary *songDictionary)
      {
          for (NSDictionary *songDic in songDictionary[@"song"])
          {
@@ -179,14 +110,14 @@ typedef NS_ENUM(NSUInteger, managerType)
              NSLog(@"即将播放歌曲: %@", currentSongInfo.songTitle);
          }
      }
-          failure:^(NSURLSessionDataTask *task, NSError *error)
+           failure:^(NSURLSessionDataTask *task, NSError *error)
      {
          _getSongListFail();
      }];
 }
 
 
-- (NSString *)genneratePlayeListURLWithType:(NSString *)operationString
+- (NSString *)fmGetPlayeListURLWithType:(NSString *)operationString
 {
     NSString *currentSongID = appDelegate.currentPlayerInfo.currentSong.songId;
     NSString *currentChannelID = appDelegate.currentPlayerInfo.currentChannel.channelID;
@@ -197,7 +128,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     return playListURL;
 }
 
-- (NSString *)generateOperationString:(SongOperationType)operationType
+- (NSString *)fmGetOperationString:(SongOperationType)operationType
 {
     NSString *operationString;
     switch (operationType)
@@ -228,106 +159,95 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-#pragma TweetFunction
 
 
-- (void)fmGetTweetInfoInLocal
+
+#pragma ChannelOperation Function
+//由于豆瓣ChannelID都是固定的，这里暂时采用读取本地JSON文档的方式获取Channel所有数据
+//为该APP将来的扩展留下接口
+
+- (ChannelGroup *)fmGetChannelWithTypeInLocal:(NSInteger)channelType
 {
+    [self fmGetAllChannelInfos];
+    ChannelGroup *channelGroup = nil;
+    switch (channelType)
+    {
+        case ChannelTypeFeeling:
+            channelGroup = appDelegate.allChannelGroup[0];
+            break;
+        case ChannelTypeLanguage:
+            channelGroup = appDelegate.allChannelGroup[1];
+            break;
+        case ChannelTypeRecomand:
+            channelGroup = appDelegate.allChannelGroup[2];
+            break;
+        case ChannelTypeSongStyle:
+            channelGroup = appDelegate.allChannelGroup[3];
+            break;
+    }
+    appDelegate.currentChannelGroup = channelGroup;
     
-    NSString *tweetGroupName = @"localTweetData";
-    NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
-    [self gennrateTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:appDelegate.tweetInfoGroup];
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
-    //********************************************************
+    return appDelegate.currentChannelGroup;
+}
+
+
+
+- (void)fmGetAllChannelInfos
+{
+    if (!appDelegate.allChannelGroup)
+    {
+        NSArray *channelsName = @[@"channelFeeling",
+                                  @"channelLanguage",
+                                  @"channelRecomand",
+                                  @"channelSongStyle"];
+        
+        NSMutableArray *allChannelArray = [[NSMutableArray alloc] init];
+        for (NSString *singleChannelName in channelsName)
+        {
+            NSDictionary *channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:singleChannelName];
+            ChannelType type = [Utils gennerateChannelGroupTypeWithChannelName:singleChannelName];
+            ChannelGroup *channelGroup = [[ChannelGroup alloc] initWithChannelType:type channelName:singleChannelName channelGroupDictionary:channelGroupDic];
+            [allChannelArray addObject:channelGroup];
+        }
+        
+        appDelegate.allChannelGroup = allChannelArray;
+    }
+}
+
+
+
+- (ChannelInfo *)fmSearchChannelInfoWithName:(NSString *)channelName
+{
+    [self fmGetAllChannelInfos];
+    NSMutableArray *allChannelInfo = appDelegate.allChannelGroup;
     
-}
-
-- (NSMutableArray *)fmGetTweetInfoWithUserID:(NSString *)userID
-{
-    NSMutableArray *userTweetGroup = [[NSMutableArray alloc] init];
-    NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:userID];
-    [self gennrateTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:userTweetGroup];
-    return userTweetGroup;
-}
-
-
-- (void)gennrateTweetGroupWithDictionary:(NSDictionary *)dic TweetInfoGroup:(NSMutableArray *)tweetInfoGroup
-{
-    NSAssert(dic, @"Dictionary has not been inited !");
-    NSString *singleTweeterKey;
-    NSDictionary *singleTweeterValue;
-    for (singleTweeterKey in dic)
+    
+    for (ChannelGroup *singleChannelGroup in allChannelInfo)
     {
-        singleTweeterValue = dic[singleTweeterKey];
-        TweetInfo *tweetInfo = [[TweetInfo alloc] initWithTweetDic:singleTweeterValue];
-        [tweetInfoGroup addObject:tweetInfo];
+        for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
+        {
+            if ([channelName isEqualToString: singleChannelInfo.channelName])
+            {
+                return singleChannelInfo;
+            }
+        }
     }
-}
-
-
-- (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo
-{
-    if ([appDelegate.tweetInfoGroup count] == 0)
-    {
-        [self fmGetTweetInfoInLocal];
-    }
-    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
-    NSMutableArray *userTweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
-    NSAssert(tweetInfoGroup, @"tweetInfoGroup invalid !!");
-    [tweetInfoGroup insertObject:tweetInfo atIndex:0];
-    //无奈之举，本地化NSUserdefault后，仍然会额外产生一份内存tweetInfo，索性直接在这里生成好了，避免其他逻辑错误
-    TweetInfo *userTweetInfo = [[TweetInfo alloc] initWithTweetInfo:tweetInfo];
-    [userTweetInfoGroup insertObject:userTweetInfo atIndex:0];
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveUserTweetList:userTweetInfoGroup];
-    [Config saveTweetInfoGroup:tweetInfoGroup];
-    //********************************************************
-    //向服务器更新Tweet信息
-    //TO DO...
-}
-
-
-- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike isMineTweet:(BOOL)isMine
-{
-    NSInteger index = [self searchTweetInfoWithID:tweetID isMyTweetGroup:NO];    
-    TweetInfo *updatedTweetInfo = appDelegate.tweetInfoGroup[index];
-    isLike ? (updatedTweetInfo.likeCount++) : (updatedTweetInfo.likeCount--);
-    isLike ? (updatedTweetInfo.isLike = @"2") : (updatedTweetInfo.isLike = @"1");
-    if (isMine)
-    {
-        NSInteger mineIndex = [self searchTweetInfoWithID:tweetID isMyTweetGroup:YES];
-        TweetInfo *mineUpdateTweetInfo = appDelegate.currentUserInfo.userTweeterList[mineIndex];
-        isLike ? (mineUpdateTweetInfo.likeCount++) : (mineUpdateTweetInfo.likeCount--);
-        isLike ? (mineUpdateTweetInfo.isLike = @"2") : (mineUpdateTweetInfo.isLike = @"1");
-        //************调试模式下还需要用，暂且不删*********************************
-        [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
-        //********************************************************************
-    }
-    //************调试模式下还需要用，暂且不删********************
-    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
-    //********************************************************
-    //向服务器更新Tweet信息
-    //TO DO...
+    NSAssert(FALSE, @"ChannelData fault ! There is unknown ChannelInfoName in YINYUEQUAN");
+    return Nil;
 }
 
 
 - (void)fmDeleteMySharedChannelListWithChannelIndex:(NSInteger)channelIndex
 {
     [appDelegate.currentUserInfo.userSharedChannelLists removeObjectAtIndex:channelIndex];
-    //************调试模式下还需要用，暂且不删********************
     [Config saveUserSharedChannelList:appDelegate.currentUserInfo.userSharedChannelLists];
-    //********************************************************
 }
 
 - (void)fmUpdateMySharedChannelListWithChannelName:(NSString *)channelName
 {
     if (![self fmIsChannelInMySharedChannelList:channelName])
     {
-        if (!appDelegate.allChannelGroup)
-        {
-            appDelegate.allChannelGroup = [self fmGetAllChannelInfos];
-        }
+        [self fmGetAllChannelInfos];
         for (ChannelGroup *singleChannelGroup in appDelegate.allChannelGroup)
         {
             for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
@@ -335,14 +255,11 @@ typedef NS_ENUM(NSUInteger, managerType)
                 if ([singleChannelInfo.channelName isEqualToString:channelName])
                 {
                     [appDelegate.currentUserInfo.userSharedChannelLists insertObject:singleChannelInfo atIndex:0];
-                    //************调试模式下还需要用，暂且不删********************
                     [Config saveUserSharedChannelList:appDelegate.currentUserInfo.userSharedChannelLists];
-                    //********************************************************
                 }
             }
-            
         }
-
+        
     }
 }
 
@@ -359,9 +276,110 @@ typedef NS_ENUM(NSUInteger, managerType)
     return FALSE;
 }
 
+- (void)fmUpdateCurrentChannelInfo:(ChannelInfo *)newCurrentChannelInfo
+{
+    ChannelInfo *updateChannelInfo = [appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:newCurrentChannelInfo];
+    [Config saveCurrentChannelInfo:updateChannelInfo];
+}
+
+- (ChannelInfo *)fmGetCurrentChannel
+{
+    return appDelegate.currentPlayerInfo.currentChannel;
+}
 
 
-- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine
+#pragma TweetFunction
+
+
+- (void)fmGetTweetInfoInLocal
+{
+    if ([appDelegate.tweetInfoGroup count] == 0)
+    {
+        NSString *tweetGroupName = @"localTweetData";
+        NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
+        [self fmGetTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:appDelegate.tweetInfoGroup];
+        [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+    }
+    
+}
+
+- (NSMutableArray *)fmGetTweetInfoWithType:(NSInteger)type
+{
+    if (type == 1)
+    {
+        [self fmGetTweetInfoInLocal];
+        return appDelegate.tweetInfoGroup;
+    }
+    else if (type == 2)
+    {
+        return appDelegate.currentUserInfo.userTweeterList;
+    }
+    else
+    {
+        NSAssert(FALSE, @"Invalid TweetType");
+        return nil;
+    }
+}
+
+
+
+- (void)fmGetTweetGroupWithDictionary:(NSDictionary *)dic TweetInfoGroup:(NSMutableArray *)tweetInfoGroup
+{
+    NSAssert(dic, @"Dictionary has not been inited !");
+    NSString *singleTweeterKey;
+    NSDictionary *singleTweeterValue;
+    for (singleTweeterKey in dic)
+    {
+        singleTweeterValue = dic[singleTweeterKey];
+        TweetInfo *tweetInfo = [[TweetInfo alloc] initWithTweetDic:singleTweeterValue];
+        [tweetInfoGroup addObject:tweetInfo];
+    }
+}
+
+- (void)fmDeleteTweetInfoWithTweetID:(NSString *)tweetID
+{
+    NSInteger localTweetIndex = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:NO];
+    [appDelegate.tweetInfoGroup removeObjectAtIndex:localTweetIndex];
+    NSInteger myTweetIndex = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:YES];
+    [appDelegate.currentUserInfo.userTweeterList removeObjectAtIndex:myTweetIndex];
+    [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
+    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+}
+
+
+- (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo
+{
+    [self fmGetTweetInfoInLocal];
+    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
+    NSMutableArray *userTweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
+    NSAssert(tweetInfoGroup, @"tweetInfoGroup invalid !!");
+    [tweetInfoGroup insertObject:tweetInfo atIndex:0];
+    TweetInfo *userTweetInfo = [[TweetInfo alloc] initWithTweetInfo:tweetInfo];
+    [userTweetInfoGroup insertObject:userTweetInfo atIndex:0];
+    [Config saveUserTweetList:userTweetInfoGroup];
+    [Config saveTweetInfoGroup:tweetInfoGroup];
+}
+
+
+- (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike isMineTweet:(BOOL)isMine
+{
+    NSInteger index = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:NO];
+    TweetInfo *updatedTweetInfo = appDelegate.tweetInfoGroup[index];
+    isLike ? (updatedTweetInfo.likeCount++) : (updatedTweetInfo.likeCount--);
+    isLike ? (updatedTweetInfo.isLike = @"2") : (updatedTweetInfo.isLike = @"1");
+    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+    if (isMine)
+    {
+        NSInteger mineIndex = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:YES];
+        TweetInfo *mineUpdateTweetInfo = appDelegate.currentUserInfo.userTweeterList[mineIndex];
+        isLike ? (mineUpdateTweetInfo.likeCount++) : (mineUpdateTweetInfo.likeCount--);
+        isLike ? (mineUpdateTweetInfo.isLike = @"2") : (mineUpdateTweetInfo.isLike = @"1");
+        [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
+    }
+    
+}
+
+- (NSInteger)fmSearchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine
 {
     NSMutableArray *tweetInfoGroup = nil;
     if (isMine)
@@ -370,10 +388,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     }
     else
     {
-        if ([appDelegate.tweetInfoGroup count] == 0)
-        {
-            [self fmGetTweetInfoInLocal];
-        }
+        [self fmGetTweetInfoInLocal];
         tweetInfoGroup = appDelegate.tweetInfoGroup;
     }
     NSInteger idx = 0;
@@ -396,6 +411,12 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 #pragma LoginOperation
 
+- (UserInfo *)fmGetCurrentUserInfo
+{
+    return appDelegate.currentUserInfo;
+}
+
+
 - (BOOL)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo
 {
     NSDictionary *logDic = [Utils gennerateDicitonaryWithPlistFile:@"loginData"];
@@ -403,19 +424,104 @@ typedef NS_ENUM(NSUInteger, managerType)
     {
         NSDictionary *userDic = [Utils gennerateDicitonaryWithPlistFile:@"userData"];
         currentUserInfo = [appDelegate.currentUserInfo initWithDictionary:userDic];
-        //************调试模式下还需要用，暂且不删********************
         [Config saveUserInfo:currentUserInfo];
-        //********************************************************
         return TRUE;
     }
     return FALSE;
 }
 
+- (BOOL)fmIsLogin
+{
+    BOOL islogin;
+    appDelegate.currentUserInfo.isLogin ? (islogin = TRUE) : (islogin = FALSE);
+    return islogin;
+}
+
+- (void)fmLogOut
+{
+    appDelegate.currentUserInfo.isLogin = FALSE;
+    [Config saveUserInfo:appDelegate.currentUserInfo];
+}
+
+
+
+#pragma sideMenuInfo
+
+- (NSMutableArray *)fmGetSideMenuInfo
+{
+    NSArray *menuNameList = @[@"频道",@"音乐圈",@"清除缓存",@"夜间模式",@"注销登录"];
+    NSArray *menuImageNameList = @[@"频道",@"音乐圈",@"缓存",@"夜间模式",@"注销"];
+    return [self fmGetMenuInfoListWithNameList:menuNameList imageList:menuImageNameList];
+}
+
+- (NSMutableArray *)fmGetMineMenuInfo
+{
+    NSArray *menuNameList = @[@"我的频道",@"我的音乐圈",@"清除缓存",@"夜间模式"];
+    NSArray *menuImageNameList = @[@"频道",@"音乐圈",@"缓存",@"夜间模式"];
+    return [self fmGetMenuInfoListWithNameList:menuNameList imageList:menuImageNameList];
+}
+
+
+- (NSMutableArray *)fmGetMenuInfoListWithNameList:(NSArray *)menuNameList imageList:(NSArray *)menuImageList
+{
+    NSMutableArray *menuInfoList = [[NSMutableArray alloc] init];
+    [menuNameList enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL *stop)
+     {
+         MenuInfo *menuInfo = [[MenuInfo alloc] init];
+         menuInfo.menuName = name;
+         menuInfo.menuImageName = menuImageList[idx];
+         [menuInfoList addObject:menuInfo];
+     }];
+    
+    return menuInfoList;
+}
+
+
+
+#pragma sharedChannelList
+
+- (NSMutableArray *)fmGetMySharedChannelList
+{
+    return appDelegate.currentUserInfo.userSharedChannelLists;
+}
+
+
+#pragma searchChannelList
+
+- (NSMutableArray *)fmGetSearchChannelList
+{
+    [self fmGetAllChannelInfos];
+    return appDelegate.allChannelGroup;
+}
+
+#pragma DawnAndNightMode
+
+- (void)fmSetNightMode:(BOOL)isNightMode
+{
+    appDelegate.isNightMode = isNightMode;
+    [Config saveDawnAndNightMode:appDelegate.isNightMode];
+}
+
+- (BOOL)fmGetNightMode
+{
+    return appDelegate.isNightMode;
+}
+
+
+#pragma clearAllData
+
+- (void)fmClearAllData
+{
+    [Config clearAllDataInUserDefaults];
+}
+
+
+
 
 
 #pragma Common Fuction
 
-- (AFHTTPSessionManager *)gennerateFMManagerWithType:(managerType)type
+- (AFHTTPSessionManager *)fmGennerateFMManagerWithType:(managerType)type
 {
     AFHTTPSessionManager *manager;
     switch (type)
