@@ -8,6 +8,7 @@
 
 #import "SideMenuViewController.h"
 #import "UserInfo.h"
+#import "SideUserHeaderView.h"
 #import "SideMenuCell.h"
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
@@ -20,13 +21,7 @@
 #import <MBProgressHUD.h>
 
 static const CGFloat kHeaderViewHeight            = 200;
-static const CGFloat kUserImageViewSide           = 80;
-static const CGFloat kUserImageViewHeightDistance = 50;
-static const CGFloat kLabelHeightDistance         = 10;
-static const CGFloat kLabelHeight                 = 40;
-static const CGFloat kEdgeDistance                = 10;
 static const CGFloat kCellHeight                  = 50;
-static const CGFloat kNameFont                    = 20;
 static const CGFloat kSeperatorLineLeftDistance   = 80;
 static const CGFloat kSeperatorLineRightDistance  = 160;
 static const CGFloat kRefreshSleepTime            = 1;
@@ -49,11 +44,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     NSMutableArray *sideMenuOperationLists;
 }
 
-@property (nonatomic, strong) UIView *sideHeaderView;
-@property (nonatomic, strong) UIImageView *userImageView;
-@property (nonatomic, strong) UILabel*userNameLabel;
-
-
+@property (nonatomic, strong) SideUserHeaderView *sideHeaderView;
 
 @end
 
@@ -61,7 +52,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)dawnAndNightMode:(NSNotification *)center
 {
-    self.sideHeaderView.backgroundColor = [UIColor themeColor];
+    [_sideHeaderView dawnAndNightMode];
     self.tableView.backgroundColor = [UIColor themeColor];
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -98,7 +89,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     {
         sideMenuOperationLists = [funServer fmGetSideMenuInfo];
     }    
-    [self setUpHeaderView];
+    [self setUpUserHeaderView];
     self.tableView.tableHeaderView = _sideHeaderView;
     [self.tableView registerClass:[SideMenuCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白
@@ -109,75 +100,24 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 }
 
 
-
-
-
-- (void)setUpHeaderView
+- (void)setUpUserHeaderView
 {
-    _sideHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight)];
-    _sideHeaderView.userInteractionEnabled = YES;
-    [self setUpHeaderUI];
-    [self setUpHeaderLayOut];
-}
-
-
-- (void)setUpHeaderUI
-{
-    //self
-    self.sideHeaderView.backgroundColor = [UIColor themeColor];
-    //userImageView
-    _userImageView = [[UIImageView alloc] init];
-    _userImageView.layer.cornerRadius = kUserImageViewSide / 2;
-    _userImageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushLoginView)];
-    [_userImageView addGestureRecognizer:singleTap];
-    
-    //userNameLabel
-    _userNameLabel = [[UILabel alloc] init];
-    _userNameLabel.textColor = [UIColor orangeColor];
-    _userNameLabel.textAlignment = NSTextAlignmentCenter;
-    _userNameLabel.font = [UIFont systemFontOfSize:kNameFont];
-    
+    _sideHeaderView = [[SideUserHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight)];
     [self refreshUserView];
-    [_sideHeaderView addSubview:_userNameLabel];
-    [_sideHeaderView addSubview:_userImageView];
-}
-
-- (void)setUpHeaderLayOut
-{
-    [_userImageView mas_makeConstraints:^(MASConstraintMaker *make)
-     {
-         make.top.equalTo(_sideHeaderView.mas_top).offset(kUserImageViewHeightDistance);
-         make.height.and.width.mas_equalTo(kUserImageViewSide);
-         make.centerX.equalTo(_sideHeaderView.mas_centerX).multipliedBy(0.6);
-     }];
-    
-    [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make)
-     {
-         make.top.equalTo(_userImageView.mas_bottom).offset(kLabelHeightDistance);
-         make.centerX.equalTo(_sideHeaderView.mas_centerX).multipliedBy(0.6);
-         make.height.mas_equalTo(kLabelHeight);
-         make.left.equalTo(_sideHeaderView.mas_left).offset(kEdgeDistance);
-     }];
+    __weak SideMenuViewController *weakSelf = self;
+    _sideHeaderView.pushLoginView = ^()
+    {
+        [weakSelf pushLoginView];
+    };
 
 }
+
 
 - (void)refreshUserView
 {
-    if ([funServer fmIsLogin])
-    {
-        _userImageView.userInteractionEnabled = NO;
-        UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
-        [_userImageView setImage:[UIImage imageNamed:currentUserInfo.userImage]];
-        _userNameLabel.text = currentUserInfo.userName;
-    }
-    else
-    {
-        _userImageView.userInteractionEnabled = YES;
-        [_userImageView setImage:[UIImage imageNamed:@"userDefaultImage"]];
-        _userNameLabel.text = @"未登录";
-         
-    }
+    BOOL isLogin = [funServer fmIsLogin];
+    UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
+    [_sideHeaderView refreshHeaderViewWithUserName:currentUserInfo.userName imageName:currentUserInfo.userImage Login:isLogin];
 }
 
 
@@ -312,8 +252,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     [opCell setSideMenuCellWithOPInfo:opInfo];
     if (indexPath.row == sideMenuOPTypeNightMode && [funServer fmGetNightMode])
     {
-        [opCell.sideMenuImageView setImage:[UIImage imageNamed:@"日间模式"]];
-        opCell.sideMenuNameLabel.text = @"日间模式";
+        [opCell changeDawnCell];
     }
 
     return opCell;

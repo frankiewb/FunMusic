@@ -8,16 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class SideMenuInfo;
+@class MenuInfo;
 
 @interface SideMenuCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *sideMenuImageView;
 @property (nonatomic, strong) UILabel *sideMenuNameLabel;
 
-- (void)setSideMenuCellWithOPInfo:(SideMenuInfo *)sideMenuInfo;
+- (void)setSideMenuCellWithOPInfo:(MenuInfo *)sideMenuInfo;
 
 - (void)dawnAndNightMode;
+
+- (void)changeDawnCell;
 
 
 @end

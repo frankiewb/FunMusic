@@ -90,4 +90,10 @@ static const CGFloat kEdgeDistance       = 10;
     _opNameLabel.text = menuInfo.menuName;
 }
 
+- (void)changeDawnCell
+{
+    [_opImageView setImage:[UIImage imageNamed:@"日间模式"]];
+    _opNameLabel.text = @"日间模式";
+}
+
 @end

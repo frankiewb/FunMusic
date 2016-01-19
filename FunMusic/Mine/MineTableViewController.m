@@ -7,6 +7,7 @@
 //
 
 #import "MineTableViewController.h"
+#import "UserHeaderView.h"
 #import "MineOPCell.h"
 #import "FunServer.h"
 #import "UserInfo.h"
@@ -18,17 +19,10 @@
 #import "Config.h"
 #import "FunServer.h"
 #import <RESideMenu.h>
-#import <Masonry.h>
 #import <MBProgressHUD.h>
 
 static const CGFloat kHeaderViewHeight            = 160;
-static const CGFloat kUserImageViewSide           = 80;
-static const CGFloat kUserImageViewHeightDistance = 10;
-static const CGFloat kLabelHeightDistance         = 10;
-static const CGFloat kLabelHeight                 = 40;
-static const CGFloat kEdgeDistance                = 5;
 static const CGFloat kCellHeight                  = 50;
-static const CGFloat kNameFont                    = 20;
 static const CGFloat kSeperatorLineLeftDistance   = 80;
 static const CGFloat kSeperatorLineRightDistance  = 10;
 static const CGFloat kRefreshSleepTime            = 1;
@@ -46,17 +40,11 @@ typedef NS_ENUM(NSInteger, mineOPType)
 };
 
 @interface MineTableViewController ()
-
 {
     FunServer *funServer;
     NSMutableArray *mineOperationList;
 }
-
-@property (nonatomic, strong) UIView *mineHeaderView;
-@property (nonatomic, strong) UIImageView *userImageView;
-@property (nonatomic, strong) UILabel *userNameLabel;
-
-
+@property (nonatomic, strong) UserHeaderView *mineHeaderView;
 
 @end
 
@@ -64,8 +52,8 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)dawnAndNightMode
 {
+    [self.mineHeaderView dawnAndNightMode];
     self.tableView.backgroundColor = [UIColor themeColor];
-    self.mineHeaderView.backgroundColor = [UIColor themeColor];
     dispatch_async(dispatch_get_main_queue(), ^
     {
         [self.tableView reloadData];
@@ -95,8 +83,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     {
         mineOperationList = [funServer fmGetMineMenuInfo];
     }
-
-    [self setUpHeaderView];
+    [self setUpUserHeaderView];
     self.tableView.tableHeaderView = _mineHeaderView;
     [self.tableView registerClass:[MineOPCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白，记住！
@@ -106,73 +93,23 @@ typedef NS_ENUM(NSInteger, mineOPType)
 }
 
 
-
-- (void)setUpHeaderView
+- (void)setUpUserHeaderView
 {
-    _mineHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight)];
-    _mineHeaderView.userInteractionEnabled = YES;
-    [self setUpHeaderUI];
-    [self setUpHeaderLayOut];
-}
-
-- (void)setUpHeaderUI
-{
-    //self
-    self.mineHeaderView.backgroundColor = [UIColor themeColor];
-    //userImageView
-    _userImageView = [[UIImageView alloc] init];
-    _userImageView.layer.cornerRadius = kUserImageViewSide / 2;
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushLoginView)];
-    [_userImageView addGestureRecognizer:singleTap];
-    
-    //userNameLabel
-    _userNameLabel = [[UILabel alloc] init];
-    _userNameLabel.textAlignment = NSTextAlignmentCenter;
-    _userNameLabel.textColor = [UIColor orangeColor];
-    _userNameLabel.font = [UIFont systemFontOfSize:kNameFont];
-    
+    _mineHeaderView = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight)];
     [self refreshUserView];
-    [_mineHeaderView addSubview:_userNameLabel];
-    [_mineHeaderView addSubview:_userImageView];
-    
+    __weak MineTableViewController *weakSelf = self;
+    _mineHeaderView.pushLoginView = ^()
+    {
+        [weakSelf pushLoginView];
+    };
+
 }
 
 - (void)refreshUserView
 {
-    if ([funServer fmIsLogin])
-    {
-        _userImageView.userInteractionEnabled = NO;
-        UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
-        [_userImageView setImage:[UIImage imageNamed:currentUserInfo.userImage]];
-        _userNameLabel.text = currentUserInfo.userName;
-    }
-    else
-    {
-        _userImageView.userInteractionEnabled = YES;
-        [_userImageView setImage:[UIImage imageNamed:@"userDefaultImage"]];
-        _userNameLabel.text = @"未登录";        
-    }
-}
-
-
-- (void)setUpHeaderLayOut
-{
-   [_userImageView mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.top.equalTo(_mineHeaderView.mas_top).offset(kUserImageViewHeightDistance);
-        make.height.and.width.mas_equalTo(kUserImageViewSide);
-        make.centerX.equalTo(_mineHeaderView.mas_centerX);
-    }];
-    
-    [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make)
-    {
-        make.top.equalTo(_userImageView.mas_bottom).offset(kLabelHeightDistance);
-        make.centerX.equalTo(_mineHeaderView.mas_centerX);
-        make.height.mas_equalTo(kLabelHeight);
-        make.right.equalTo(_mineHeaderView.mas_right).offset(-kEdgeDistance);
-        make.left.equalTo(_mineHeaderView.mas_left).offset(kEdgeDistance);
-    }];
-    
+    BOOL isLogin = [funServer fmIsLogin];
+    UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
+    [_mineHeaderView refreshHeaderViewWithUserName:currentUserInfo.userName imageName:currentUserInfo.userImage Login:isLogin];
 }
 
 
@@ -208,12 +145,11 @@ typedef NS_ENUM(NSInteger, mineOPType)
 {
     MineOPCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
     [opCell dawnAndNightMode];
-    MineOperationInfo *opInfo = mineOperationList[indexPath.row];
+    MenuInfo *opInfo = mineOperationList[indexPath.row];
     [opCell setMineOPCellWithOPInfo:opInfo];
     if (indexPath.row == mineOPTypeNightMode && [funServer fmGetNightMode])
     {
-        [opCell.opImageView setImage:[UIImage imageNamed:@"日间模式"]];
-        opCell.opNameLabel.text = @"日间模式";
+        [opCell changeDawnCell];
     }
     return opCell;
 }

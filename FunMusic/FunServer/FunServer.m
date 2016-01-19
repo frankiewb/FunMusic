@@ -24,14 +24,6 @@
 
 
 #define PLAYERURLFORMATSTRING     @"http://douban.fm/j/mine/playlist?type=%@&sid=%@&pt=%f&channel=%@&from=mainsite"
-#define USERIMAGEURL              @"http://img3.douban.com/icon/ul%@-1.jpg"
-#define LOGINURLSTRING            @"http://douban.fm/j/login"
-#define LOGOUTURLSTRING           @"http://douban.fm/partner/logout"
-#define CAPTCHAIDURLSTRING        @"http://douban.fm/j/new_captcha"
-#define CAPTCHAIMGURLFORMATSTRING @"http://douban.fm/misc/captcha?size=m&id=%@"
-#define TOTALCHINNELSTRING        @"http://www.douban.com/j/app/radio/channels"
-
-
 
 typedef NS_ENUM(NSUInteger, managerType)
 {

@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class MineOperationInfo;
+@class MenuInfo;
 
 @interface MineOPCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *opImageView;
 @property (nonatomic, strong) UILabel *opNameLabel;
 
-- (void)setMineOPCellWithOPInfo:(MineOperationInfo *)opInfo;
+- (void)setMineOPCellWithOPInfo:(MenuInfo *)opInfo;
 
 - (void)dawnAndNightMode;
+
+- (void)changeDawnCell;
 
 @end

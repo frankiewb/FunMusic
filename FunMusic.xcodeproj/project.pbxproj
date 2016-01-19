@@ -29,6 +29,8 @@
 		10EB09DC1C2D15A300A76210 /* ChannelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DB1C2D15A300A76210 /* ChannelGroup.m */; };
 		10EB09E01C2D206D00A76210 /* AFHTTPSessionManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */; };
 		10EB18521C4CC2DD00BE5701 /* MenuInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB18511C4CC2DD00BE5701 /* MenuInfo.m */; };
+		10EB18551C4DD1E000BE5701 /* UserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB18541C4DD1E000BE5701 /* UserHeaderView.m */; };
+		10EB185B1C4DE2C200BE5701 /* SideUserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB185A1C4DE2C200BE5701 /* SideUserHeaderView.m */; };
 		10EBBB821C4B62B600D2612F /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EBBB811C4B62B600D2612F /* Config.m */; };
 		10EC14A01C4652D300E080C4 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC149F1C4652D300E080C4 /* UIColor+Util.m */; };
 		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
@@ -119,6 +121,10 @@
 		10EB09DF1C2D206D00A76210 /* AFHTTPSessionManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+Util.m"; path = "Categories/AFHTTPSessionManager+Util.m"; sourceTree = "<group>"; };
 		10EB18501C4CC2DD00BE5701 /* MenuInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuInfo.h; path = Model/MenuInfo/MenuInfo.h; sourceTree = "<group>"; };
 		10EB18511C4CC2DD00BE5701 /* MenuInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuInfo.m; path = Model/MenuInfo/MenuInfo.m; sourceTree = "<group>"; };
+		10EB18531C4DD1E000BE5701 /* UserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserHeaderView.h; path = Mine/UserHeaderView.h; sourceTree = "<group>"; };
+		10EB18541C4DD1E000BE5701 /* UserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserHeaderView.m; path = Mine/UserHeaderView.m; sourceTree = "<group>"; };
+		10EB18591C4DE2C200BE5701 /* SideUserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideUserHeaderView.h; path = SideMenuView/SideUserHeaderView.h; sourceTree = "<group>"; };
+		10EB185A1C4DE2C200BE5701 /* SideUserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideUserHeaderView.m; path = SideMenuView/SideUserHeaderView.m; sourceTree = "<group>"; };
 		10EBBB801C4B62B600D2612F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = Config/Config.h; sourceTree = "<group>"; };
 		10EBBB811C4B62B600D2612F /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Config.m; path = Config/Config.m; sourceTree = "<group>"; };
 		10EC149E1C4652D300E080C4 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Util.h"; path = "Categories/UIColor+Util.h"; sourceTree = "<group>"; };
@@ -447,6 +453,8 @@
 				10EF32501C4490A200D91DA5 /* SideMenuCell.m */,
 				10EF32511C4490A200D91DA5 /* SideMenuViewController.h */,
 				10EF32521C4490A200D91DA5 /* SideMenuViewController.m */,
+				10EB18591C4DE2C200BE5701 /* SideUserHeaderView.h */,
+				10EB185A1C4DE2C200BE5701 /* SideUserHeaderView.m */,
 			);
 			name = SideMenuView;
 			sourceTree = "<group>";
@@ -580,6 +588,8 @@
 			children = (
 				10FB509D1C3DFB6E00572D04 /* MineTableViewController.h */,
 				10FB509E1C3DFB6E00572D04 /* MineTableViewController.m */,
+				10EB18531C4DD1E000BE5701 /* UserHeaderView.h */,
+				10EB18541C4DD1E000BE5701 /* UserHeaderView.m */,
 				10FB50A41C3E435700572D04 /* MineOPCell.h */,
 				10FB50A51C3E435700572D04 /* MineOPCell.m */,
 			);
@@ -812,6 +822,7 @@
 				10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */,
 				10EF32471C43850300D91DA5 /* MainView.m in Sources */,
 				10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */,
+				10EB18551C4DD1E000BE5701 /* UserHeaderView.m in Sources */,
 				10EF32531C4490A200D91DA5 /* SideMenuCell.m in Sources */,
 				1019678C1C45EFFE00935768 /* SharedChannelTableController.m in Sources */,
 				10EB09CD1C2CF06400A76210 /* UserInfo.m in Sources */,
@@ -829,6 +840,7 @@
 				10EF32541C4490A200D91DA5 /* SideMenuViewController.m in Sources */,
 				10EB09D41C2D10B200A76210 /* FunServer.m in Sources */,
 				10EDEB2F1C34C018008A9769 /* MusicPlayerViewController.m in Sources */,
+				10EB185B1C4DE2C200BE5701 /* SideUserHeaderView.m in Sources */,
 				10EB09C51C2CEAF600A76210 /* ChannelInfo.m in Sources */,
 				10F471ED1C2FF5DD006DECAC /* ContentTabBarController.m in Sources */,
 				10EB09AA1C2CE90500A76210 /* AppDelegate.m in Sources */,
