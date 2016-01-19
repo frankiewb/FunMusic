@@ -9,11 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class ChannelInfo;
-@class MarqueeLabel;
 
 @interface ChannelCell : UITableViewCell
-
-
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

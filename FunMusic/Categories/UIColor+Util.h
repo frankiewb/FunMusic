@@ -10,7 +10,6 @@
 
 @interface UIColor (Util)
 
-//所有view的背景颜色
 + (UIColor *)themeColor;
 
 + (UIColor *)standerTextColor;

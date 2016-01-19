@@ -20,7 +20,8 @@ static const CGFloat kEdgeDistance       = 10;
 
 @interface SideMenuCell ()
 
-
+@property (nonatomic, strong) UIImageView *sideMenuImageView;
+@property (nonatomic, strong) UILabel *sideMenuNameLabel;
 
 @end
 
@@ -52,13 +53,14 @@ static const CGFloat kEdgeDistance       = 10;
     //self
     self.backgroundColor = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
-    //opImageView
+    
+    //ImageView
     _sideMenuImageView = [[UIImageView alloc] init];
     _sideMenuImageView.contentMode = UIViewContentModeScaleAspectFit;
     _sideMenuImageView.layer.cornerRadius = kOPImageSide / 2;
     [self.contentView addSubview:_sideMenuImageView];
     
-    //opNameLabel
+    //NameLabel
     _sideMenuNameLabel = [[UILabel alloc] init];
     _sideMenuNameLabel.textColor = [UIColor standerTextColor];
     [self.contentView addSubview:_sideMenuNameLabel];

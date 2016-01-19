@@ -51,26 +51,26 @@ static const CGFloat kNextButtonXFactor           = 1.65;
 
 typedef NS_ENUM(NSInteger, songButtonType)
 {
-    songButtonTypePause = 1,
+    songButtonTypePause = 0,
     songButtonTypeLike,
     songButtonTypSkip
 };
 
 @interface MusicPlayerViewController ()
 {
-    BOOL isPlaying;
-    NSTimer *timer;
-    NSInteger currentTimeMinutes;
-    NSInteger currentTimeSeconds;
-    NSMutableString *currentTimeString;
-    NSInteger totalTimeMinutes;
-    NSInteger totalTimeSeconds;
-    NSMutableString *totalTimeString;
-    NSMutableString *timerLabelSring;
-    NSMutableArray *songOperationButtonList;
-    FunServer *funServer;
-    PlayerInfo *currentPlayerInfo;
-    MPMoviePlayerController *musicPlayer;
+    BOOL _isPlaying;
+    NSTimer *_timer;
+    NSInteger _currentTimeMinutes;
+    NSInteger _currentTimeSeconds;
+    NSMutableString *_currentTimeString;
+    NSInteger _totalTimeMinutes;
+    NSInteger _totalTimeSeconds;
+    NSMutableString *_totalTimeString;
+    NSMutableString *_timerLabelSring;
+    NSMutableArray *_songOperationButtonList;
+    FunServer *_funServer;
+    PlayerInfo *_currentPlayerInfo;
+    MPMoviePlayerController *_musicPlayer;
 }
 
 
@@ -94,59 +94,56 @@ typedef NS_ENUM(NSInteger, songButtonType)
     _songArtistLabel.textColor = [UIColor standerGreyTextColor];
 }
 
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _funServer = [[FunServer alloc] init];
+        _currentPlayerInfo = [_funServer fmGetCurrentPlayerInfo];
+        _musicPlayer = [_funServer fmGetCurrentMusicPlayer];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    funServer = [[FunServer alloc] init];
-    currentPlayerInfo = [funServer fmGetCurrentPlayerInfo];
-    musicPlayer = [funServer fmGetCurrentMusicPlayer];
     [self setUpUI];
     [self setAutoLayout];
     [self setMusicPlayerInfo];
+    [self refreshMusicPlayer];
     //解决NSTimer保留环问题
-    __weak MusicPlayerViewController *weakSelf = self;
-    timer = [NSTimer fmScheduledTimerWithTimeInterval:kTimeInterval
+     __weak MusicPlayerViewController *weakSelf = self;
+    _timer = [NSTimer fmScheduledTimerWithTimeInterval:kTimeInterval
                                                 block:^{[weakSelf updateTimeProgress];}
                                              repeates:YES];
-    
-    [self refreshMusicPlayer];
-    //************************************Block Function**********************************************************
-    funServer.getSongListFail = ^()
+    _funServer.getSongListFail = ^()
     {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"获取音乐失败"
-                                                                                 message:@"请检查网络是否连接"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:nil];
-        [alertController addAction:okAction];
-        [weakSelf presentViewController:alertController animated:YES completion:nil];
+        [weakSelf pushAlertView];
     };
-    //**************************************************************************************************************
-    
 }
 
 
 - (void)updateTimeProgress
 {
-    currentTimeMinutes = (unsigned)musicPlayer.currentPlaybackTime / 60;
-    currentTimeSeconds = (unsigned)musicPlayer.currentPlaybackTime % 60;
+    _currentTimeMinutes = (unsigned)_musicPlayer.currentPlaybackTime / 60;
+    _currentTimeSeconds = (unsigned)_musicPlayer.currentPlaybackTime % 60;
     
     //专辑图片旋转
     _musicPlayerImage.transform = CGAffineTransformRotate(_musicPlayerImage.transform, M_PI / 1440);
-    if (currentTimeSeconds < 10)
+    if (_currentTimeSeconds < 10)
     {
-        currentTimeString = [NSMutableString stringWithFormat:@"%ld:0%ld",(long)currentTimeMinutes,(long)currentTimeSeconds];
+        _currentTimeString = [NSMutableString stringWithFormat:@"%ld:0%ld",(long)_currentTimeMinutes,(long)_currentTimeSeconds];
     }
     else
     {
-        currentTimeString = [NSMutableString stringWithFormat:@"%ld:%ld",(long)currentTimeMinutes,(long)currentTimeSeconds];
+        _currentTimeString = [NSMutableString stringWithFormat:@"%ld:%ld",(long)_currentTimeMinutes,(long)_currentTimeSeconds];
     }
-    timerLabelSring = [NSMutableString stringWithFormat:@"%@/%@",currentTimeString,totalTimeString];
-    _timeLabel.text = timerLabelSring;
-    _timeProgressBar.progress = musicPlayer.currentPlaybackTime/[currentPlayerInfo.currentSong.songTimeLong integerValue];
+    _timerLabelSring = [NSMutableString stringWithFormat:@"%@/%@",_currentTimeString,_totalTimeString];
+    _timeLabel.text = _timerLabelSring;
+    _timeProgressBar.progress = _musicPlayer.currentPlaybackTime/[_currentPlayerInfo.currentSong.songTimeLong integerValue];
 }
 
 
@@ -199,7 +196,6 @@ typedef NS_ENUM(NSInteger, songButtonType)
     _songTitleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_songTitleLabel];
     
-    
     //初始化SongArtist
     _songArtistLabel = [[MarqueeLabel alloc] init];
     _songArtistLabel.textColor = [UIColor standerGreyTextColor];
@@ -215,22 +211,21 @@ typedef NS_ENUM(NSInteger, songButtonType)
     NSArray *buttonImageNameLists = @[@"pause-musicPlayer",
                                       @"heart1-musicPlayer",
                                       @"next-musicPlayer"];
-    songOperationButtonList = [[NSMutableArray alloc] initWithCapacity:buttonImageNameLists.count];
+    _songOperationButtonList = [[NSMutableArray alloc] initWithCapacity:buttonImageNameLists.count];
     
     [buttonImageNameLists enumerateObjectsUsingBlock:^(NSString *buttonImageName, NSUInteger idx, BOOL *stop)
      {
          UIButton *songOperationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-         songOperationButton.tag = (idx+1);
+         songOperationButton.tag = (idx);
          [songOperationButton setBackgroundImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
          [songOperationButton addTarget:self action:@selector(onButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
          [self.view addSubview:songOperationButton];
-         [songOperationButtonList addObject:songOperationButton];
+         [_songOperationButtonList addObject:songOperationButton];
      }];
 }
 
 - (void)setAutoLayout
 {
-    
     //PlayerImage
     [_musicPlayerImage mas_makeConstraints:^(MASConstraintMaker *make)
     {
@@ -285,12 +280,12 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
     //初始化songOperationButton
     
-    [songOperationButtonList enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL *stop)
+    [_songOperationButtonList enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL *stop)
      {
          [button mas_makeConstraints:^(MASConstraintMaker *make)
           {
               make.top.equalTo(_songArtistLabel.mas_bottom).multipliedBy(kButtonTopFactor);
-              make.centerX.equalTo(self.view.mas_centerX).with.multipliedBy([self getButtonXFactor:(idx+1)]);
+              make.centerX.equalTo(self.view.mas_centerX).with.multipliedBy([self getButtonXFactor:(idx)]);
               make.width.and.height.equalTo(self.view.mas_width).with.multipliedBy(kButtonHeightWidthFactor);
           }];
 
@@ -300,7 +295,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 - (void)setMusicPlayerInfo
 {
-    [funServer fmSongOperationWithType:SongOperationTypeNext];
+    [_funServer fmSongOperationWithType:SongOperationTypeNext];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(startPlayer)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
@@ -320,80 +315,76 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 - (void)startPlayer
 {
-    [funServer fmSongOperationWithType:SongOperationTypePlay];
+    [_funServer fmSongOperationWithType:SongOperationTypePlay];
 }
 
 - (void)refreshMusicPlayer
 {
-    isPlaying = YES;
+    _isPlaying = YES;
     if (![self isFirstResponder])
     {
         //远程控制
-        //************************************
         [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-        //************************************
         [self becomeFirstResponder];
     }
     
     //重置旋转图片角度
     _musicPlayerImage.image = nil;
-    NSURL *imageURL = [NSURL URLWithString:currentPlayerInfo.currentSong.songPictureUrl];
+    NSURL *imageURL = [NSURL URLWithString:_currentPlayerInfo.currentSong.songPictureUrl];
     [_musicPlayerImage sd_setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"albumBlock-musicPlayer"]];
     
     //初始化各UI界面
-    self.navigationItem.title = [NSString stringWithFormat:@"♪%@♪",currentPlayerInfo.currentChannel.channelName];
-    _songArtistLabel.text = [NSString stringWithFormat:@"——  %@  ——",currentPlayerInfo.currentSong.songArtist];
-    _songTitleLabel.text = [NSString stringWithFormat:@"%@",currentPlayerInfo.currentSong.songTitle];
+    self.navigationItem.title = [NSString stringWithFormat:@"♪%@♪",_currentPlayerInfo.currentChannel.channelName];
+    _songArtistLabel.text = [NSString stringWithFormat:@"——  %@  ——",_currentPlayerInfo.currentSong.songArtist];
+    _songTitleLabel.text = [NSString stringWithFormat:@"%@",_currentPlayerInfo.currentSong.songTitle];
     
     //初始化TimeLabel时间
-    totalTimeSeconds = [currentPlayerInfo.currentSong.songTimeLong integerValue] %60;
-    totalTimeMinutes = [currentPlayerInfo.currentSong.songTimeLong integerValue] /60;
-    if (totalTimeSeconds < 10)
+    _totalTimeSeconds = [_currentPlayerInfo.currentSong.songTimeLong integerValue] %60;
+    _totalTimeMinutes = [_currentPlayerInfo.currentSong.songTimeLong integerValue] /60;
+    if (_totalTimeSeconds < 10)
     {
-        totalTimeString = [NSMutableString stringWithFormat:@"%ld:0%ld",(long)totalTimeMinutes,(long)totalTimeSeconds];
+        _totalTimeString = [NSMutableString stringWithFormat:@"%ld:0%ld",(long)_totalTimeMinutes,(long)_totalTimeSeconds];
     }
     else
     {
-        totalTimeString = [NSMutableString stringWithFormat:@"%ld:%ld",(long)totalTimeMinutes,(long)totalTimeSeconds];
+        _totalTimeString = [NSMutableString stringWithFormat:@"%ld:%ld",(long)_totalTimeMinutes,(long)_totalTimeSeconds];
     }
     
     //初始化likeButton的图像
-    if (![currentPlayerInfo.currentSong.songIsLike intValue])
+    if (![_currentPlayerInfo.currentSong.songIsLike intValue])
     {
-        [songOperationButtonList[1] setBackgroundImage:[UIImage imageNamed:@"heart1-musicPlayer"] forState:UIControlStateNormal];
+        [_songOperationButtonList[songButtonTypeLike] setBackgroundImage:[UIImage imageNamed:@"heart1-musicPlayer"] forState:UIControlStateNormal];
     }
     else
     {
-        [songOperationButtonList[1] setBackgroundImage: [UIImage imageNamed:@"heart2-musicPlayer"] forState:UIControlStateNormal];
+        [_songOperationButtonList[songButtonTypeLike] setBackgroundImage: [UIImage imageNamed:@"heart2-musicPlayer"] forState:UIControlStateNormal];
     }
     
     //初始化PauseButton的表示
     _musicPlayerImage.alpha = kPlayingAlpha;
     _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock-musicPlayer"];
-    [songOperationButtonList[0] setBackgroundImage:[UIImage imageNamed:@"pause-musicPlayer"] forState:UIControlStateNormal];
+    [_songOperationButtonList[songButtonTypePause] setBackgroundImage:[UIImage imageNamed:@"pause-musicPlayer"] forState:UIControlStateNormal];
     
     //初始化timeProgressBar
-    [timer setFireDate:[NSDate date]];
-    [self congfigVideoPlayerInfo];
-    
-    
+    [_timer setFireDate:[NSDate date]];
+    [self congfigVideoPlayerInfo];    
 }
 
 - (void)congfigVideoPlayerInfo
 {
     if (NSClassFromString(@"MPNowPlayingInfoCenter"))
     {
-        if (currentPlayerInfo.currentSong.songTitle != nil)
+        if (_currentPlayerInfo.currentSong.songTitle != nil)
         {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            [dict setObject:currentPlayerInfo.currentSong.songTitle forKey:MPMediaItemPropertyTitle];
-            [dict setObject:currentPlayerInfo.currentSong.songArtist forKey:MPMediaItemPropertyArtist];
+            [dict setObject:_currentPlayerInfo.currentSong.songTitle forKey:MPMediaItemPropertyTitle];
+            [dict setObject:_currentPlayerInfo.currentSong.songArtist forKey:MPMediaItemPropertyArtist];
             UIImage *playerViewImage = _musicPlayerImage.image;
             if (playerViewImage !=nil)
             {
                 [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:playerViewImage] forKey:MPMediaItemPropertyArtwork];
             }
-            [dict setObject:[NSNumber numberWithFloat:[currentPlayerInfo.currentSong.songTimeLong floatValue]] forKey:MPMediaItemPropertyPlaybackDuration];
+            [dict setObject:[NSNumber numberWithFloat:[_currentPlayerInfo.currentSong.songTimeLong floatValue]] forKey:MPMediaItemPropertyPlaybackDuration];
             [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
         }
     }
@@ -420,40 +411,40 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 - (void)pauseClicked
 {
-    if (isPlaying)
+    if (_isPlaying)
     {
-        isPlaying = NO;
+        _isPlaying = NO;
         _musicPlayerImage.alpha = kNOPlayingAlpha;
         _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock2-musicPlayer"];
-        [songOperationButtonList[0] setBackgroundImage:[UIImage imageNamed:@"play-musicPlayer"] forState:UIControlStateNormal];
-        [musicPlayer pause];
+        [_songOperationButtonList[songButtonTypePause] setBackgroundImage:[UIImage imageNamed:@"play-musicPlayer"] forState:UIControlStateNormal];
+        [_musicPlayer pause];
         //关闭计时器
-        [timer setFireDate:[NSDate distantFuture]];
+        [_timer setFireDate:[NSDate distantFuture]];
     }
     else
     {
-        isPlaying = YES;
+        _isPlaying = YES;
         _musicPlayerImage.alpha = kPlayingAlpha;
         _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock-musicPlayer"];
-        [songOperationButtonList[0] setBackgroundImage:[UIImage imageNamed:@"pause-musicPlayer"] forState:UIControlStateNormal];
-        [musicPlayer play];
+        [_songOperationButtonList[songButtonTypePause] setBackgroundImage:[UIImage imageNamed:@"pause-musicPlayer"] forState:UIControlStateNormal];
+        [_musicPlayer play];
         //开启计时器
-        [timer setFireDate:[NSDate date]];
+        [_timer setFireDate:[NSDate date]];
     }
 }
 
 - (void)likeClicked
 {
-    if (![currentPlayerInfo.currentSong.songIsLike intValue])
+    if (![_currentPlayerInfo.currentSong.songIsLike intValue])
     {
-        currentPlayerInfo.currentSong.songIsLike = @"1";
-        [songOperationButtonList[1] setBackgroundImage:[UIImage imageNamed:@"heart2-musicPlayer"] forState:UIControlStateNormal];
-        [funServer fmSongOperationWithType:SongOperationTypeLike];
+        _currentPlayerInfo.currentSong.songIsLike = @"1";
+        [_songOperationButtonList[songButtonTypeLike] setBackgroundImage:[UIImage imageNamed:@"heart2-musicPlayer"] forState:UIControlStateNormal];
+        [_funServer fmSongOperationWithType:SongOperationTypeLike];
     }
     else
     {
-        currentPlayerInfo.currentSong.songIsLike = @"0";
-        [songOperationButtonList[1] setBackgroundImage:[UIImage imageNamed:@"heart1-musicPlayer"] forState:UIControlStateNormal];
+        _currentPlayerInfo.currentSong.songIsLike = @"0";
+        [_songOperationButtonList[songButtonTypeLike] setBackgroundImage:[UIImage imageNamed:@"heart1-musicPlayer"] forState:UIControlStateNormal];
     }
 }
 
@@ -461,14 +452,14 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 - (void)skipClicked
 {
-    [timer setFireDate:[NSDate distantFuture]];
-    [musicPlayer pause];
-    if (!isPlaying)
+    [_timer setFireDate:[NSDate distantFuture]];
+    [_musicPlayer pause];
+    if (!_isPlaying)
     {
         _musicPlayerImage.alpha = kPlayingAlpha;
         _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock-musicPlayer"];
     }
-    [funServer fmSongOperationWithType:SongOperationTypeSkip];
+    [_funServer fmSongOperationWithType:SongOperationTypeSkip];
 }
 
 
@@ -476,23 +467,37 @@ typedef NS_ENUM(NSInteger, songButtonType)
 {
     switch (buttonIndex)
     {
-        case 1:
+        case songButtonTypePause:
             return kPauseButtonXFactor;
             break;
-        case 2:
+        case songButtonTypeLike:
             return kHeartButtonXFactor;
             break;
-        case 3:
+        case songButtonTypSkip:
             return kNextButtonXFactor;
             break;
         default:
+            NSAssert(FALSE, @"Invalid buttonType !");
             return 1;
     }
 }
 
+- (void)pushAlertView
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"获取音乐失败"
+                                                                             message:@"请检查网络是否连接"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

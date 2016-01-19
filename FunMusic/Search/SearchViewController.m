@@ -12,7 +12,6 @@
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
 #import "ChannelCell.h"
-#import "PlayerInfo.h"
 #import "FunServer.h"
 #import "Utils.h"
 #import "UIColor+Util.h"
@@ -28,11 +27,13 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 
 
 @interface SearchViewController ()<UISearchResultsUpdating, UISearchBarDelegate>
+{
+    FunServer *_funServer;
+    NSMutableArray *_filteredChannelInfoCells;
+    NSMutableArray *_allChannelInfoCells;
+}
 
 @property (nonatomic, strong)UISearchController *searchController;
-@property (nonatomic, strong)NSMutableArray *filteredChannelInfoCells;
-@property (nonatomic, strong)NSMutableArray *_allChannelInfoCells;
-@property (nonatomic, strong)FunServer *funServer;
 
 @end
 
@@ -44,8 +45,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     if (self)
     {
         _funServer = [[FunServer alloc] init];
-        //这个很关键，当从tabbar切换到查找页面时，隐藏tabber界面，回退时还可以恢复
-        self.hidesBottomBarWhenPushed = YES;
     }
     
     return self;
@@ -61,19 +60,41 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.searchController = [[SearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.navigationItem.titleView = self.searchController.searchBar;
-    //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！
-    [self.searchController loadViewIfNeeded];
-    
-    _filteredChannelInfoCells = [[NSMutableArray alloc] init];
-    __allChannelInfoCells = [_funServer fmGetSearchChannelList];    
+    [self setUpSearchUI];
+    [self setUpTableViewUI];
+    [self fetchData];
+}
+
+- (void)setUpTableViewUI
+{
     self.tableView.backgroundColor = [UIColor themeColor];
+    self.hidesBottomBarWhenPushed = YES;
     //注册channelCell
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelSearchCellID];
     //解决分割线的距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
+}
+
+- (void)setUpSearchUI
+{
+    self.searchController = [[SearchController alloc] initWithSearchResultsController:nil];
+    //这个很关键，当从tabbar切换到查找页面时，隐藏tabber界面，回退时还可以恢复
+    self.searchController.searchResultsUpdater = self;
+    self.navigationItem.titleView = self.searchController.searchBar;
+    //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！
+    [self.searchController loadViewIfNeeded];
+}
+
+- (void)fetchData
+{
+    if (!_filteredChannelInfoCells)
+    {
+        _filteredChannelInfoCells = [[NSMutableArray alloc] init];
+    }
+    if (!_allChannelInfoCells)
+    {
+        _allChannelInfoCells = [_funServer fmGetSearchChannelList];
+    }
 }
 
 
@@ -91,8 +112,8 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 
 - (void)channelSearchFilterWithSearchText:(NSString *)searchText
 {
-    [self.filteredChannelInfoCells removeAllObjects];
-    for (ChannelGroup *singleChannelGroup in __allChannelInfoCells)
+    [_filteredChannelInfoCells removeAllObjects];
+    for (ChannelGroup *singleChannelGroup in _allChannelInfoCells)
     {
         for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
         {
@@ -105,20 +126,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
 }
 
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    for (UIView *view in [[self.searchController.searchBar.subviews lastObject] subviews])
-    {
-        if ([view isKindOfClass:[UIButton class]])
-        {
-            UIButton *cancelBtn = (UIButton *)view;
-            [cancelBtn setTitle:@"搜索" forState:UIControlStateNormal];
-        }
-    }
-
-}
-
 #pragma tableviewController delegate
 
 
@@ -129,7 +136,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return 1;
     }
-    return __allChannelInfoCells.count;
+    return _allChannelInfoCells.count;
 }
 
 
@@ -140,7 +147,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return _filteredChannelInfoCells.count;
     }
-    ChannelGroup *singleChannelGroup = __allChannelInfoCells[section];
+    ChannelGroup *singleChannelGroup = _allChannelInfoCells[section];
     return singleChannelGroup.channelArray.count;
 }
 
@@ -179,11 +186,10 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
     else
     {
-        ChannelGroup *singleChannelGroup = [__allChannelInfoCells objectAtIndex:indexPath.section];
+        ChannelGroup *singleChannelGroup = [_allChannelInfoCells objectAtIndex:indexPath.section];
         channelSearchInfo = [singleChannelGroup.channelArray objectAtIndex:indexPath.row];
     }
     [channelSearchCell setUpChannelCellWithChannelInfo:channelSearchInfo];
-    
     return channelSearchCell;
 }
 
@@ -196,7 +202,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
     else
     {
-        ChannelGroup *singleChannelGroup = [__allChannelInfoCells objectAtIndex:indexPath.section];
+        ChannelGroup *singleChannelGroup = [_allChannelInfoCells objectAtIndex:indexPath.section];
         selectChannelSearchInfo = [singleChannelGroup.channelArray objectAtIndex:indexPath.row];
     }
     [_funServer fmUpdateCurrentChannelInfo:selectChannelSearchInfo];
@@ -215,9 +221,9 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return @"频道查询结果";
     }
-    ChannelGroup *singleChannelGroup = __allChannelInfoCells[section];
+    ChannelGroup *singleChannelGroup = _allChannelInfoCells[section];
     ChannelType type = singleChannelGroup.channelType;
-    return [Utils gennerateChannelGroupNameWithChannelType:type isChineseLanguage:TRUE];
+    return [Utils getChannelGroupNameWithChannelType:type isChineseLanguage:YES];
 }
 
 #pragma mark修改每组标题字体颜色
@@ -229,7 +235,8 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

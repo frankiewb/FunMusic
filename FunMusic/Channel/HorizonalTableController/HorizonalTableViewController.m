@@ -53,8 +53,7 @@ static NSString *kHorizonalCellID = @"HorizonalCell";
     self.tableView.pagingEnabled = YES;
     self.tableView.backgroundColor = [UIColor themeColor];
     //当scrollview滚动到边界时，再继续滚动不让其反弹
-    self.tableView.bounces = NO;
-    
+    self.tableView.bounces = NO;    
     //采用registerClass方式注册CellID，代码更简洁，IOS 6新增
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kHorizonalCellID];
     

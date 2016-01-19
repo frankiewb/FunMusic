@@ -23,7 +23,6 @@ typedef NS_ENUM(NSInteger, infoType)
     infoTypeFriend, //朋友发出
 };
 
-@class AppDelegate;
 @interface TweetInfo : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *tweeterImage;
@@ -37,7 +36,6 @@ typedef NS_ENUM(NSInteger, infoType)
 @property (nonatomic, copy) NSString *tweetID;
 @property (nonatomic, assign) tweeterType tweeterType;
 @property (nonatomic, assign) infoType infoType;
-//为了纪录该TweetInfo产生的Cell高度，放在这里
 @property (nonatomic, assign) CGFloat cellHeight;
 
 

@@ -44,7 +44,6 @@
     {
         [self setUpUI];
         [self setTweetLayout];
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return self;
@@ -54,12 +53,8 @@
 
 - (void)setUpTweetCellWithTweetInfo:(TweetInfo *)tweetInfo
 {
-    _deleteButton.hidden = NO;
+    (tweetInfo.infoType == infoTypeFriend) ? (_deleteButton.hidden = YES) : (_deleteButton.hidden = NO);
     [_tweeterImageView setImage:[UIImage imageNamed:tweetInfo.tweeterImage]];
-    if (tweetInfo.infoType == infoTypeFriend)
-    {
-        _deleteButton.hidden = YES;
-    }
     _tweeterNameLabel.text = tweetInfo.tweeterName;
     [_channelImageView setImage:[UIImage imageNamed:tweetInfo.channelImage]];
     _channelNameLabel.text = [NSString stringWithFormat:@"    频道 ：%@",tweetInfo.channelName];
@@ -71,7 +66,6 @@
     else
     {
         _tweeterCommentLabel.text = nil;
-        
     }
     _tweetDateLabel.text = tweetInfo.tweetDate;
     _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)tweetInfo.likeCount];
@@ -105,6 +99,7 @@
     //self
     self.backgroundColor             = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
+    self.selectionStyle              = UITableViewCellSelectionStyleNone;
     
     //tweeterImageView
     _tweeterImageView = [[UIImageView alloc] init];
@@ -280,25 +275,24 @@
     NSInteger count = [_likeCountLabel.text integerValue];
     if (!_isLike)
     {
-        [_likeButton setImage:[UIImage imageNamed:@"赞2"] forState:UIControlStateNormal];
         _isLike = YES;
-       
+        [_likeButton setImage:[UIImage imageNamed:@"赞2"] forState:UIControlStateNormal];
         _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)++count];
-        
     }
     else
     {
-        [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
         _isLike = NO;
+        [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
         _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)--count];
     }
     BOOL isMine = FALSE;
+    
     FunServer *funServer = [[FunServer alloc] init];
     UserInfo *currentUser = [funServer fmGetCurrentUserInfo];
     [_tweeterNameLabel.text isEqualToString:(currentUser.userName)] ? (isMine = TRUE) : (isMine = FALSE);
     if (_updateTweetLikeCount)
     {
-        _updateTweetLikeCount(_tweetID,_isLike,isMine);
+        _updateTweetLikeCount(_tweetID, _isLike, isMine);
     }
 }
 

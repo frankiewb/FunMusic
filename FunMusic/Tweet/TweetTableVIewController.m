@@ -10,8 +10,6 @@
 #import "TweetCell.h"
 #import "TweetInfo.h"
 #import "ChannelInfo.h"
-#import "PlayerInfo.h"
-#import "UserInfo.h"
 #import "FunServer.h"
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
@@ -23,9 +21,6 @@
 #import <RESideMenu.h>
 
 
-
-
-
 static const CGFloat kRefreshSleepTime           = 0.5;
 static const CGFloat kSeperatorLineLeftDistance  = 10;
 static const CGFloat kSeperatorLineRightDistance = 10;
@@ -33,10 +28,9 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 
 @interface TweetTableVIewController ()
 {
-    FunServer *funServer;
-    NSMutableArray *tweetInfoGroup;
-    ChannelInfo *currentChannelInfo;
-    tweetViewType tweetType;
+    FunServer *_funServer;
+    NSMutableArray *_tweetGroup;
+    tweetViewType _tweetType;
 }
 
 @end
@@ -59,8 +53,8 @@ static NSString *kTweetCellID                    = @"TweetCellID";
     self = [super init];
     if (self)
     {
-        funServer = [[FunServer alloc] init];
-        tweetType = type;
+        _funServer = [[FunServer alloc] init];
+        _tweetType = type;
         self.title = name;
     }
     
@@ -71,9 +65,14 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self setUpTableViewUI];
+    [self fetchData];
+}
+
+- (void)setUpTableViewUI
+{
     self.tableView.backgroundColor = [UIColor themeColor];
-    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //添加MJrefresh
     __weak TweetTableVIewController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^
@@ -81,36 +80,28 @@ static NSString *kTweetCellID                    = @"TweetCellID";
         [weakSelf refreshData];
     }];
     self.tableView.mj_header = header;
-    [self fetchTweetData];
     [self.tableView registerClass:[TweetCell class] forCellReuseIdentifier:kTweetCellID];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //解决分割线的距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
-
-
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)refreshData
 {
     //refresh之前检查是否登录
     
-    if ([funServer fmIsLogin])
+    if ([_funServer fmIsLogin])
     {
         //开辟异步并发线程
         //子线程更新数据，主线程可以用来显示数据状态，注意GCD可以嵌套
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
-            [self fetchTweetData];
+            [self fetchData];
         });
         //刷新完后，暂停若干时间
-        [self.tableView reloadData];
         [NSThread sleepForTimeInterval:kRefreshSleepTime];
-        
+        [self.tableView reloadData];
     }
     else
     {
@@ -128,11 +119,11 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 
 }
 
-- (void)fetchTweetData
+- (void)fetchData
 {
-    if (!tweetInfoGroup)
+    if (!_tweetGroup)
     {
-        tweetInfoGroup = [funServer fmGetTweetInfoWithType:tweetType];
+        _tweetGroup = [_funServer fmGetTweetInfoWithType:_tweetType];
     }
 }
 
@@ -141,25 +132,25 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return tweetInfoGroup.count;
+    return _tweetGroup.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TweetCell *tweetCell = [tableView dequeueReusableCellWithIdentifier:kTweetCellID forIndexPath:indexPath];
     [tweetCell dawnAndNightMode];
-    TweetInfo *tweetInfo = tweetInfoGroup[indexPath.row];
+    TweetInfo *tweetInfo = _tweetGroup[indexPath.row];
     [tweetCell setUpTweetCellWithTweetInfo:tweetInfo];
     
     //**********************SetTweetBlock Function******************************************************
     __weak TweetTableVIewController *weakSelf = self;
-    __weak FunServer *weakFunServer = funServer;
+    __weak FunServer *weakFunServer = _funServer;
     __weak TweetTableVIewController *weakMainTweetCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakTweetCtl;
     tweetCell.deleteTweetCell = ^(NSString *tweetID)
     {
         [weakFunServer fmDeleteTweetInfoWithTweetID:tweetID];
         [weakSelf.tableView reloadData];
-        if (tweetType != tweetViewTypeLocal)
+        if (_tweetType != tweetViewTypeLocal)
         {
             [weakMainTweetCtl.tableView reloadData];
         }
@@ -173,11 +164,11 @@ static NSString *kTweetCellID                    = @"TweetCellID";
         ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = funViewTypeMusic;
     };
     
-    tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike, BOOL isMine)
+    tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike, BOOL isMineTweet)
     {
-        [weakFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike isMineTweet:isMine];
+        [weakFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike isMineTweet:isMineTweet];
         [weakSelf.tableView reloadData];
-        if (tweetType != tweetViewTypeLocal)
+        if (_tweetType != tweetViewTypeLocal)
         {
             [weakMainTweetCtl.tableView reloadData];
         }
@@ -189,9 +180,15 @@ static NSString *kTweetCellID                    = @"TweetCellID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TweetInfo *currentTweetInfo = tweetInfoGroup[indexPath.row];
+    TweetInfo *currentTweetInfo = _tweetGroup[indexPath.row];
     NSAssert(currentTweetInfo.cellHeight, @"CellHeight has not been caculated !");
     return currentTweetInfo.cellHeight;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 

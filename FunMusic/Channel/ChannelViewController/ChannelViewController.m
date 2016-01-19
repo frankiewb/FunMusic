@@ -16,16 +16,21 @@ static const CGFloat kTitleBarHeight      = 36;
 static const CGFloat kFirstButtonScale    = 1.2;
 static const CGFloat kNavigationbarHeight = 64;
 static const CGFloat kTabbarHeight        = 49;
+extern const CGFloat kFirstButtonScale;
 
 
 @interface ChannelViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) NSArray *controllers;
-extern const CGFloat kFirstButtonScale;
-
 @end
 
 @implementation ChannelViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor themeColor];
+}
+
 
 - (void)dawnAndNightMode
 {
@@ -42,8 +47,6 @@ extern const CGFloat kFirstButtonScale;
 }
 
 
-
-
 - (instancetype)initWithTitle:(NSString *)title subTitles:(NSArray *)subTitles subTitleCOntrollers:(NSArray *)controllers
 {
     self = [super init];
@@ -52,7 +55,7 @@ extern const CGFloat kFirstButtonScale;
         //IOS7 鼓励全屏布局，默认值为UIRectEdgeAll，四周边缘延伸，
         //即如果视图中上有navigationBar，下有tabBar，那么视图仍然会延展覆盖到四周，解决办法采用UIRectEdgeNone
         self.edgesForExtendedLayout = UIRectEdgeNone;
-
+        
         //添加titleBar
         if (title)
         {
@@ -62,6 +65,7 @@ extern const CGFloat kFirstButtonScale;
         _titleBar = [[TitlebarView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, titleBarHeight)
                                              titleNames:subTitles];
         [self.view addSubview:_titleBar];
+        
         //添加ViewPager
         _viewPager = [[HorizonalTableViewController alloc] initWithViewControllers:controllers];
         CGFloat viewPagerHeight = self.view.bounds.size.height - kTitleBarHeight - kNavigationbarHeight - kTabbarHeight;
@@ -107,12 +111,6 @@ extern const CGFloat kFirstButtonScale;
     return  self;
 }
 
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor themeColor];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

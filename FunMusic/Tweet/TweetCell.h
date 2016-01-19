@@ -24,7 +24,7 @@ static const CGFloat kCellEdgeDistance    = 15;
 @interface TweetCell : UITableViewCell
 
 @property (nonatomic, copy) void(^deleteTweetCell)(NSString *tweetID);
-@property (nonatomic, copy) void(^updateTweetLikeCount)(NSString *tweetID, BOOL isLike, BOOL isMine);
+@property (nonatomic, copy) void(^updateTweetLikeCount)(NSString *tweetID, BOOL isLike, BOOL isMineTweet);
 @property (nonatomic, copy) void(^scrollView)(NSInteger index, NSString *channelName);
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;

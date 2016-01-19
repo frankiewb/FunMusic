@@ -15,11 +15,11 @@ typedef NS_ENUM(NSInteger,tweetViewType)
 };
 
 
-
 @interface TweetTableVIewController : UITableViewController
 
 - (instancetype)initWithType:(tweetViewType)type TweeterName:(NSString *)name;
-- (void)fetchTweetData;
+
+- (void)fetchData;
 
 - (void)dawnAndNightMode;
 

@@ -12,9 +12,6 @@
 
 @interface MineOPCell : UITableViewCell
 
-@property (nonatomic, strong) UIImageView *opImageView;
-@property (nonatomic, strong) UILabel *opNameLabel;
-
 - (void)setMineOPCellWithOPInfo:(MenuInfo *)opInfo;
 
 - (void)dawnAndNightMode;

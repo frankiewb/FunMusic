@@ -15,13 +15,13 @@
 @interface Utils : NSObject
 
 
-+ (NSDictionary *)gennerateDicitonaryWithPlistFile:(NSString *)fileName;
++ (NSDictionary *)getDicitonaryWithPlistFile:(NSString *)fileName;
 
-+ (NSDictionary *)gennerateDicitonaryWithJsonFile:(NSString *)fileName;
++ (NSDictionary *)getDicitonaryWithJsonFile:(NSString *)fileName;
 
-+ (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type isChineseLanguage:(BOOL)isChinese;
++ (NSString *)getChannelGroupNameWithChannelType:(ChannelType)type isChineseLanguage:(BOOL)isChinese;
 
-+ (ChannelType)gennerateChannelGroupTypeWithChannelName:(NSString *)name;
++ (ChannelType)getChannelGroupTypeWithChannelName:(NSString *)name;
 
 
 

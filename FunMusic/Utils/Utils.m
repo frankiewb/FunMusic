@@ -13,7 +13,7 @@
 
 @implementation Utils
 
-+ (NSDictionary *)gennerateDicitonaryWithJsonFile:(NSString *)fileName
++ (NSDictionary *)getDicitonaryWithJsonFile:(NSString *)fileName
 {
     NSError *error;
     NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
@@ -29,7 +29,7 @@
 }
 
 
-+ (NSDictionary *)gennerateDicitonaryWithPlistFile:(NSString *)fileName
++ (NSDictionary *)getDicitonaryWithPlistFile:(NSString *)fileName
 {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
@@ -38,7 +38,7 @@
 
 
 
-+ (ChannelType)gennerateChannelGroupTypeWithChannelName:(NSString *)name
++ (ChannelType)getChannelGroupTypeWithChannelName:(NSString *)name
 {
     if ([name isEqualToString:@"心情"] || [name isEqualToString:@"channelFeeling"])
     {
@@ -66,7 +66,7 @@
     return 0;
 }
 
-+ (NSString *)gennerateChannelGroupNameWithChannelType:(ChannelType)type isChineseLanguage:(BOOL)isChinese
++ (NSString *)getChannelGroupNameWithChannelType:(ChannelType)type isChineseLanguage:(BOOL)isChinese
 {
     NSString *channelGroupName;
     switch (type)

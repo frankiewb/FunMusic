@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FunMusic/Categories/UIColor+Util.m"
-            timestampString = "474780879.884023"
+            filePath = "FunMusic/ContentView/ContentTabBarController.m"
+            timestampString = "474890614.343782"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "+titlebarColor"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-pushSharedViewController"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

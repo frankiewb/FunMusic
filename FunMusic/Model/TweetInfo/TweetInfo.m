@@ -18,7 +18,6 @@
 
 extern const CGFloat kNameFontSize;
 extern const CGFloat kDateLikeFontSize;
-
 extern const CGFloat kSmallLabelHeight;
 extern const CGFloat kMainImageHeight;
 extern const CGFloat kLabelWidthDistance;
@@ -64,7 +63,6 @@ static NSString *kCellHeight     = @"cellHeight";
         NSString *infotype = dict[@"infoType"];
         [tweetertype isEqualToString:@"1"] ? (_tweeterType = tweeterTypeShared) : (_tweeterType = tweeterTypeComment);
         [infotype isEqualToString:@"1"] ? (_infoType = infoTypeFriend) : (_infoType = infoTypeLocal);
-       
         [self setTweetHeight];
     }
     
@@ -95,7 +93,6 @@ static NSString *kCellHeight     = @"cellHeight";
     NSString *tweeterName  = currentUserInfo.userName;
     NSString *channelName  = currentPlayerInfo.currentChannel.channelName;
     NSString *channelImage = currentPlayerInfo.currentChannel.channelImage;
-    //理论上本地发布的时间应该以服务器时间为准，毕竟本地时间不实标准时间
     NSString *tweetDate = [NSDate gennerateCurrentTimeString];
     //本地产生的tweetID暂时采用时间作为标示，但是服务器后台应该有一个唯一的ID标示位
     NSString *tweetID = tweetDate;
@@ -103,7 +100,6 @@ static NSString *kCellHeight     = @"cellHeight";
     NSString *tweeterComment;
     NSString *tweeterType;
     _tweeterComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
     if ([comment isEqualToString:@""])
     {
         tweeterComment = @" ";
@@ -116,8 +112,6 @@ static NSString *kCellHeight     = @"cellHeight";
     }
     NSString *likeCount = @"0";
     NSString *infoType = @"2";
-    
-    
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           tweetID,        @"id",
                           tweeterImage,   @"userImage",
@@ -169,7 +163,6 @@ static NSString *kCellHeight     = @"cellHeight";
                                                     context:nil].size;
     CGFloat cellheight = textSize.height + (kSmallLabelHeight * 2) + kMainImageHeight + (kCellEdgeDistance * 2) + (kLabelHeightDistance * 3);
     _cellHeight = cellheight;
-
 }
 
 
@@ -210,8 +203,6 @@ static NSString *kCellHeight     = @"cellHeight";
     
     return self;
 }
-
-
 
 
 @end

@@ -30,17 +30,14 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
 @end
 
 
-
-
-
 @implementation ChannelCell
 
 
 - (void)dawnAndNightMode
 {
-    self.backgroundColor = [UIColor themeColor];
-    self.contentView.backgroundColor = [UIColor themeColor];
-    _channelNameLabel.textColor = [UIColor standerTextColor];
+    self.backgroundColor               = [UIColor themeColor];
+    self.contentView.backgroundColor   = [UIColor themeColor];
+    _channelNameLabel.textColor        = [UIColor standerTextColor];
     _channelDescriptionLabel.textColor = [UIColor standerGreyTextColor];
 
 }
@@ -53,8 +50,6 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
     {
         [self setUpUI];
         [self setUpChannelLayOut];
-        //选中后不显示颜色
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return self;
@@ -65,6 +60,8 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
     //self
     self.backgroundColor = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
+    //选中后不显示颜色
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     //Image
     _channelImageView = [[UIImageView alloc] init];
@@ -87,9 +84,6 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
     [self.contentView addSubview:_channelDescriptionLabel];
    
 }
-
-
-
 
 - (void)setUpChannelLayOut
 {

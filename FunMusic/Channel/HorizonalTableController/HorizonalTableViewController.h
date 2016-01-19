@@ -14,9 +14,7 @@
 @property (nonatomic, strong) NSMutableArray *controllers;
 @property (nonatomic, copy) void(^changeIndex)(NSInteger index);
 
-
 - (instancetype)initWithViewControllers:(NSArray *)controllers;
-
 - (void)scrollToViewAtIndex:(NSInteger)index;
 
 @end

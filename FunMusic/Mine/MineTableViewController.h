@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface MineTableViewController : UITableViewController
 
 - (void)refreshUserView;

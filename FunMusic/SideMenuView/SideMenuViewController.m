@@ -40,8 +40,8 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 @interface SideMenuViewController ()
 {
-    FunServer *funServer;
-    NSMutableArray *sideMenuOperationLists;
+    FunServer *_funServer;
+    NSMutableArray *_sideMenuOperationLists;
 }
 
 @property (nonatomic, strong) SideUserHeaderView *sideHeaderView;
@@ -70,8 +70,8 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     self = [super init];
     if (self)
     {
-        funServer = [[FunServer alloc] init];
-        
+        _funServer = [[FunServer alloc] init];
+
     }
     
     return self;
@@ -83,14 +83,23 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor themeColor];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
-    if (!sideMenuOperationLists)
-    {
-        sideMenuOperationLists = [funServer fmGetSideMenuInfo];
-    }    
     [self setUpUserHeaderView];
-    self.tableView.tableHeaderView = _sideHeaderView;
+    [self setUpTableViewUI];
+    [self fetchData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dawnAndNightMode:) name:kDawnAndNightMode object:nil];
+}
+
+- (void)fetchData
+{
+    if (!_sideMenuOperationLists)
+    {
+        _sideMenuOperationLists = [_funServer fmGetSideMenuInfo];
+    }
+}
+
+- (void)setUpTableViewUI
+{
+    self.tableView.backgroundColor = [UIColor themeColor];
     [self.tableView registerClass:[SideMenuCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -109,14 +118,14 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     {
         [weakSelf pushLoginView];
     };
-
+    self.tableView.tableHeaderView = _sideHeaderView;
 }
 
 
 - (void)refreshUserView
 {
-    BOOL isLogin = [funServer fmIsLogin];
-    UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
+    BOOL isLogin = [_funServer fmIsLogin];
+    UserInfo *currentUserInfo = [_funServer fmGetCurrentUserInfo];
     [_sideHeaderView refreshHeaderViewWithUserName:currentUserInfo.userName imageName:currentUserInfo.userImage Login:isLogin];
 }
 
@@ -133,16 +142,16 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     switch (type)
     {
         case sideMenuOPTypeChannel:
-            [self presentViewWithIndex:funViewTypeChannel];
+            [self pushViewWithIndex:funViewTypeChannel];
             break;
         case sideMenuOPTypeTweeter:
-            [self presentViewWithIndex:funViewTypeTweeter];
+            [self pushViewWithIndex:funViewTypeTweeter];
             break;
         case sideMenuOPTypeClearCache:
             [self clearAllUserDefaultData];
             break;
         case sideMenuOPTypeNightMode:
-            [self presentDawnAndNightMode];
+            [self pushDawnAndNightMode];
             break;
         case sideMenuOPTypeLogOut:
             [self logOut];
@@ -160,7 +169,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [funServer fmClearAllData];
+        [_funServer fmClearAllData];
         [NSThread sleepForTimeInterval:kRefreshSleepTime];
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -170,16 +179,14 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 }
 
 
-
-
-- (void)presentDawnAndNightMode
+- (void)pushDawnAndNightMode
 {
-    [funServer fmGetNightMode] ? ([funServer fmSetNightMode:FALSE]) : ([funServer fmSetNightMode:YES]);
+    [_funServer fmGetNightMode] ? ([_funServer fmSetNightMode:FALSE]) : ([_funServer fmSetNightMode:YES]);
     [[NSNotificationCenter defaultCenter] postNotificationName:kDawnAndNightMode object:nil];
 }
 
 
-- (void)presentViewWithIndex:(NSInteger)index
+- (void)pushViewWithIndex:(NSInteger)index
 {
     ((UITabBarController *)self.sideMenuViewController.contentViewController).selectedIndex = index;
     [self.sideMenuViewController hideMenuViewController];
@@ -190,10 +197,6 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 {
     viewController.hidesBottomBarWhenPushed = YES;
     UINavigationController *nav = (UINavigationController *)((UITabBarController *)self.sideMenuViewController.contentViewController).selectedViewController;
-    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                                       style:UIBarButtonItemStylePlain
-                                                                                      target:nil
-                                                                                      action:nil];
     [nav pushViewController:viewController animated:NO];
     [self.sideMenuViewController hideMenuViewController];
 }
@@ -214,14 +217,13 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)logOut
 {
-    if ([funServer fmIsLogin])
+    if ([_funServer fmIsLogin])
     {
-        [funServer fmLogOut];
+        [_funServer fmLogOut];
         __weak MineTableViewController *weakMineCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakMineCtl;
         [self refreshUserView];
         [weakMineCtl refreshUserView];
         [self.sideMenuViewController hideMenuViewController];
-
     }
     else
     {
@@ -241,16 +243,16 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return sideMenuOperationLists.count;
+    return _sideMenuOperationLists.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SideMenuCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
     [opCell dawnAndNightMode];
-    MenuInfo *opInfo = sideMenuOperationLists[indexPath.row];
+    MenuInfo *opInfo = _sideMenuOperationLists[indexPath.row];
     [opCell setSideMenuCellWithOPInfo:opInfo];
-    if (indexPath.row == sideMenuOPTypeNightMode && [funServer fmGetNightMode])
+    if (indexPath.row == sideMenuOPTypeNightMode && [_funServer fmGetNightMode])
     {
         [opCell changeDawnCell];
     }

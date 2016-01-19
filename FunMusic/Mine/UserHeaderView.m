@@ -46,6 +46,7 @@ static const CGFloat kNameFont                    = 20;
 {
     //self
     self.backgroundColor = [UIColor themeColor];
+    
     //userImageView
     _userImageView = [[UIImageView alloc] init];
     _userImageView.layer.cornerRadius = kUserImageViewSide / 2;

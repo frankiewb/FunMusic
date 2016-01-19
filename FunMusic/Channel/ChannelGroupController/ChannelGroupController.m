@@ -10,7 +10,6 @@
 #import "Utils.h"
 #import "ChannelCell.h"
 #import "FunServer.h"
-#import "PlayerInfo.h"
 #import "ChannelInfo.h"
 #import "UIColor+Util.h"
 #import "Config.h"
@@ -27,20 +26,14 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 @interface ChannelGroupController ()
 {
-    ChannelInfo *currentChannelInfo;
+    FunServer *_funServer;
+    ChannelType _channelGroupType;
+    ChannelGroup *_channelGroup;
 }
-
-@property (nonatomic, strong) ChannelGroup *channelGroup;
-@property (nonatomic, strong) FunServer *funServer;
-@property (nonatomic, readonly, copy) NSString *channelGroupName;
-@property (nonatomic, assign) ChannelType channelGroupType;
-
 
 @end
 
 @implementation ChannelGroupController
-
-
 
 - (instancetype)initWithChannelGroupName:(NSString *)channelGroupName
 {
@@ -48,8 +41,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     if (self)
     {
         _funServer = [[FunServer alloc] init];
-        _channelGroupName = channelGroupName;
-        _channelGroupType = [Utils gennerateChannelGroupTypeWithChannelName:channelGroupName];
+        _channelGroupType = [Utils getChannelGroupTypeWithChannelName:channelGroupName];
     }
     
     return self;
@@ -58,9 +50,11 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.tableView.backgroundColor = [UIColor themeColor];
-    
+    [self setUpTableviewUI];
+}
+
+- (void)setUpTableviewUI
+{
     //添加MJRefresh
     __weak ChannelGroupController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^
@@ -68,21 +62,14 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
         [weakSelf refreshData];
     }];
     self.tableView.mj_header = header;
-    [self fetchChannelGroupData];
-    //注册ChannelCell,注意不能传const引起警告
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.tableView.backgroundColor = [UIColor themeColor];
+    [self fetchData];
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelCellID];
     //解决分割线的左右距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
-    
-    
-   
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 - (void)refreshData
@@ -90,15 +77,14 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     //刷新另外开辟异步线程执行
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [self fetchChannelGroupData];
+        [self fetchData];
     });
     //刷新完后，暂停若干时间
     [NSThread sleepForTimeInterval:kRefreshSleepTime];
-    
     [self.tableView.mj_header endRefreshing];
 }
 
-- (void)fetchChannelGroupData
+- (void)fetchData
 {
     //本案中，因为数据从本地读取的，故当读取一次后不再读取
     if (!_channelGroup)
@@ -139,9 +125,15 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     if (_presidentView)
     {
         _presidentView(funViewTypeMusic);
-    }
-    
+    }    
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 
 
 @end

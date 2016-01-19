@@ -41,9 +41,10 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 @interface MineTableViewController ()
 {
-    FunServer *funServer;
-    NSMutableArray *mineOperationList;
+    FunServer *_funServer;
+    NSMutableArray *_mineOperationList;
 }
+
 @property (nonatomic, strong) UserHeaderView *mineHeaderView;
 
 @end
@@ -60,14 +61,12 @@ typedef NS_ENUM(NSInteger, mineOPType)
     });
 }
 
-
-
 - (instancetype)init
 {
     self = [super init];
     if (self)
     {
-        funServer = [[FunServer alloc] init];
+        _funServer = [[FunServer alloc] init];
     }
     
     return self;
@@ -77,14 +76,15 @@ typedef NS_ENUM(NSInteger, mineOPType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor themeColor];
-    self.title = @"我";
-    if (!mineOperationList)
-    {
-        mineOperationList = [funServer fmGetMineMenuInfo];
-    }
     [self setUpUserHeaderView];
-    self.tableView.tableHeaderView = _mineHeaderView;
+    [self setUpTableViewUI];
+    [self fetchData];
+}
+
+- (void)setUpTableViewUI
+{
+    self.title = @"我";
+    self.tableView.backgroundColor = [UIColor themeColor];
     [self.tableView registerClass:[MineOPCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白，记住！
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -92,6 +92,13 @@ typedef NS_ENUM(NSInteger, mineOPType)
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
 }
 
+- (void)fetchData
+{
+    if (!_mineOperationList)
+    {
+        _mineOperationList = [_funServer fmGetMineMenuInfo];
+    }
+}
 
 - (void)setUpUserHeaderView
 {
@@ -102,13 +109,13 @@ typedef NS_ENUM(NSInteger, mineOPType)
     {
         [weakSelf pushLoginView];
     };
-
+    self.tableView.tableHeaderView = _mineHeaderView;
 }
 
 - (void)refreshUserView
 {
-    BOOL isLogin = [funServer fmIsLogin];
-    UserInfo *currentUserInfo = [funServer fmGetCurrentUserInfo];
+    BOOL isLogin = [_funServer fmIsLogin];
+    UserInfo *currentUserInfo = [_funServer fmGetCurrentUserInfo];
     [_mineHeaderView refreshHeaderViewWithUserName:currentUserInfo.userName imageName:currentUserInfo.userImage Login:isLogin];
 }
 
@@ -138,16 +145,16 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return mineOperationList.count;
+    return _mineOperationList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MineOPCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
     [opCell dawnAndNightMode];
-    MenuInfo *opInfo = mineOperationList[indexPath.row];
+    MenuInfo *opInfo = _mineOperationList[indexPath.row];
     [opCell setMineOPCellWithOPInfo:opInfo];
-    if (indexPath.row == mineOPTypeNightMode && [funServer fmGetNightMode])
+    if (indexPath.row == mineOPTypeNightMode && [_funServer fmGetNightMode])
     {
         [opCell changeDawnCell];
     }
@@ -175,7 +182,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [funServer fmClearAllData];
+        [_funServer fmClearAllData];
         [NSThread sleepForTimeInterval:kRefreshSleepTime];
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -188,7 +195,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)pushDawnAndNightMode
 {
-    [funServer fmGetNightMode] ? ([funServer fmSetNightMode:FALSE]) : ([funServer fmSetNightMode:YES]);
+    [_funServer fmGetNightMode] ? ([_funServer fmSetNightMode:FALSE]) : ([_funServer fmSetNightMode:YES]);
     [[NSNotificationCenter defaultCenter] postNotificationName:kDawnAndNightMode object:nil];
 }
 
@@ -202,44 +209,27 @@ typedef NS_ENUM(NSInteger, mineOPType)
         [weakSelf refreshUserView];
         [weakSideMenuCtl refreshUserView];
     };
-    loginCtl.hidesBottomBarWhenPushed = YES;    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
+    loginCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:loginCtl animated:YES];
 }
 
 - (void)pushMyTweeterView
 {
-    if ([funServer fmIsLogin])
+    if ([_funServer fmIsLogin])
     {
         TweetTableVIewController *myTweetCtl = [[TweetTableVIewController alloc] initWithType:tweetViewTypeMine TweeterName:@"我的音乐圈"];
         myTweetCtl.hidesBottomBarWhenPushed = YES;
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                                 style:UIBarButtonItemStylePlain
-                                                                                target:nil
-                                                                                action:nil];
         [self.navigationController pushViewController:myTweetCtl animated:YES];
-
-        
     }
     else
     {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您还未登录"
-                                                                                 message:@"请登录后再进入我的朋友圈"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:nil];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self pushLoginAlertWithMessage:@"请登录后再进入我的音乐圈"];
     }
 }
 
 - (void)pushMyChannelView
 {
-    if ([funServer fmIsLogin])
+    if ([_funServer fmIsLogin])
     {
         SharedChannelTableController *sharedChannelCtl = [[SharedChannelTableController alloc] init];
         __weak MineTableViewController *weakSelf = self;
@@ -250,30 +240,31 @@ typedef NS_ENUM(NSInteger, mineOPType)
             [weakSharedChannelCtl.navigationController popViewControllerAnimated:NO];
         };
         sharedChannelCtl.hidesBottomBarWhenPushed = YES;
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                                 style:UIBarButtonItemStylePlain
-                                                                                target:nil
-                                                                                action:nil];
         [self.navigationController pushViewController:sharedChannelCtl animated:YES];
-        
-        
     }
     else
     {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您还未登录"
-                                                                                 message:@"请登录后再进入我的频道"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:nil];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self pushLoginAlertWithMessage:@"请登录后再进入我的频道"];
     }
 
 }
 
+- (void)pushLoginAlertWithMessage:(NSString *)message
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您还未登录"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 
-- (void)didReceiveMemoryWarning {
+}
+
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

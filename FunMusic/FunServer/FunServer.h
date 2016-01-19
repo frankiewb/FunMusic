@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger,funViewType)
 - (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo;
 - (void)fmDeleteTweetInfoWithTweetID:(NSString *)tweetID;
 - (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike isMineTweet:(BOOL)isMine;
-- (NSInteger)searchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine;
+- (NSInteger)fmSearchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine;
 - (NSMutableArray *)fmGetTweetInfoWithType:(NSInteger)type;
 
 #pragma LoginOperation

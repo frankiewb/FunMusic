@@ -17,20 +17,20 @@ static const CGFloat KNameLabelWidth     = 100;
 static const CGFloat kLabelWidthDistance = 10;
 static const CGFloat kEdgeDistance       = 10;
 
-
-
 @interface MineOPCell ()
 
-@end
+@property (nonatomic, strong) UIImageView *opImageView;
+@property (nonatomic, strong) UILabel *opNameLabel;
 
+@end
 
 @implementation MineOPCell
 
 - (void)dawnAndNightMode
 {
-    self.backgroundColor = [UIColor themeColor];
+    self.backgroundColor             = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
-    _opNameLabel.textColor = [UIColor standerTextColor];
+    _opNameLabel.textColor           = [UIColor standerTextColor];
 }
 
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -40,8 +40,6 @@ static const CGFloat kEdgeDistance       = 10;
     {
         [self setUpUI];
         [self setOPCellLayOut];
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return self;
@@ -52,6 +50,8 @@ static const CGFloat kEdgeDistance       = 10;
     //self
     self.backgroundColor = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     //opImageView
     _opImageView = [[UIImageView alloc] init];

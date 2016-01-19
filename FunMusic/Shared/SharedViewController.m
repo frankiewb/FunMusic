@@ -36,9 +36,8 @@ static const CGFloat kLabelWidthDistance     = 10;
 
 @interface SharedViewController ()<UITextViewDelegate>
 {
-    FunServer *funServer;
-    TweetInfo *sharedTweetInfo;
-    ChannelInfo *currentChannel;
+    FunServer *_funServer;
+    ChannelInfo *_currentChannel;
 }
 
 @property (nonatomic, strong) UITextView *inputTextView;
@@ -58,8 +57,8 @@ static const CGFloat kLabelWidthDistance     = 10;
     if (self)
     {
         //获取当前频道信息
-        funServer = [[FunServer alloc] init];
-        currentChannel = [funServer fmGetCurrentChannel];
+        _funServer = [[FunServer alloc] init];
+        _currentChannel = [_funServer fmGetCurrentChannel];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定"
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
@@ -68,8 +67,6 @@ static const CGFloat kLabelWidthDistance     = 10;
     
     return self;
 }
-
-
 
 
 - (void)viewDidLoad
@@ -122,14 +119,14 @@ static const CGFloat kLabelWidthDistance     = 10;
     _channelNameLabel.textColor = [UIColor standerTextColor];
     _channelNameLabel.font = [UIFont systemFontOfSize:kChannelNameFont];
     _channelNameLabel.backgroundColor = [UIColor standerTextBackGroudColor];
-    _channelNameLabel.text = [NSString stringWithFormat:@"    频道 ：%@",currentChannel.channelName];
+    _channelNameLabel.text = [NSString stringWithFormat:@"    频道 ：%@",_currentChannel.channelName];
     [self.view addSubview:_channelNameLabel];
     
     
     //ChannelImageView
     _channelImageView = [[UIImageView alloc] init];
     _channelImageView.layer.cornerRadius = kChannelImageHeight / 2;
-    [_channelImageView setImage:[UIImage imageNamed:currentChannel.channelImage]];
+    [_channelImageView setImage:[UIImage imageNamed:_currentChannel.channelImage]];
     [self.view addSubview:_channelImageView];
     
 }
@@ -213,17 +210,15 @@ static const CGFloat kLabelWidthDistance     = 10;
 
 - (void)sureButtonClicked
 {
-    sharedTweetInfo = [[TweetInfo alloc] initWithTweeterCommentByLocal:_inputTextView.text];
-    [funServer fmSharedTweeterWithTweetInfo:sharedTweetInfo];
-    [funServer fmUpdateMySharedChannelListWithChannelName:sharedTweetInfo.channelName];
+    TweetInfo *sharedTweetInfo = [[TweetInfo alloc] initWithTweeterCommentByLocal:_inputTextView.text];
+    [_funServer fmSharedTweeterWithTweetInfo:sharedTweetInfo];
+    [_funServer fmUpdateMySharedChannelListWithChannelName:sharedTweetInfo.channelName];
     [self.navigationController popViewControllerAnimated:NO];
     if (_presidentView)
     {
         _presidentView(funViewTypeTweeter);
     }
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

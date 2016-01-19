@@ -34,10 +34,9 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 @interface FunServer ()
 {
-    AppDelegate *appDelegate;
-    AFHTTPSessionManager *fmManager;
-    managerType fmManagerType;
-    UserInfo *currentUserInfo;
+    AppDelegate *_appDelegate;
+    AFHTTPSessionManager *_fmManager;
+    managerType _fmManagerType;
 }
 
 
@@ -51,7 +50,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     self = [super init];
     if (self)
     {
-        appDelegate = [[UIApplication sharedApplication] delegate];
+        _appDelegate = [[UIApplication sharedApplication] delegate];
     }
     
     return self;
@@ -61,12 +60,12 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (MPMoviePlayerController *)fmGetCurrentMusicPlayer
 {
-    return appDelegate.MusicPlayer;
+    return _appDelegate.MusicPlayer;
 }
 
 - (PlayerInfo *)fmGetCurrentPlayerInfo
 {
-    return appDelegate.currentPlayerInfo;
+    return _appDelegate.currentPlayerInfo;
 }
 
 
@@ -76,8 +75,8 @@ typedef NS_ENUM(NSUInteger, managerType)
     NSString *playListURL = [self fmGetPlayeListURLWithType:operationString];
     
     
-    fmManager = [self fmGennerateFMManagerWithType:managerTypeJOSN];
-    [fmManager GET:playListURL
+    _fmManager = [self fmGennerateFMManagerWithType:managerTypeJOSN];
+    [_fmManager GET:playListURL
         parameters:nil
           progress:nil
            success:^(NSURLSessionDataTask *task, NSDictionary *songDictionary)
@@ -95,10 +94,10 @@ typedef NS_ENUM(NSUInteger, managerType)
                  return ;
              }
              
-             NSLog(@"当前歌曲 : %@", appDelegate.currentPlayerInfo.currentSong.songTitle);
-             SongInfo * currentSongInfo = [appDelegate.currentPlayerInfo.currentSong initWithDictionary:songDic];
-             [appDelegate.MusicPlayer setContentURL:[NSURL URLWithString:appDelegate.currentPlayerInfo.currentSong.songUrl]];
-             [appDelegate.MusicPlayer play];
+             NSLog(@"当前歌曲 : %@", _appDelegate.currentPlayerInfo.currentSong.songTitle);
+             SongInfo * currentSongInfo = [_appDelegate.currentPlayerInfo.currentSong initWithDictionary:songDic];
+             [_appDelegate.MusicPlayer setContentURL:[NSURL URLWithString:_appDelegate.currentPlayerInfo.currentSong.songUrl]];
+             [_appDelegate.MusicPlayer play];
              NSLog(@"即将播放歌曲: %@", currentSongInfo.songTitle);
          }
      }
@@ -111,9 +110,9 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (NSString *)fmGetPlayeListURLWithType:(NSString *)operationString
 {
-    NSString *currentSongID = appDelegate.currentPlayerInfo.currentSong.songId;
-    NSString *currentChannelID = appDelegate.currentPlayerInfo.currentChannel.channelID;
-    NSTimeInterval currentPlaybackTime = appDelegate.MusicPlayer.currentPlaybackTime;
+    NSString *currentSongID = _appDelegate.currentPlayerInfo.currentSong.songId;
+    NSString *currentChannelID = _appDelegate.currentPlayerInfo.currentChannel.channelID;
+    NSTimeInterval currentPlaybackTime = _appDelegate.MusicPlayer.currentPlaybackTime;
     
     NSString *playListURL = [NSString stringWithFormat:PLAYERURLFORMATSTRING, operationString, currentSongID, currentPlaybackTime,currentChannelID];
     
@@ -165,28 +164,28 @@ typedef NS_ENUM(NSUInteger, managerType)
     switch (channelType)
     {
         case ChannelTypeFeeling:
-            channelGroup = appDelegate.allChannelGroup[0];
+            channelGroup = _appDelegate.allChannelGroup[0];
             break;
         case ChannelTypeLanguage:
-            channelGroup = appDelegate.allChannelGroup[1];
+            channelGroup = _appDelegate.allChannelGroup[1];
             break;
         case ChannelTypeRecomand:
-            channelGroup = appDelegate.allChannelGroup[2];
+            channelGroup = _appDelegate.allChannelGroup[2];
             break;
         case ChannelTypeSongStyle:
-            channelGroup = appDelegate.allChannelGroup[3];
+            channelGroup = _appDelegate.allChannelGroup[3];
             break;
     }
-    appDelegate.currentChannelGroup = channelGroup;
+    _appDelegate.currentChannelGroup = channelGroup;
     
-    return appDelegate.currentChannelGroup;
+    return _appDelegate.currentChannelGroup;
 }
 
 
 
 - (void)fmGetAllChannelInfos
 {
-    if (!appDelegate.allChannelGroup)
+    if (!_appDelegate.allChannelGroup)
     {
         NSArray *channelsName = @[@"channelFeeling",
                                   @"channelLanguage",
@@ -196,13 +195,13 @@ typedef NS_ENUM(NSUInteger, managerType)
         NSMutableArray *allChannelArray = [[NSMutableArray alloc] init];
         for (NSString *singleChannelName in channelsName)
         {
-            NSDictionary *channelGroupDic = [Utils gennerateDicitonaryWithPlistFile:singleChannelName];
-            ChannelType type = [Utils gennerateChannelGroupTypeWithChannelName:singleChannelName];
+            NSDictionary *channelGroupDic = [Utils getDicitonaryWithPlistFile:singleChannelName];
+            ChannelType type = [Utils getChannelGroupTypeWithChannelName:singleChannelName];
             ChannelGroup *channelGroup = [[ChannelGroup alloc] initWithChannelType:type channelName:singleChannelName channelGroupDictionary:channelGroupDic];
             [allChannelArray addObject:channelGroup];
         }
         
-        appDelegate.allChannelGroup = allChannelArray;
+        _appDelegate.allChannelGroup = allChannelArray;
     }
 }
 
@@ -211,7 +210,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (ChannelInfo *)fmSearchChannelInfoWithName:(NSString *)channelName
 {
     [self fmGetAllChannelInfos];
-    NSMutableArray *allChannelInfo = appDelegate.allChannelGroup;
+    NSMutableArray *allChannelInfo = _appDelegate.allChannelGroup;
     
     
     for (ChannelGroup *singleChannelGroup in allChannelInfo)
@@ -231,8 +230,8 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (void)fmDeleteMySharedChannelListWithChannelIndex:(NSInteger)channelIndex
 {
-    [appDelegate.currentUserInfo.userSharedChannelLists removeObjectAtIndex:channelIndex];
-    [Config saveUserSharedChannelList:appDelegate.currentUserInfo.userSharedChannelLists];
+    [_appDelegate.currentUserInfo.userSharedChannelLists removeObjectAtIndex:channelIndex];
+    [Config saveUserSharedChannelList:_appDelegate.currentUserInfo.userSharedChannelLists];
 }
 
 - (void)fmUpdateMySharedChannelListWithChannelName:(NSString *)channelName
@@ -240,14 +239,14 @@ typedef NS_ENUM(NSUInteger, managerType)
     if (![self fmIsChannelInMySharedChannelList:channelName])
     {
         [self fmGetAllChannelInfos];
-        for (ChannelGroup *singleChannelGroup in appDelegate.allChannelGroup)
+        for (ChannelGroup *singleChannelGroup in _appDelegate.allChannelGroup)
         {
             for (ChannelInfo *singleChannelInfo in singleChannelGroup.channelArray)
             {
                 if ([singleChannelInfo.channelName isEqualToString:channelName])
                 {
-                    [appDelegate.currentUserInfo.userSharedChannelLists insertObject:singleChannelInfo atIndex:0];
-                    [Config saveUserSharedChannelList:appDelegate.currentUserInfo.userSharedChannelLists];
+                    [_appDelegate.currentUserInfo.userSharedChannelLists insertObject:singleChannelInfo atIndex:0];
+                    [Config saveUserSharedChannelList:_appDelegate.currentUserInfo.userSharedChannelLists];
                 }
             }
         }
@@ -257,7 +256,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (BOOL)fmIsChannelInMySharedChannelList:(NSString *)channelName
 {
-    for (ChannelInfo *singleChannelInfo in appDelegate.currentUserInfo.userSharedChannelLists)
+    for (ChannelInfo *singleChannelInfo in _appDelegate.currentUserInfo.userSharedChannelLists)
     {
         if ([singleChannelInfo.channelName isEqualToString:channelName])
         {
@@ -270,13 +269,13 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (void)fmUpdateCurrentChannelInfo:(ChannelInfo *)newCurrentChannelInfo
 {
-    ChannelInfo *updateChannelInfo = [appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:newCurrentChannelInfo];
+    ChannelInfo *updateChannelInfo = [_appDelegate.currentPlayerInfo.currentChannel initWithChannelInfo:newCurrentChannelInfo];
     [Config saveCurrentChannelInfo:updateChannelInfo];
 }
 
 - (ChannelInfo *)fmGetCurrentChannel
 {
-    return appDelegate.currentPlayerInfo.currentChannel;
+    return _appDelegate.currentPlayerInfo.currentChannel;
 }
 
 
@@ -285,12 +284,12 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (void)fmGetTweetInfoInLocal
 {
-    if ([appDelegate.tweetInfoGroup count] == 0)
+    if ([_appDelegate.tweetInfoGroup count] == 0)
     {
         NSString *tweetGroupName = @"localTweetData";
-        NSDictionary *tweetGroupDic = [Utils gennerateDicitonaryWithPlistFile:tweetGroupName];
-        [self fmGetTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:appDelegate.tweetInfoGroup];
-        [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+        NSDictionary *tweetGroupDic = [Utils getDicitonaryWithPlistFile:tweetGroupName];
+        [self fmGetTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:_appDelegate.tweetInfoGroup];
+        [Config saveTweetInfoGroup:_appDelegate.tweetInfoGroup];
     }
     
 }
@@ -300,11 +299,11 @@ typedef NS_ENUM(NSUInteger, managerType)
     if (type == 1)
     {
         [self fmGetTweetInfoInLocal];
-        return appDelegate.tweetInfoGroup;
+        return _appDelegate.tweetInfoGroup;
     }
     else if (type == 2)
     {
-        return appDelegate.currentUserInfo.userTweeterList;
+        return _appDelegate.currentUserInfo.userTweeterList;
     }
     else
     {
@@ -331,19 +330,19 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (void)fmDeleteTweetInfoWithTweetID:(NSString *)tweetID
 {
     NSInteger localTweetIndex = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:NO];
-    [appDelegate.tweetInfoGroup removeObjectAtIndex:localTweetIndex];
+    [_appDelegate.tweetInfoGroup removeObjectAtIndex:localTweetIndex];
     NSInteger myTweetIndex = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:YES];
-    [appDelegate.currentUserInfo.userTweeterList removeObjectAtIndex:myTweetIndex];
-    [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
-    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+    [_appDelegate.currentUserInfo.userTweeterList removeObjectAtIndex:myTweetIndex];
+    [Config saveUserTweetList:_appDelegate.currentUserInfo.userTweeterList];
+    [Config saveTweetInfoGroup:_appDelegate.tweetInfoGroup];
 }
 
 
 - (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo
 {
     [self fmGetTweetInfoInLocal];
-    NSMutableArray *tweetInfoGroup = appDelegate.tweetInfoGroup;
-    NSMutableArray *userTweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
+    NSMutableArray *tweetInfoGroup = _appDelegate.tweetInfoGroup;
+    NSMutableArray *userTweetInfoGroup = _appDelegate.currentUserInfo.userTweeterList;
     NSAssert(tweetInfoGroup, @"tweetInfoGroup invalid !!");
     [tweetInfoGroup insertObject:tweetInfo atIndex:0];
     TweetInfo *userTweetInfo = [[TweetInfo alloc] initWithTweetInfo:tweetInfo];
@@ -356,17 +355,17 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (void)fmUpdateTweetLikeCountWithTweetID:(NSString *)tweetID like:(BOOL)isLike isMineTweet:(BOOL)isMine
 {
     NSInteger index = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:NO];
-    TweetInfo *updatedTweetInfo = appDelegate.tweetInfoGroup[index];
+    TweetInfo *updatedTweetInfo = _appDelegate.tweetInfoGroup[index];
     isLike ? (updatedTweetInfo.likeCount++) : (updatedTweetInfo.likeCount--);
     isLike ? (updatedTweetInfo.isLike = @"2") : (updatedTweetInfo.isLike = @"1");
-    [Config saveTweetInfoGroup:appDelegate.tweetInfoGroup];
+    [Config saveTweetInfoGroup:_appDelegate.tweetInfoGroup];
     if (isMine)
     {
         NSInteger mineIndex = [self fmSearchTweetInfoWithID:tweetID isMyTweetGroup:YES];
-        TweetInfo *mineUpdateTweetInfo = appDelegate.currentUserInfo.userTweeterList[mineIndex];
+        TweetInfo *mineUpdateTweetInfo = _appDelegate.currentUserInfo.userTweeterList[mineIndex];
         isLike ? (mineUpdateTweetInfo.likeCount++) : (mineUpdateTweetInfo.likeCount--);
         isLike ? (mineUpdateTweetInfo.isLike = @"2") : (mineUpdateTweetInfo.isLike = @"1");
-        [Config saveUserTweetList:appDelegate.currentUserInfo.userTweeterList];
+        [Config saveUserTweetList:_appDelegate.currentUserInfo.userTweeterList];
     }
     
 }
@@ -376,12 +375,12 @@ typedef NS_ENUM(NSUInteger, managerType)
     NSMutableArray *tweetInfoGroup = nil;
     if (isMine)
     {
-        tweetInfoGroup = appDelegate.currentUserInfo.userTweeterList;
+        tweetInfoGroup = _appDelegate.currentUserInfo.userTweeterList;
     }
     else
     {
         [self fmGetTweetInfoInLocal];
-        tweetInfoGroup = appDelegate.tweetInfoGroup;
+        tweetInfoGroup = _appDelegate.tweetInfoGroup;
     }
     NSInteger idx = 0;
     for (TweetInfo *singleTweetInfo in tweetInfoGroup)
@@ -405,17 +404,17 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (UserInfo *)fmGetCurrentUserInfo
 {
-    return appDelegate.currentUserInfo;
+    return _appDelegate.currentUserInfo;
 }
 
 
 - (BOOL)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo
 {
-    NSDictionary *logDic = [Utils gennerateDicitonaryWithPlistFile:@"loginData"];
+    NSDictionary *logDic = [Utils getDicitonaryWithPlistFile:@"loginData"];
     if ([logInfo isLoginSuccessfull:logDic])
     {
-        NSDictionary *userDic = [Utils gennerateDicitonaryWithPlistFile:@"userData"];
-        currentUserInfo = [appDelegate.currentUserInfo initWithDictionary:userDic];
+        NSDictionary *userDic = [Utils getDicitonaryWithPlistFile:@"userData"];
+        UserInfo *currentUserInfo = [_appDelegate.currentUserInfo initWithDictionary:userDic];
         [Config saveUserInfo:currentUserInfo];
         return TRUE;
     }
@@ -425,14 +424,14 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (BOOL)fmIsLogin
 {
     BOOL islogin;
-    appDelegate.currentUserInfo.isLogin ? (islogin = TRUE) : (islogin = FALSE);
+    _appDelegate.currentUserInfo.isLogin ? (islogin = TRUE) : (islogin = FALSE);
     return islogin;
 }
 
 - (void)fmLogOut
 {
-    appDelegate.currentUserInfo.isLogin = FALSE;
-    [Config saveUserInfo:appDelegate.currentUserInfo];
+    _appDelegate.currentUserInfo.isLogin = FALSE;
+    [Config saveUserInfo:_appDelegate.currentUserInfo];
 }
 
 
@@ -474,7 +473,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (NSMutableArray *)fmGetMySharedChannelList
 {
-    return appDelegate.currentUserInfo.userSharedChannelLists;
+    return _appDelegate.currentUserInfo.userSharedChannelLists;
 }
 
 
@@ -483,20 +482,20 @@ typedef NS_ENUM(NSUInteger, managerType)
 - (NSMutableArray *)fmGetSearchChannelList
 {
     [self fmGetAllChannelInfos];
-    return appDelegate.allChannelGroup;
+    return _appDelegate.allChannelGroup;
 }
 
 #pragma DawnAndNightMode
 
 - (void)fmSetNightMode:(BOOL)isNightMode
 {
-    appDelegate.isNightMode = isNightMode;
-    [Config saveDawnAndNightMode:appDelegate.isNightMode];
+    _appDelegate.isNightMode = isNightMode;
+    [Config saveDawnAndNightMode:_appDelegate.isNightMode];
 }
 
 - (BOOL)fmGetNightMode
 {
-    return appDelegate.isNightMode;
+    return _appDelegate.isNightMode;
 }
 
 
@@ -519,23 +518,23 @@ typedef NS_ENUM(NSUInteger, managerType)
     switch (type)
     {
         case managerTypeJOSN:
-            if (!fmManager || fmManagerType != managerTypeJOSN)
+            if (!_fmManager || _fmManagerType != managerTypeJOSN)
             {
                 manager = [AFHTTPSessionManager fmJSONManager];
-                fmManagerType = managerTypeJOSN;
+                _fmManagerType = managerTypeJOSN;
                 return manager;
             }
             break;
         case managerTypeHTTP:
-            if (!fmManager || fmManagerType != managerTypeHTTP)
+            if (!_fmManager || _fmManagerType != managerTypeHTTP)
             {
                 manager = [AFHTTPSessionManager fmHTTPManager];
-                fmManagerType = managerTypeHTTP;
+                _fmManagerType = managerTypeHTTP;
                 return manager;
             }
             break;
     }
-    return fmManager;
+    return _fmManager;
 }
 
 

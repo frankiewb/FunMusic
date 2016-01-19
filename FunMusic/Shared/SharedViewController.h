@@ -11,4 +11,5 @@
 @interface SharedViewController : UIViewController
 
 @property (nonatomic, copy) void (^presidentView)(NSInteger index);
+
 @end

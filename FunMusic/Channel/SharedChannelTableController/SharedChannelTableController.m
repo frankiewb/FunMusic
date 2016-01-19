@@ -17,10 +17,6 @@
 #import <MJRefresh.h>
 
 
-
-
-
-
 static const CGFloat kCellHeight                 = 80;
 static const CGFloat kRefreshSleepTime           = 0.5;
 static const CGFloat kSeperatorLineLeftDistance  = 90;
@@ -29,8 +25,8 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 @interface SharedChannelTableController ()
 {
-    NSMutableArray *sharedChannelGroup;
-    FunServer *funServer;
+    NSMutableArray *_sharedChannelGroup;
+    FunServer *_funServer;
 }
 
 
@@ -38,15 +34,28 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 @implementation SharedChannelTableController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _funServer = [[FunServer alloc] init];
+    }
+    
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor themeColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    funServer = [[FunServer alloc] init];
+    [self setUpTableViewUI];
+    [self fetchData];
+}
+
+- (void)setUpTableViewUI
+{
     self.title = @"我的频道";
-    
     //添加MJRefresh
     __weak SharedChannelTableController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^
@@ -54,38 +63,33 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
         [weakSelf refreshData];
     }];
     self.tableView.mj_header = header;
-    [self fetchSharedChannelData];
-    [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelCellID];
+    self.tableView.backgroundColor = [UIColor themeColor];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //解决分割线的左右距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
-    
+    [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelCellID];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 - (void)refreshData
 {
     //刷新另外开辟异步线程执行
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [self fetchSharedChannelData];
+        [self fetchData];
     });
     //刷新完后，暂停若干时间
     [NSThread sleepForTimeInterval:kRefreshSleepTime];
-    
     [self.tableView.mj_header endRefreshing];
-
 }
 
-- (void)fetchSharedChannelData
+- (void)fetchData
 {
-    if (!sharedChannelGroup)
+    if (!_sharedChannelGroup)
     {
-        sharedChannelGroup = [funServer fmGetMySharedChannelList];
+        _sharedChannelGroup = [_funServer fmGetMySharedChannelList];
     }
 }
 
@@ -93,13 +97,13 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return sharedChannelGroup.count;
+    return _sharedChannelGroup.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChannelCell *channelCell = [tableView dequeueReusableCellWithIdentifier:kChannelCellID forIndexPath:indexPath];
-    ChannelInfo *channelInfo = sharedChannelGroup[indexPath.row];
+    ChannelInfo *channelInfo = _sharedChannelGroup[indexPath.row];
     [channelCell setUpChannelCellWithChannelInfo:channelInfo];
     return channelCell;
 }
@@ -111,9 +115,9 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ChannelInfo *selectChannelInfo = sharedChannelGroup[indexPath.row];
-    [funServer fmUpdateCurrentChannelInfo:selectChannelInfo];
-    [funServer fmSongOperationWithType:SongOperationTypeNext];
+    ChannelInfo *selectChannelInfo = _sharedChannelGroup[indexPath.row];
+    [_funServer fmUpdateCurrentChannelInfo:selectChannelInfo];
+    [_funServer fmSongOperationWithType:SongOperationTypeNext];
     //跳转至首页音乐播放界面
     if (_presidentView)
     {
@@ -121,8 +125,6 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     }
     
 }
-
-
 
 #pragma tableviewCell delete
 
@@ -138,9 +140,15 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [funServer fmDeleteMySharedChannelListWithChannelIndex:indexPath.row];
+    [_funServer fmDeleteMySharedChannelListWithChannelIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];    
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 
 
 @end

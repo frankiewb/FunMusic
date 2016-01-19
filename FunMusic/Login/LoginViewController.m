@@ -22,10 +22,6 @@ static const CGFloat kTextHeightDistance   = 10;
 static const CGFloat kButtonHeightDistance = 20;
 
 @interface LoginViewController ()<UITextFieldDelegate>
-{
-    LogInfo *currentLogInfo;
-    FunServer *funServer;
-}
 
 @property (nonatomic, strong) UITextField *loginNameTextField;
 @property (nonatomic, strong) UITextField *loginPassWordTextField;
@@ -38,7 +34,6 @@ static const CGFloat kButtonHeightDistance = 20;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"登陆";
     [self setUpLoginUI];
     [self setLoginLayOut];
 
@@ -47,16 +42,17 @@ static const CGFloat kButtonHeightDistance = 20;
 
 - (void)setUpLoginUI
 {
-    NSMutableArray *UIList = [[NSMutableArray alloc] init];
+
     //self
     self.view.backgroundColor = [UIColor themeColor];
+    self.title = @"登陆";
+    NSMutableArray *UIList = [[NSMutableArray alloc] init];
     
     //loginNameTextField
     _loginNameTextField = [[UITextField alloc] init];
     _loginNameTextField.placeholder = @"邮箱 ／ 用户名";
     _loginNameTextField.backgroundColor = [UIColor inputColor];
     [UIList addObject:_loginNameTextField];
-    
     
     //loginPasswordTextField
     _loginPassWordTextField = [[UITextField alloc] init];
@@ -65,9 +61,7 @@ static const CGFloat kButtonHeightDistance = 20;
     _loginPassWordTextField.backgroundColor = [UIColor inputColor];
     [UIList addObject:_loginPassWordTextField];
     
-    
     //Atrribute Setting
-    
     for (UITextField *loginTextField in UIList)
     {
         loginTextField.textColor = [UIColor standerTextColor];
@@ -142,7 +136,7 @@ static const CGFloat kButtonHeightDistance = 20;
     LogInfo *logInfo = [[LogInfo alloc] init];
     logInfo.loginName = _loginNameTextField.text;
     logInfo.passWord = _loginPassWordTextField.text;
-    funServer = [[FunServer alloc] init];
+    FunServer *funServer = [[FunServer alloc] init];
     if ([funServer fmLoginInLocalWithLoginInfo:logInfo])
     {
         if (_updateUserUI)

@@ -11,9 +11,6 @@
 
 @interface ChannelGroupController : UITableViewController
 
-/**
- *  当点击某Cell后跳转至指定tabbar页面
- */
 @property(nonatomic, copy) void(^presidentView)(NSInteger indexPath);
 
 - (instancetype)initWithChannelGroupName:(NSString *)channelGroupName;
