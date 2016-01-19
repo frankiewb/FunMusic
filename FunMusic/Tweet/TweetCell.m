@@ -17,19 +17,18 @@
 @interface TweetCell ()
 
 @property (nonatomic, strong) UIImageView *tweeterImageView;
-@property (nonatomic, strong) UILabel *tweeterNameLabel;
+@property (nonatomic, strong) UILabel     *tweeterNameLabel;
 @property (nonatomic, strong) UIImageView *channelImageView;
-@property (nonatomic, strong) UILabel *channelNameLabel;
-@property (nonatomic, strong) UILabel *tweeterTypeLabel;
-@property (nonatomic, strong) UILabel *tweeterCommentLabel;
-@property (nonatomic, strong) UILabel *tweetDateLabel;
-@property (nonatomic, strong) UIButton *likeButton;
-@property (nonatomic, strong) UILabel *likeCountLabel;
-@property (nonatomic, strong) UIButton *deleteButton;
-
-@property (nonatomic, strong) NSString *tweetID;
-@property (nonatomic, assign) BOOL isLike;
-@property (nonatomic, assign) CGFloat tweetCellHeight;
+@property (nonatomic, strong) UILabel     *channelNameLabel;
+@property (nonatomic, strong) UILabel     *tweeterTypeLabel;
+@property (nonatomic, strong) UILabel     *tweeterCommentLabel;
+@property (nonatomic, strong) UILabel     *tweetDateLabel;
+@property (nonatomic, strong) UIButton    *likeButton;
+@property (nonatomic, strong) UILabel     *likeCountLabel;
+@property (nonatomic, strong) UIButton    *deleteButton;
+@property (nonatomic, strong) NSString    *tweetID;
+@property (nonatomic, assign) BOOL        isLike;
+@property (nonatomic, assign) CGFloat     tweetCellHeight;
 
 @end
 

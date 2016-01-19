@@ -8,6 +8,7 @@
 //
 
 #import "SearchViewController.h"
+#import "SearchController.h"
 #import "ChannelInfo.h"
 #import "ChannelGroup.h"
 #import "ChannelCell.h"
@@ -60,29 +61,15 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController = [[SearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
-    self.searchController.searchBar.backgroundColor = [UIColor themeColor];
-    self.searchController.searchBar.showsCancelButton = YES;
-    self.searchController.searchBar.barStyle = UIBarMetricsDefault;
-    self.searchController.dimsBackgroundDuringPresentation = false;
-    self.searchController.hidesNavigationBarDuringPresentation = NO;
-    self.searchController.searchBar.placeholder = @"输入要查找的频道名称";
-    [self.searchController.searchBar sizeToFit];
     self.navigationItem.titleView = self.searchController.searchBar;
     //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！
     [self.searchController loadViewIfNeeded];
     
     _filteredChannelInfoCells = [[NSMutableArray alloc] init];
-    __allChannelInfoCells = [_funServer fmGetSearchChannelList];
-    
-    self.tableView.backgroundColor = [UIColor themeColor];    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:@selector(dismissSearchView)];
-   
-    
+    __allChannelInfoCells = [_funServer fmGetSearchChannelList];    
+    self.tableView.backgroundColor = [UIColor themeColor];
     //注册channelCell
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelSearchCellID];
     //解决分割线的距离问题
@@ -131,9 +118,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
 
 }
-
-
-
 
 #pragma tableviewController delegate
 
@@ -222,9 +206,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         _presidentView(funViewTypeMusic);
     }
-    
-
-    
 }
 
 #pragma mark 返回每组头标题名称
@@ -247,8 +228,6 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     [HeaderView.contentView setBackgroundColor:[UIColor themeColor]];
     
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -248,7 +248,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 {
     SideMenuCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
     [opCell dawnAndNightMode];
-    SideMenuInfo *opInfo = sideMenuOperationLists[indexPath.row];
+    MenuInfo *opInfo = sideMenuOperationLists[indexPath.row];
     [opCell setSideMenuCellWithOPInfo:opInfo];
     if (indexPath.row == sideMenuOPTypeNightMode && [funServer fmGetNightMode])
     {

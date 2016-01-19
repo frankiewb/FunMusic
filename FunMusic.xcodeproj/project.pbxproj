@@ -31,6 +31,7 @@
 		10EB18521C4CC2DD00BE5701 /* MenuInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB18511C4CC2DD00BE5701 /* MenuInfo.m */; };
 		10EB18551C4DD1E000BE5701 /* UserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB18541C4DD1E000BE5701 /* UserHeaderView.m */; };
 		10EB185B1C4DE2C200BE5701 /* SideUserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB185A1C4DE2C200BE5701 /* SideUserHeaderView.m */; };
+		10EB185E1C4E0B3600BE5701 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB185D1C4E0B3600BE5701 /* SearchController.m */; };
 		10EBBB821C4B62B600D2612F /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EBBB811C4B62B600D2612F /* Config.m */; };
 		10EC14A01C4652D300E080C4 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC149F1C4652D300E080C4 /* UIColor+Util.m */; };
 		10ECA4A51C31112500F745DC /* channelRecomand.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA4A41C31112500F745DC /* channelRecomand.plist */; };
@@ -125,6 +126,8 @@
 		10EB18541C4DD1E000BE5701 /* UserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserHeaderView.m; path = Mine/UserHeaderView.m; sourceTree = "<group>"; };
 		10EB18591C4DE2C200BE5701 /* SideUserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideUserHeaderView.h; path = SideMenuView/SideUserHeaderView.h; sourceTree = "<group>"; };
 		10EB185A1C4DE2C200BE5701 /* SideUserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideUserHeaderView.m; path = SideMenuView/SideUserHeaderView.m; sourceTree = "<group>"; };
+		10EB185C1C4E0B3600BE5701 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchController.h; path = Search/SearchController.h; sourceTree = "<group>"; };
+		10EB185D1C4E0B3600BE5701 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchController.m; path = Search/SearchController.m; sourceTree = "<group>"; };
 		10EBBB801C4B62B600D2612F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = Config/Config.h; sourceTree = "<group>"; };
 		10EBBB811C4B62B600D2612F /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Config.m; path = Config/Config.m; sourceTree = "<group>"; };
 		10EC149E1C4652D300E080C4 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Util.h"; path = "Categories/UIColor+Util.h"; sourceTree = "<group>"; };
@@ -424,6 +427,8 @@
 			children = (
 				10ECA4B81C33723D00F745DC /* SearchViewController.h */,
 				10ECA4B91C33723D00F745DC /* SearchViewController.m */,
+				10EB185C1C4E0B3600BE5701 /* SearchController.h */,
+				10EB185D1C4E0B3600BE5701 /* SearchController.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -822,6 +827,7 @@
 				10F0A9CC1C2FAEDB001E76DE /* ChannelGroupController.m in Sources */,
 				10EF32471C43850300D91DA5 /* MainView.m in Sources */,
 				10EA691C1C37A89000B189EB /* NSDate+Util.m in Sources */,
+				10EB185E1C4E0B3600BE5701 /* SearchController.m in Sources */,
 				10EB18551C4DD1E000BE5701 /* UserHeaderView.m in Sources */,
 				10EF32531C4490A200D91DA5 /* SideMenuCell.m in Sources */,
 				1019678C1C45EFFE00935768 /* SharedChannelTableController.m in Sources */,
