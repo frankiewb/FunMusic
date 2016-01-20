@@ -33,13 +33,14 @@ static const CGFloat kEdgeDistance       = 10;
     _opNameLabel.textColor           = [UIColor standerTextColor];
 }
 
-- (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier isSideOPCell:(BOOL)isSideOPCell
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
         [self setUpUI];
         [self setOPCellLayOut];
+        (isSideOPCell) ? (self.accessoryType = UITableViewCellAccessoryNone):(self.accessoryType = UITableViewCellAccessoryDisclosureIndicator);
     }
     
     return self;
@@ -50,7 +51,6 @@ static const CGFloat kEdgeDistance       = 10;
     //self
     self.backgroundColor = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     //opImageView

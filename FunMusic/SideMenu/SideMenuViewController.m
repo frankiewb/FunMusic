@@ -8,8 +8,8 @@
 
 #import "SideMenuViewController.h"
 #import "UserInfo.h"
-#import "SideUserHeaderView.h"
-#import "SideMenuCell.h"
+#import "UserHeaderView.h"
+#import "MineOPCell.h"
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
 #import "ContentTabBarController.h"
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     NSMutableArray *_sideMenuOperationLists;
 }
 
-@property (nonatomic, strong) SideUserHeaderView *sideHeaderView;
+@property (nonatomic, strong) UserHeaderView *sideHeaderView;
 
 @end
 
@@ -71,14 +71,10 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     if (self)
     {
         _funServer = [[FunServer alloc] init];
-
     }
     
     return self;
 }
-
-
-
 
 - (void)viewDidLoad
 {
@@ -100,7 +96,6 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 - (void)setUpTableViewUI
 {
     self.tableView.backgroundColor = [UIColor themeColor];
-    [self.tableView registerClass:[SideMenuCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView.backgroundColor = [UIColor themeColor];
@@ -111,7 +106,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)setUpUserHeaderView
 {
-    _sideHeaderView = [[SideUserHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight)];
+    _sideHeaderView = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight) isSideMenuHeader:YES];
     [self refreshUserView];
     __weak SideMenuViewController *weakSelf = self;
     _sideHeaderView.pushLoginView = ^()
@@ -248,15 +243,18 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SideMenuCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
+    MineOPCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID];
+    if (!opCell)
+    {
+        opCell = [[MineOPCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kOPCellID isSideOPCell:YES];
+    }
     [opCell dawnAndNightMode];
     MenuInfo *opInfo = _sideMenuOperationLists[indexPath.row];
-    [opCell setSideMenuCellWithOPInfo:opInfo];
+    [opCell setMineOPCellWithOPInfo:opInfo];
     if (indexPath.row == sideMenuOPTypeNightMode && [_funServer fmGetNightMode])
     {
         [opCell changeDawnCell];
     }
-
     return opCell;
 }
 

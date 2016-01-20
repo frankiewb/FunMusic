@@ -85,7 +85,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 {
     self.title = @"我";
     self.tableView.backgroundColor = [UIColor themeColor];
-    [self.tableView registerClass:[MineOPCell class] forCellReuseIdentifier:kOPCellID];
+    //[self.tableView registerClass:[MineOPCell class] forCellReuseIdentifier:kOPCellID];
     //取消tableview留下的空余行白，记住！
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //解决分割线的距离问题
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (void)setUpUserHeaderView
 {
-    _mineHeaderView = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight)];
+    _mineHeaderView = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kHeaderViewHeight) isSideMenuHeader:NO];
     [self refreshUserView];
     __weak MineTableViewController *weakSelf = self;
     _mineHeaderView.pushLoginView = ^()
@@ -150,7 +150,11 @@ typedef NS_ENUM(NSInteger, mineOPType)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MineOPCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID forIndexPath:indexPath];
+    MineOPCell *opCell = [tableView dequeueReusableCellWithIdentifier:kOPCellID];
+    if (!opCell)
+    {
+        opCell = [[MineOPCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kOPCellID isSideOPCell:NO];
+    }
     [opCell dawnAndNightMode];
     MenuInfo *opInfo = _mineOperationList[indexPath.row];
     [opCell setMineOPCellWithOPInfo:opInfo];

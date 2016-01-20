@@ -12,6 +12,8 @@
 
 @interface MineOPCell : UITableViewCell
 
+- (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier isSideOPCell:(BOOL)isSideOPCell;
+
 - (void)setMineOPCellWithOPInfo:(MenuInfo *)opInfo;
 
 - (void)dawnAndNightMode;

@@ -12,13 +12,17 @@
 
 
 static const CGFloat kUserImageViewSide           = 80;
-static const CGFloat kUserImageViewHeightDistance = 10;
 static const CGFloat kLabelHeightDistance         = 10;
 static const CGFloat kUserNameLabelHeight         = 40;
 static const CGFloat kEdgeDistance                = 5;
 static const CGFloat kNameFont                    = 20;
 
+
 @interface UserHeaderView ()
+{
+    CGFloat _headerYCenterFactor;
+    CGFloat _UserImageViewHeightDistance;
+}
 
 @property (nonatomic, strong)UILabel *userNameLabel;
 @property (nonatomic, strong)UIImageView *userImageView;
@@ -30,17 +34,34 @@ static const CGFloat kNameFont                    = 20;
 
 @implementation UserHeaderView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame isSideMenuHeader:(BOOL)isSideMenuHeader
 {
     self = [super initWithFrame:frame];
     if (self)
     {
+        [self setUpUIFactor:isSideMenuHeader];
         [self setUpUI];
         [self setAutoLayout];
     }
     
     return self;
 }
+
+- (void)setUpUIFactor:(BOOL)isSideMenuHeader
+{
+    if (isSideMenuHeader)
+    {
+        _headerYCenterFactor = 0.6;
+        _UserImageViewHeightDistance = 50;
+    }
+    else
+    {
+        _headerYCenterFactor = 1.0;
+        _UserImageViewHeightDistance = 10;
+    };
+
+}
+
 
 - (void)setUpUI
 {
@@ -68,17 +89,16 @@ static const CGFloat kNameFont                    = 20;
 {
     [_userImageView mas_makeConstraints:^(MASConstraintMaker *make)
      {
-         make.top.equalTo(self.mas_top).offset(kUserImageViewHeightDistance);
+         make.top.equalTo(self.mas_top).offset(_UserImageViewHeightDistance);
          make.height.and.width.mas_equalTo(kUserImageViewSide);
-         make.centerX.equalTo(self.mas_centerX);
+         make.centerX.equalTo(self.mas_centerX).multipliedBy(_headerYCenterFactor);
      }];
     
     [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make)
      {
          make.top.equalTo(_userImageView.mas_bottom).offset(kLabelHeightDistance);
-         make.centerX.equalTo(self.mas_centerX);
+         make.centerX.equalTo(self.mas_centerX).multipliedBy(_headerYCenterFactor);
          make.height.mas_equalTo(kUserNameLabelHeight);
-         make.right.equalTo(self.mas_right).offset(-kEdgeDistance);
          make.left.equalTo(self.mas_left).offset(kEdgeDistance);
      }];
 

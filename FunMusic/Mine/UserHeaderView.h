@@ -10,8 +10,10 @@
 
 @interface UserHeaderView : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame isSideMenuHeader:(BOOL)isSideMenuHeader;
 - (void)dawnAndNightMode;
 - (void)refreshHeaderViewWithUserName:(NSString *)userName imageName:(NSString *)imageName Login:(BOOL)isLogin;
+
 
 @property (nonatomic, copy) void(^pushLoginView)();
 

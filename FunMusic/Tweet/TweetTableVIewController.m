@@ -142,7 +142,7 @@ static NSString *kTweetCellID                    = @"TweetCellID";
     TweetInfo *tweetInfo = _tweetGroup[indexPath.row];
     [tweetCell setUpTweetCellWithTweetInfo:tweetInfo];
     
-    //**********************SetTweetBlock Function******************************************************
+    //**********************TweetBlock Function******************************************************
     __weak TweetTableVIewController *weakSelf = self;
     __weak FunServer *weakFunServer = _funServer;
     __weak TweetTableVIewController *weakMainTweetCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakTweetCtl;
