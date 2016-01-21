@@ -55,7 +55,6 @@
     else if ([name isEqualToString:@"风格"] || [name isEqualToString:@"channelSongStyle"])
     {
         return ChannelTypeSongStyle;
-        
     }
     else
     {
@@ -87,14 +86,6 @@
     
     return channelGroupName;
 }
-
-
-
-
-
-
-
-
 
 
 

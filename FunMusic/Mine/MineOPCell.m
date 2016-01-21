@@ -40,7 +40,7 @@ static const CGFloat kEdgeDistance       = 10;
     {
         [self setUpUI];
         [self setOPCellLayOut];
-        (isSideOPCell) ? (self.accessoryType = UITableViewCellAccessoryNone):(self.accessoryType = UITableViewCellAccessoryDisclosureIndicator);
+        (isSideOPCell) ? (self.accessoryType = UITableViewCellAccessoryNone) : (self.accessoryType = UITableViewCellAccessoryDisclosureIndicator);
     }
     
     return self;

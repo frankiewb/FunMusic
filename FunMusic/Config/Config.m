@@ -188,7 +188,6 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
         {
             [sharedChannelList addObject:channelInfo];
         }
-        
     }
     
     return sharedChannelList;

@@ -107,6 +107,11 @@ typedef NS_ENUM(NSInteger, songButtonType)
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -114,14 +119,26 @@ typedef NS_ENUM(NSInteger, songButtonType)
     [self setAutoLayout];
     [self setMusicPlayerInfo];
     [self refreshMusicPlayer];
+    
     //解决NSTimer保留环问题
      __weak MusicPlayerViewController *weakSelf = self;
     _timer = [NSTimer fmScheduledTimerWithTimeInterval:kTimeInterval
-                                                block:^{[weakSelf updateTimeProgress];}
+                                                block:^
+                                                {
+                                                    __strong typeof(self) strongSelf = weakSelf;
+                                                    if (strongSelf)
+                                                    {
+                                                        [strongSelf updateTimeProgress];
+                                                    }
+                                                }
                                              repeates:YES];
     _funServer.getSongListFail = ^()
     {
-        [weakSelf pushAlertView];
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf pushAlertView];
+        }
     };
 }
 

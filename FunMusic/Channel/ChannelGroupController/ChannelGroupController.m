@@ -59,7 +59,11 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     __weak ChannelGroupController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^
     {
-        [weakSelf refreshData];
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf)
+        {
+             [strongSelf refreshData];
+        }       
     }];
     self.tableView.mj_header = header;
     self.edgesForExtendedLayout = UIRectEdgeNone;

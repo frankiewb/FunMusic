@@ -107,7 +107,11 @@ typedef NS_ENUM(NSInteger, mineOPType)
     __weak MineTableViewController *weakSelf = self;
     _mineHeaderView.pushLoginView = ^()
     {
-        [weakSelf pushLoginView];
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf pushLoginView];
+        }
     };
     self.tableView.tableHeaderView = _mineHeaderView;
 }
@@ -210,8 +214,13 @@ typedef NS_ENUM(NSInteger, mineOPType)
     __weak MineTableViewController *weakSelf = self;
     loginCtl.updateUserUI = ^()
     {
-        [weakSelf refreshUserView];
-        [weakSideMenuCtl refreshUserView];
+        __strong typeof(self) strongSelf = weakSelf;
+        __strong SideMenuViewController *strongSideCtl = weakSideMenuCtl;
+        if (strongSelf && strongSideCtl)
+        {
+            [strongSelf refreshUserView];
+            [strongSideCtl refreshUserView];
+        }
     };
     loginCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:loginCtl animated:YES];
@@ -241,7 +250,11 @@ typedef NS_ENUM(NSInteger, mineOPType)
         sharedChannelCtl.presidentView = ^(NSInteger indexPath)
         {
             ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = indexPath;
-            [weakSharedChannelCtl.navigationController popViewControllerAnimated:NO];
+            __strong SharedChannelTableController *strongSharedCtl = weakSharedChannelCtl;
+            if (strongSharedCtl)
+            {
+                [strongSharedCtl.navigationController popViewControllerAnimated:NO];
+            }
         };
         sharedChannelCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:sharedChannelCtl animated:YES];

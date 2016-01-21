@@ -77,7 +77,11 @@ static NSString *kTweetCellID                    = @"TweetCellID";
     __weak TweetTableVIewController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^
     {
-        [weakSelf refreshData];
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf refreshData];
+        }
     }];
     self.tableView.mj_header = header;
     [self.tableView registerClass:[TweetCell class] forCellReuseIdentifier:kTweetCellID];
@@ -148,29 +152,53 @@ static NSString *kTweetCellID                    = @"TweetCellID";
     __weak TweetTableVIewController *weakMainTweetCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakTweetCtl;
     tweetCell.deleteTweetCell = ^(NSString *tweetID)
     {
-        [weakFunServer fmDeleteTweetInfoWithTweetID:tweetID];
-        [weakSelf.tableView reloadData];
+        __strong FunServer *strongFunServer = weakFunServer;
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf && strongFunServer)
+        {
+            [strongFunServer fmDeleteTweetInfoWithTweetID:tweetID];
+            [strongSelf.tableView reloadData];
+        }
         if (_tweetType != tweetViewTypeLocal)
         {
-            [weakMainTweetCtl.tableView reloadData];
+            __strong TweetTableVIewController *strongMainTweetCtl = weakMainTweetCtl;
+            if (strongMainTweetCtl)
+            {
+                [strongMainTweetCtl.tableView reloadData];
+            }
         }
     };
     
     tweetCell.scrollView = ^(NSInteger index, NSString *channelName)
     {
-        ChannelInfo *channelInfo = [weakFunServer fmSearchChannelInfoWithName:channelName];
-        [weakFunServer fmUpdateCurrentChannelInfo:channelInfo];
-        [weakFunServer fmSongOperationWithType:SongOperationTypeNext];
-        ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = funViewTypeMusic;
+        __strong FunServer *strongFunServer = weakFunServer;
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf  && strongFunServer)
+        {
+            ChannelInfo *channelInfo = [strongFunServer fmSearchChannelInfoWithName:channelName];
+            [strongFunServer fmUpdateCurrentChannelInfo:channelInfo];
+            [strongFunServer fmSongOperationWithType:SongOperationTypeNext];
+            ((UITabBarController *)strongSelf.sideMenuViewController.contentViewController).selectedIndex = funViewTypeMusic;
+        }
     };
     
     tweetCell.updateTweetLikeCount = ^(NSString *tweetID,BOOL isLike, BOOL isMineTweet)
     {
-        [weakFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike isMineTweet:isMineTweet];
-        [weakSelf.tableView reloadData];
+        
+        __strong FunServer *strongFunServer = weakFunServer;
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf && strongFunServer)
+        {
+            [strongFunServer fmUpdateTweetLikeCountWithTweetID:tweetID like:isLike isMineTweet:isMineTweet];
+            [strongSelf.tableView reloadData];
+        }
         if (_tweetType != tweetViewTypeLocal)
         {
-            [weakMainTweetCtl.tableView reloadData];
+            __strong TweetTableVIewController *strongMainTweetCtl = weakMainTweetCtl;
+            if (strongMainTweetCtl)
+            {
+                [strongMainTweetCtl.tableView reloadData];
+            }            
         }
     };
     //****************************************************************************************************

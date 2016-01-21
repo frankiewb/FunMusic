@@ -203,9 +203,7 @@ static const CGFloat kLabelWidthDistance     = 10;
         [_inputTextView resignFirstResponder];
         return YES;
     }
-    BOOL flag;
-    (range.location >= kMaxWordCount) ? (flag = NO) : (flag = YES);
-    return  flag;
+    return  (range.location < kMaxWordCount);
 }
 
 - (void)sureButtonClicked

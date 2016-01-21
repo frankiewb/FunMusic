@@ -121,7 +121,11 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
         ChannelGroupController *controller = [[ChannelGroupController alloc] initWithChannelGroupName:singleChannelGroupname ];
         controller.presidentView = ^(NSInteger indexPath)
         {
-            _weakSelf.selectedIndex = indexPath;
+            __strong typeof(self) strongSelf = _weakSelf;
+            if (strongSelf)
+            {
+                strongSelf.selectedIndex = indexPath;
+            }
         };
         [channelGroupCtrList addObject:controller];
     }
@@ -218,7 +222,11 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
     SearchViewController *searchViewCtl = [[SearchViewController alloc] init];
     searchViewCtl.presidentView = ^(NSInteger indexPath)
     {
-        _weakSelf.selectedIndex = indexPath;
+        __strong typeof(self) strongSelf = _weakSelf;
+        if (strongSelf)
+        {
+            strongSelf.selectedIndex = indexPath;
+        }
     };
     [(UINavigationController *)self.selectedViewController pushViewController:searchViewCtl animated:YES];
 }
@@ -230,9 +238,14 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
         SharedViewController *sharedViewCtl = [[SharedViewController alloc] init];
         sharedViewCtl.presidentView = ^(NSInteger index)
         {
-            _weakSelf.selectedIndex = index;
-            [_weakTweetCtl fetchData];
-            [_weakTweetCtl.tableView reloadData];
+            __strong typeof(self) strongSelf = _weakSelf;
+            __strong TweetTableVIewController *strongTweetCtl = _weakTweetCtl;
+            if (strongSelf && strongTweetCtl)
+            {
+                strongSelf.selectedIndex = index;
+                [strongTweetCtl fetchData];
+                [strongTweetCtl.tableView reloadData];
+            }
         };
         [(UINavigationController *)self.selectedViewController pushViewController:sharedViewCtl animated:YES];
     }
@@ -252,13 +265,17 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
         //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
-            [_weakTweetCtl fetchData];
-            [_weakTweetCtl.tableView reloadData];
-            [NSThread sleepForTimeInterval:kRefreshSleepTime];
-            dispatch_async(dispatch_get_main_queue(), ^
+            __strong TweetTableVIewController *strongTweetCtl = _weakTweetCtl;
+            if (strongTweetCtl)
             {
-                [hud hide:YES];
-            });
+                [strongTweetCtl fetchData];
+                [strongTweetCtl.tableView reloadData];
+                [NSThread sleepForTimeInterval:kRefreshSleepTime];
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [hud hide:YES];
+                });
+            }
         });
     }
     else
@@ -280,8 +297,13 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
                                    LoginViewController *loginCtl = [[LoginViewController alloc] init];
                                    loginCtl.updateUserUI = ^()
                                    {
-                                       [_weakMineCtl refreshUserView];
-                                       [weakSideMenuCtl refreshUserView];
+                                       __strong MineTableViewController *strongMineCtl = _weakMineCtl;
+                                       __strong SideMenuViewController *strongMenuCtl = weakSideMenuCtl;
+                                       if (strongMineCtl && strongMenuCtl)
+                                       {
+                                           [strongMineCtl refreshUserView];
+                                           [strongMenuCtl refreshUserView];
+                                       }
                                    };
                                    loginCtl.hidesBottomBarWhenPushed = YES;
                                    [(UINavigationController *)_weakSelf.selectedViewController pushViewController:loginCtl animated:YES];
@@ -289,7 +311,6 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
                                }];
     [alertController addAction:okAction];
     [_weakSelf.selectedViewController presentViewController:alertController animated:YES completion:nil];
-
 }
 
 

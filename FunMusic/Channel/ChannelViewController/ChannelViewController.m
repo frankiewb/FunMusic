@@ -99,12 +99,16 @@ extern const CGFloat kFirstButtonScale;
         
         _viewPager.changeIndex = ^(NSInteger index)
         {
-            if (weakTitleBar.titleButtonClicked)
+            __strong TitlebarView *strongTitleBar = weakTitleBar;
+            __strong HorizonalTableViewController *strongViewPager = weakViewPager;
+            if (strongTitleBar && strongViewPager)
             {
-                weakTitleBar.titleButtonClicked(index);
+                if (strongTitleBar.titleButtonClicked)
+                {
+                    strongTitleBar.titleButtonClicked(index);
+                }                
+                [strongViewPager scrollToViewAtIndex:index];
             }
-            
-            [weakViewPager scrollToViewAtIndex:index];
         };
     }
     

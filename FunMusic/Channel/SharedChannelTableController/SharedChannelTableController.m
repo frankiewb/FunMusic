@@ -60,7 +60,11 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     __weak SharedChannelTableController *weakSelf = self;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^
     {
-        [weakSelf refreshData];
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf refreshData];
+        }
     }];
     self.tableView.mj_header = header;
     self.tableView.backgroundColor = [UIColor themeColor];

@@ -111,7 +111,11 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
     __weak SideMenuViewController *weakSelf = self;
     _sideHeaderView.pushLoginView = ^()
     {
-        [weakSelf pushLoginView];
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf pushLoginView];
+        }
     };
     self.tableView.tableHeaderView = _sideHeaderView;
 }
@@ -128,7 +132,6 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (void) sideMenuOperationWithType:(sideMenuOPType)type
@@ -199,13 +202,18 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)pushLoginView
 {
-    __weak MineTableViewController *weakMineCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakMineCtl;
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    __weak MineTableViewController *weakMineCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakMineCtl;
     __weak SideMenuViewController *weakSelf = self;
     loginCtl.updateUserUI = ^()
     {
-        [weakSelf refreshUserView];
-        [weakMineCtl refreshUserView];
+        __strong MineTableViewController *strongMineCtl = weakMineCtl;
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf && strongMineCtl)
+        {
+            [strongSelf refreshUserView];
+            [strongMineCtl refreshUserView];
+        }
     };
     [self pushViewController:loginCtl];
 }
@@ -217,7 +225,10 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
         [_funServer fmLogOut];
         __weak MineTableViewController *weakMineCtl = ((ContentTabBarController *)self.sideMenuViewController.contentViewController).weakMineCtl;
         [self refreshUserView];
-        [weakMineCtl refreshUserView];
+        if (weakMineCtl)
+        {
+            [weakMineCtl refreshUserView];
+        }        
         [self.sideMenuViewController hideMenuViewController];
     }
     else

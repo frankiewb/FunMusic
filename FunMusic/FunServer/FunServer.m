@@ -291,7 +291,6 @@ typedef NS_ENUM(NSUInteger, managerType)
         [self fmGetTweetGroupWithDictionary:tweetGroupDic TweetInfoGroup:_appDelegate.tweetInfoGroup];
         [Config saveTweetInfoGroup:_appDelegate.tweetInfoGroup];
     }
-    
 }
 
 - (NSMutableArray *)fmGetTweetInfoWithType:(NSInteger)type
@@ -423,9 +422,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 - (BOOL)fmIsLogin
 {
-    BOOL islogin;
-    _appDelegate.currentUserInfo.isLogin ? (islogin = TRUE) : (islogin = FALSE);
-    return islogin;
+    return  _appDelegate.currentUserInfo.isLogin;
 }
 
 - (void)fmLogOut
@@ -507,9 +504,6 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-
-
-
 #pragma Common Fuction
 
 - (AFHTTPSessionManager *)fmGennerateFMManagerWithType:(managerType)type
@@ -536,10 +530,6 @@ typedef NS_ENUM(NSUInteger, managerType)
     }
     return _fmManager;
 }
-
-
-
-
 
 
 

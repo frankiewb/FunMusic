@@ -285,11 +285,9 @@
         [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
         _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)--count];
     }
-    BOOL isMine = FALSE;
-    
     FunServer *funServer = [[FunServer alloc] init];
     UserInfo *currentUser = [funServer fmGetCurrentUserInfo];
-    [_tweeterNameLabel.text isEqualToString:(currentUser.userName)] ? (isMine = TRUE) : (isMine = FALSE);
+    BOOL isMine = [_tweeterNameLabel.text isEqualToString:(currentUser.userName)];
     if (_updateTweetLikeCount)
     {
         _updateTweetLikeCount(_tweetID, _isLike, isMine);
