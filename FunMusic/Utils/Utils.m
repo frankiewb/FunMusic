@@ -17,14 +17,10 @@
 {
     NSError *error;
     NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
-    NSString *errorMsg = [NSString stringWithFormat:@"%@.json could not find !",fileName];
-    NSAssert(filePath, errorMsg);
     //NSDataReadingMappedIfSafe:使用该参数后，IOS就不会把整个文件全部读取到内存
     //而是将文件映射到进程的地址空间中，这么做并不会展示实际的内存
     NSData *jsonFileData = [NSData dataWithContentsOfFile:filePath];
     NSMutableDictionary *jsonDataDic = [NSJSONSerialization JSONObjectWithData:jsonFileData options:NSJSONReadingAllowFragments error:&error];
-    NSString *errorMsg1 = [NSString stringWithFormat:@"%@.json could not open !",fileName];
-    NSAssert(jsonDataDic, errorMsg1);
     return jsonDataDic;
 }
 
@@ -55,12 +51,6 @@
     else if ([name isEqualToString:@"风格"] || [name isEqualToString:@"channelSongStyle"])
     {
         return ChannelTypeSongStyle;
-    }
-    else
-    {
-        NSString *errorMsg = [NSString stringWithFormat:@"%@ ERRORNAME, Can not find the corresponding ChannelType", name];
-        //NSAssert如果为假则抛出异常
-        NSAssert(FALSE, errorMsg);
     }
     return 0;
 }

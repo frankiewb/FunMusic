@@ -52,6 +52,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     self.searchController.active = FALSE;
     [self.searchController.searchBar resignFirstResponder];
 }
@@ -210,6 +211,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     //跳转页面
     if (_presidentView)
     {
+        [self.navigationController popViewControllerAnimated:NO];
         _presidentView(funViewTypeMusic);
     }
 }

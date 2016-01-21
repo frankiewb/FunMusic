@@ -46,7 +46,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
     if (self)
     {
         _weakSelf = self;
-        _funServer = [[FunServer alloc] init];
+
     }
     
     return self;
@@ -151,6 +151,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 
 - (void)setTabBarUI
 {
+    _funServer = [[FunServer alloc] init];
     NSArray *titles = @[@"音乐",@"频道",@"音乐圈",@"我"];
     NSArray *images = @[@"音乐",@"频道",@"音乐圈",@"我"];
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop)

@@ -27,6 +27,13 @@
     [self.searchBar sizeToFit];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.active = FALSE;
+    [self.searchBar resignFirstResponder];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
