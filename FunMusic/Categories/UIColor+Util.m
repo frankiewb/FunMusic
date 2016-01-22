@@ -87,6 +87,11 @@
     return [UIColor colorWithRed:252/255.0 green:252/255.0 blue:252/255.0 alpha:1.0];
 }
 
++ (UIColor *)tabbarTextColor
+{
+    return [UIColor colorWithRed:60/255.0 green:60/255.0 blue:60/255.0 alpha:1.0];
+}
+
 + (UIColor *)titlebarColor
 {    
     if (((AppDelegate *)[UIApplication sharedApplication].delegate).isNightMode)

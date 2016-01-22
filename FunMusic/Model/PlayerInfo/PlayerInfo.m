@@ -18,9 +18,13 @@
     self = [super init];
     if (self)
     {
-        _currentSong        = [[SongInfo alloc] init];
-        _currentSong.songId = @"0";
-        _currentChannel     = [Config getCurrentChannelInfo];
+        _currentSong = [Config getCurrentSongInfo];
+        if (!_currentSong)
+        {
+            _currentSong  = [[SongInfo alloc] init];
+            _currentSong.songId = @"0";
+        }
+        _currentChannel  = [Config getCurrentChannelInfo];
         if (!_currentChannel)
         {
             _currentChannel              = [[ChannelInfo alloc] init];

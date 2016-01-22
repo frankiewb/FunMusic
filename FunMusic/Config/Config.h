@@ -10,6 +10,7 @@
 
 @class UserInfo;
 @class ChannelInfo;
+@class SongInfo;
 
 @interface Config : NSObject
 
@@ -22,6 +23,9 @@
 
 + (void)saveCurrentChannelInfo:(ChannelInfo *)channelInfo;
 + (ChannelInfo *)getCurrentChannelInfo;
+
++ (void)saveCurrentSongInfo:(SongInfo *)songInfo;
++ (SongInfo *)getCurrentSongInfo;
 
 + (void)saveTweetInfoGroup:(NSMutableArray *)tweetInfoGroup;
 + (NSMutableArray *)getTweetInfoGroup;

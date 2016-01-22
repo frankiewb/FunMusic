@@ -50,6 +50,8 @@
     [Config saveDawnAndNightMode:_isNightMode];
     //保存当前播放频道
     [Config saveCurrentChannelInfo:_currentPlayerInfo.currentChannel];
+    //保存最后退出时播放歌曲信息
+    [Config saveCurrentSongInfo:_currentPlayerInfo.currentSong];
     //保存用户信息
     [Config saveUserInfo:_currentUserInfo];
     //保存总TweetGroup信息

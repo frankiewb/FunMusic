@@ -159,7 +159,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
          [item setTitle:titles[idx]];
          //设置属性
          [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                       [UIColor standerTextColor],NSForegroundColorAttributeName,
+                                       [UIColor tabbarTextColor],NSForegroundColorAttributeName,
                                        [UIFont systemFontOfSize:kTabbarItemTextFont],NSFontAttributeName,nil]
                              forState:UIControlStateNormal];
          [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

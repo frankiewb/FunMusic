@@ -15,6 +15,9 @@
 #import <Masonry.h>
 
 @interface TweetCell ()
+{
+    FunServer *_funServer;
+}
 
 @property (nonatomic, strong) UIImageView *tweeterImageView;
 @property (nonatomic, strong) UILabel     *tweeterNameLabel;
@@ -96,6 +99,7 @@
 
 - (void)setUpUI
 {
+    _funServer = [[FunServer alloc] init];
     //self
     self.backgroundColor             = [UIColor themeColor];
     self.contentView.backgroundColor = [UIColor themeColor];
@@ -263,34 +267,54 @@
 
 - (void)deleteButtonClicked:(UIButton *)sender
 {
-    if (_deleteTweetCell)
+    if ([_funServer fmIsLogin])
     {
-        _deleteTweetCell(_tweetID);
+        if (_deleteTweetCell)
+        {
+            _deleteTweetCell(_tweetID);
+        }
     }
+    else
+    {
+        if (_pushLoginAlert)
+        {
+            _pushLoginAlert(@"请登录后再进行删除操作");
+        }
+    }
+    
 }
 
 
 - (void)likeButtonClicked:(UIButton *)sender
 {
-    NSInteger count = [_likeCountLabel.text integerValue];
-    if (!_isLike)
+    if ([_funServer fmIsLogin])
     {
-        _isLike = YES;
-        [_likeButton setImage:[UIImage imageNamed:@"赞2"] forState:UIControlStateNormal];
-        _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)++count];
+        NSInteger count = [_likeCountLabel.text integerValue];
+        if (!_isLike)
+        {
+            _isLike = YES;
+            [_likeButton setImage:[UIImage imageNamed:@"赞2"] forState:UIControlStateNormal];
+            _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)++count];
+        }
+        else
+        {
+            _isLike = NO;
+            [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
+            _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)--count];
+        }
+        BOOL isMine = [_tweeterNameLabel.text isEqualToString:([_funServer fmGetCurrentUserInfo].userName)];
+        if (_updateTweetLikeCount)
+        {
+            _updateTweetLikeCount(_tweetID, _isLike, isMine);
+        }
+
     }
     else
     {
-        _isLike = NO;
-        [_likeButton setImage:[UIImage imageNamed:@"赞1"] forState:UIControlStateNormal];
-        _likeCountLabel.text = [NSString stringWithFormat:@"%ld",(long)--count];
-    }
-    FunServer *funServer = [[FunServer alloc] init];
-    UserInfo *currentUser = [funServer fmGetCurrentUserInfo];
-    BOOL isMine = [_tweeterNameLabel.text isEqualToString:(currentUser.userName)];
-    if (_updateTweetLikeCount)
-    {
-        _updateTweetLikeCount(_tweetID, _isLike, isMine);
+        if (_pushLoginAlert)
+        {
+            _pushLoginAlert(@"请登录后再进行点赞操作");
+        }
     }
 }
 

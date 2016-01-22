@@ -328,6 +328,40 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
 }
 
+//默认值为false
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
+}
+
+//处理远程接收到的操控
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    if (event.type == UIEventTypeRemoteControl)
+    {
+        switch (event.subtype)
+        {
+            case UIEventSubtypeRemoteControlPause:
+                [self pauseClicked];
+                break;
+            case UIEventSubtypeRemoteControlPlay:
+                [self playClicked];
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                [self skipClicked];
+                break;
+            default:
+                break;
+        }
+    }
+}
 
 
 - (void)startPlayer
@@ -338,12 +372,9 @@ typedef NS_ENUM(NSInteger, songButtonType)
 - (void)refreshMusicPlayer
 {
     _isPlaying = YES;
-    if (![self isFirstResponder])
-    {
-        //远程控制
-        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-        [self becomeFirstResponder];
-    }
+    //远程控制
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
     
     //重置旋转图片角度
     _musicPlayerImage.image = nil;
@@ -425,6 +456,17 @@ typedef NS_ENUM(NSInteger, songButtonType)
     }
 }
 
+- (void)playClicked
+{
+    _isPlaying = YES;
+    _musicPlayerImage.alpha = kPlayingAlpha;
+    _musicPlayerImageBlock.image = [UIImage imageNamed:@"albumBlock-musicPlayer"];
+    [_songOperationButtonList[songButtonTypePause] setBackgroundImage:[UIImage imageNamed:@"pause-musicPlayer"] forState:UIControlStateNormal];
+    [_musicPlayer play];
+    //开启计时器
+    [_timer setFireDate:[NSDate date]];
+}
+
 
 - (void)pauseClicked
 {
@@ -478,6 +520,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     }
     [_funServer fmSongOperationWithType:SongOperationTypeSkip];
 }
+
 
 
 - (CGFloat)getButtonXFactor:(NSInteger)buttonIndex

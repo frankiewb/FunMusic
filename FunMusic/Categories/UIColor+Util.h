@@ -28,6 +28,8 @@
 
 + (UIColor *)tabbarColor;
 
++ (UIColor *)tabbarTextColor;
+
 + (UIColor *)titlebarColor;
 
 + (UIColor *)inputColor;

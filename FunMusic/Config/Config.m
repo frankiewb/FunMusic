@@ -10,6 +10,7 @@
 #import "UserInfo.h"
 #import "TweetInfo.h"
 #import "ChannelInfo.h"
+#import "SongInfo.h"
 
 static  NSString *kNightModeKey       = @"nightMode";
 static  NSString *kUserID             = @"userID";
@@ -19,6 +20,7 @@ static  NSString *kUserImage          = @"userImage";
 static  NSString *kTweetInfoList      = @"tweetInfoList";
 static  NSString *kSharedChannelList  = @"sharedChannelList";
 static  NSString *kCurrentChannelInfo = @"currentChannelInfo";
+static  NSString *kCurrentSongInfo    = @"currentSongInfo";
 static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 
 @implementation Config
@@ -210,6 +212,24 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     NSData *currentChannelData = [userDefaults objectForKey:kCurrentChannelInfo];
     ChannelInfo *currentChannelInfo = [NSKeyedUnarchiver unarchiveObjectWithData:currentChannelData];
     return currentChannelInfo;
+}
+
+#pragma CurrentSong
+
++ (void)saveCurrentSongInfo:(SongInfo *)songInfo
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *currentSongData = [NSKeyedArchiver archivedDataWithRootObject:songInfo];
+    [userDefaults setObject:currentSongData forKey:kCurrentSongInfo];
+    [userDefaults synchronize];
+}
+
++ (SongInfo *)getCurrentSongInfo
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *currentSongData = [userDefaults objectForKey:kCurrentSongInfo];
+    SongInfo *currentSongInfo = [NSKeyedUnarchiver unarchiveObjectWithData:currentSongData];
+    return currentSongInfo;
 }
 
 @end
