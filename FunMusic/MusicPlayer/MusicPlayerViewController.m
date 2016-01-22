@@ -48,6 +48,8 @@ static const CGFloat kPauseButtonXFactor          = 0.35;
 static const CGFloat kHeartButtonXFactor          = 1;
 static const CGFloat kNextButtonXFactor           = 1.65;
 
+static MusicPlayerViewController *sharedMusicCtl = nil;
+
 
 typedef NS_ENUM(NSInteger, songButtonType)
 {
@@ -84,6 +86,17 @@ typedef NS_ENUM(NSInteger, songButtonType)
 @end
 
 @implementation MusicPlayerViewController
+
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^
+    {
+        sharedMusicCtl = [[MusicPlayerViewController alloc] init];
+    });
+    
+    return sharedMusicCtl;
+}
 
 
 - (void)dawnAndNightMode
@@ -328,41 +341,6 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
 }
 
-//默认值为false
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-    [self resignFirstResponder];
-}
-
-//处理远程接收到的操控
-- (void)remoteControlReceivedWithEvent:(UIEvent *)event
-{
-    if (event.type == UIEventTypeRemoteControl)
-    {
-        switch (event.subtype)
-        {
-            case UIEventSubtypeRemoteControlPause:
-                [self pauseClicked];
-                break;
-            case UIEventSubtypeRemoteControlPlay:
-                [self playClicked];
-                break;
-            case UIEventSubtypeRemoteControlNextTrack:
-                [self skipClicked];
-                break;
-            default:
-                break;
-        }
-    }
-}
-
 
 - (void)startPlayer
 {
@@ -371,15 +349,8 @@ typedef NS_ENUM(NSInteger, songButtonType)
 
 - (void)refreshMusicPlayer
 {
+    //self
     _isPlaying = YES;
-    //远程控制
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-    [self becomeFirstResponder];
-    
-    //重置旋转图片角度
-    _musicPlayerImage.image = nil;
-    NSURL *imageURL = [NSURL URLWithString:_currentPlayerInfo.currentSong.songPictureUrl];
-    [_musicPlayerImage sd_setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"albumBlock-musicPlayer"]];
     
     //初始化各UI界面
     self.navigationItem.title = [NSString stringWithFormat:@"♪%@♪",_currentPlayerInfo.currentChannel.channelName];
@@ -415,7 +386,19 @@ typedef NS_ENUM(NSInteger, songButtonType)
     
     //初始化timeProgressBar
     [_timer setFireDate:[NSDate date]];
-    [self congfigVideoPlayerInfo];    
+    
+    //重置旋转图片角度
+    _musicPlayerImage.image = nil;
+    NSURL *imageURL = [NSURL URLWithString:_currentPlayerInfo.currentSong.songPictureUrl];
+    __weak typeof(self) weakSelf = self;
+    [_musicPlayerImage sd_setImageWithURL:imageURL
+                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                    __strong typeof(self) strongSelf = weakSelf;
+                                    if (strongSelf)
+                                    {
+                                        [strongSelf congfigVideoPlayerInfo];
+                                    }
+                                }];
 }
 
 - (void)congfigVideoPlayerInfo

@@ -52,6 +52,8 @@ static const CGFloat kButtonHeightDistance = 20;
     _loginNameTextField = [[UITextField alloc] init];
     _loginNameTextField.placeholder = @"邮箱 ／ 用户名";
     _loginNameTextField.backgroundColor = [UIColor inputColor];
+    //别忘记设置代理
+    _loginNameTextField.delegate = self;
     [UIList addObject:_loginNameTextField];
     
     //loginPasswordTextField
@@ -59,6 +61,8 @@ static const CGFloat kButtonHeightDistance = 20;
     _loginPassWordTextField.placeholder = @"密码";
     _loginPassWordTextField.secureTextEntry = YES;
     _loginPassWordTextField.backgroundColor = [UIColor inputColor];
+    //别忘记设置代理
+    _loginPassWordTextField.delegate = self;
     [UIList addObject:_loginPassWordTextField];
     
     //Atrribute Setting
@@ -78,8 +82,6 @@ static const CGFloat kButtonHeightDistance = 20;
         loginTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         //设置内容自适应输入框大小
         loginTextField.adjustsFontSizeToFitWidth = YES;
-        //设置键盘样式
-        loginTextField.keyboardType = UIKeyboardTypeEmailAddress;
         //设置首字母是否大写
         loginTextField.autocapitalizationType = UITextBorderStyleNone;
         //设置Return键盘字样
@@ -174,7 +176,16 @@ static const CGFloat kButtonHeightDistance = 20;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+    if ([_loginNameTextField isFirstResponder])
+    {
+        [_loginNameTextField resignFirstResponder];
+        [_loginPassWordTextField becomeFirstResponder];
+    }
+    else
+    {
+        [textField resignFirstResponder];
+
+    }
     return YES;
 }
 

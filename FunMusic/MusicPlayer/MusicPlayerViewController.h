@@ -12,4 +12,12 @@
 
 - (void)dawnAndNightMode;
 
+- (void)pauseClicked;
+
+- (void)playClicked;
+
+- (void)skipClicked;
+
++ (instancetype)sharedInstance;
+
 @end

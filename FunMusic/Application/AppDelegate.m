@@ -10,6 +10,7 @@
 #import "PlayerInfo.h"
 #import "UserInfo.h"
 #import "Config.h"
+#import "MusicPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface AppDelegate ()
@@ -62,9 +63,35 @@
     // Override point for customization after application launch.
     [self sharedInstance];
     [NSThread sleepForTimeInterval:1.0];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
     
     return YES;
 }
+
+
+//处理远程接收到的操控
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    if (event.type == UIEventTypeRemoteControl)
+    {
+        switch (event.subtype)
+        {
+            case UIEventSubtypeRemoteControlPause:
+                [[MusicPlayerViewController sharedInstance] pauseClicked];
+                break;
+            case UIEventSubtypeRemoteControlPlay:
+                [[MusicPlayerViewController sharedInstance] playClicked];
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                [[MusicPlayerViewController sharedInstance] skipClicked];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 
 
 

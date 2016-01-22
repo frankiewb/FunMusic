@@ -111,7 +111,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 - (void)setTabBarSubViews
 {
     //Music
-    MusicPlayerViewController *musicViewCtl = [[MusicPlayerViewController alloc] init];
+    MusicPlayerViewController *musicViewCtl = [MusicPlayerViewController sharedInstance];
     
     //Channel
     NSArray *channelGroupNames = @[@"推荐",@"语言",@"风格",@"心情"];
@@ -129,7 +129,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
         };
         [channelGroupCtrList addObject:controller];
     }
-    ChannelViewController *channelViewCtl = [[ChannelViewController alloc] initWithTitle:@"FUN Music 频道"
+    ChannelViewController *channelViewCtl = [[ChannelViewController alloc] initWithTitle:@"Fun 频道"
                                                                                subTitles:channelGroupNames
                                                                      subTitleCOntrollers:channelGroupCtrList];
     //Tweet
