@@ -161,7 +161,7 @@ typedef NS_ENUM(NSInteger, sideMenuOPType)
 
 - (void)clearAllUserDefaultData
 {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.tableView.window animated:YES];
     hud.labelText = @"清理缓存中";
     hud.mode = MBProgressHUDModeIndeterminate;
     //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做

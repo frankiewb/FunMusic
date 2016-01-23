@@ -259,7 +259,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
 {
     if ([_funServer fmIsLogin])
     {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:_weakTweetCtl.tableView animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:_weakTweetCtl.tableView.window animated:YES];
         hud.labelText = @"刷新中";
         hud.mode = MBProgressHUDModeIndeterminate;
         //注意GCD的强大的嵌套能力，涉及UI的动作在主线程做，其余可以放在默认并发线程global_queue中做

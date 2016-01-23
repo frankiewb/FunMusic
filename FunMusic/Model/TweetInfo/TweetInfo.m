@@ -25,6 +25,8 @@ extern const CGFloat kLabelHeightDistance;
 extern const CGFloat kCellEdgeDistance;
 
 static const CGFloat kIdealTweetCommentHeight = 60;
+static const CGFloat kNilTweeterCommentHeight = 2;
+static const CGFloat kExtraCommentHeight = 35;
 
 static NSString *kTweetID        = @"tweetID";
 static NSString *kTweetImage     = @"tweetImage";
@@ -99,17 +101,8 @@ static NSString *kCellHeight     = @"cellHeight";
     NSString *isLike = @"1";
     NSString *tweeterComment;
     NSString *tweeterType;
-    _tweeterComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if ([comment isEqualToString:@""])
-    {
-        tweeterComment = @" ";
-        tweeterType = @"1";        
-    }
-    else
-    {
-        tweeterComment = comment;
-        tweeterType = @"2";
-    }
+    tweeterComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    ([tweeterComment isEqualToString:@""]) ? (tweeterType = @"1") : (tweeterType = @"2");
     NSString *likeCount = @"0";
     NSString *infoType = @"2";
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -157,10 +150,19 @@ static NSString *kCellHeight     = @"cellHeight";
 {
     //boundingRectWithSize 参数是一个constraint ,用于在绘制文本时作为参考。但是，如果绘制完整个文本需要更大的空间，则返回的矩形大小可能比 size 更大。
     //一般，绘制时会采用constraint 提供的宽度，但高度则会根据需要而定。
-    CGSize textSize = [_tweeterComment boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 2*kCellEdgeDistance, kIdealTweetCommentHeight)
-                                                    options: NSStringDrawingUsesLineFragmentOrigin
-                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kNameFontSize]}
-                                                    context:nil].size;
+    CGSize textSize;
+    if (![_tweeterComment isEqualToString:@""])
+    {
+        textSize.height = [_tweeterComment boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 2*kCellEdgeDistance, kIdealTweetCommentHeight)
+                                                        options: NSStringDrawingUsesLineFragmentOrigin
+                                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kNameFontSize]}
+                                                        context:nil].size.height;
+        textSize.height = textSize.height + kExtraCommentHeight;
+    }
+    else
+    {
+        textSize.height = kNilTweeterCommentHeight;
+    }
     CGFloat cellheight = textSize.height + (kSmallLabelHeight * 2) + kMainImageHeight + (kCellEdgeDistance * 2) + (kLabelHeightDistance * 3);
     _cellHeight = cellheight;
 }

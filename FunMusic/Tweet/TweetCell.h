@@ -10,16 +10,17 @@
 
 @class TweetInfo;
 
-static const CGFloat kNameFontSize        = 16;
-static const CGFloat kDateLikeFontSize    = 12;
-static const CGFloat kSmallLabelHeight    = 20;
-static const CGFloat kTweeterLabelWidth   = 50;
-static const CGFloat kTweeterImageHeight  = 30;
-static const CGFloat kMainlabelHeight     = 60;
-static const CGFloat kMainImageHeight     = 60;
-static const CGFloat kLabelWidthDistance  = 15;
-static const CGFloat kLabelHeightDistance = 10;
-static const CGFloat kCellEdgeDistance    = 15;
+static const CGFloat kNameFontSize           = 16;
+static const CGFloat kDateLikeFontSize       = 12;
+static const CGFloat kSmallLabelHeight       = 20;
+static const CGFloat kTweeterLabelWidth      = 50;
+static const CGFloat kTweeterImageHeight     = 30;
+static const CGFloat kMainlabelHeight        = 60;
+static const CGFloat kMainImageHeight        = 60;
+static const CGFloat kLabelWidthDistance     = 15;
+static const CGFloat kLabelHeightDistance    = 10;
+static const CGFloat kCellEdgeDistance       = 15;
+static const CGFloat kCellEdgeHeightDistance = 5;
 
 @interface TweetCell : UITableViewCell
 

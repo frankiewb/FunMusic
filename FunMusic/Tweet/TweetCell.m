@@ -258,7 +258,7 @@
          make.left.equalTo(_tweeterImageView.mas_right).offset(kLabelWidthDistance);
          make.right.equalTo(self.contentView.mas_right).offset(-kCellEdgeDistance);
          make.top.equalTo(_tweetDateLabel.mas_bottom).offset(kLabelHeightDistance);
-         make.bottom.equalTo(self.contentView.mas_bottom).offset(-kCellEdgeDistance);
+         make.bottom.equalTo(self.contentView.mas_bottom).offset(-kCellEdgeHeightDistance);
      }];
     
     
