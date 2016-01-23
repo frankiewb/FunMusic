@@ -72,6 +72,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     self.hidesBottomBarWhenPushed = YES;
     //注册channelCell
     [self.tableView registerClass:[ChannelCell class] forCellReuseIdentifier:kChannelSearchCellID];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //解决分割线的距离问题
     self.tableView.separatorInset = UIEdgeInsetsMake(0, kSeperatorLineLeftDistance, 0, kSeperatorLineRightDistance);
 }
@@ -137,7 +138,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return 1;
     }
-    return _allChannelInfoCells.count;
+    return 0;
 }
 
 
@@ -148,8 +149,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return _filteredChannelInfoCells.count;
     }
-    ChannelGroup *singleChannelGroup = _allChannelInfoCells[section];
-    return singleChannelGroup.channelArray.count;
+    return 0;
 }
 
 #pragma mark 设置分组标题内容高度
@@ -184,13 +184,8 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     if (self.searchController.active)
     {
         channelSearchInfo = _filteredChannelInfoCells[indexPath.row];
+        [channelSearchCell setUpChannelCellWithChannelInfo:channelSearchInfo];
     }
-    else
-    {
-        ChannelGroup *singleChannelGroup = [_allChannelInfoCells objectAtIndex:indexPath.section];
-        channelSearchInfo = [singleChannelGroup.channelArray objectAtIndex:indexPath.row];
-    }
-    [channelSearchCell setUpChannelCellWithChannelInfo:channelSearchInfo];
     return channelSearchCell;
 }
 
@@ -200,19 +195,14 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     if (self.searchController.active)
     {
         selectChannelSearchInfo = _filteredChannelInfoCells[indexPath.row];
-    }
-    else
-    {
-        ChannelGroup *singleChannelGroup = [_allChannelInfoCells objectAtIndex:indexPath.section];
-        selectChannelSearchInfo = [singleChannelGroup.channelArray objectAtIndex:indexPath.row];
-    }
-    [_funServer fmUpdateCurrentChannelInfo:selectChannelSearchInfo];
-    [_funServer fmSongOperationWithType:SongOperationTypeNext];
-    //跳转页面
-    if (_presidentView)
-    {
-        [self.navigationController popViewControllerAnimated:NO];
-        _presidentView(funViewTypeMusic);
+        [_funServer fmUpdateCurrentChannelInfo:selectChannelSearchInfo];
+        [_funServer fmSongOperationWithType:SongOperationTypeNext];
+        //跳转页面
+        if (_presidentView)
+        {
+            [self.navigationController popViewControllerAnimated:NO];
+            _presidentView(funViewTypeMusic);
+        }
     }
 }
 
@@ -223,9 +213,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     {
         return @"频道查询结果";
     }
-    ChannelGroup *singleChannelGroup = _allChannelInfoCells[section];
-    ChannelType type = singleChannelGroup.channelType;
-    return [Utils getChannelGroupNameWithChannelType:type isChineseLanguage:YES];
+    return @"";
 }
 
 #pragma mark修改每组标题字体颜色

@@ -46,7 +46,6 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
     if (self)
     {
         _weakSelf = self;
-
     }
     
     return self;
