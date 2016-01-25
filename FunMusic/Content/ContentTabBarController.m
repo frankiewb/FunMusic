@@ -121,9 +121,11 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
         controller.presidentView = ^(NSInteger indexPath)
         {
             __strong typeof(self) strongSelf = _weakSelf;
-            if (strongSelf)
+            __strong MusicPlayerViewController *strongMusicCtl = _weakMusicCtl;
+            if (strongSelf && strongMusicCtl)
             {
                 strongSelf.selectedIndex = indexPath;
+                [strongMusicCtl.navigationController popToRootViewControllerAnimated:NO];
             }
         };
         [channelGroupCtrList addObject:controller];
@@ -146,6 +148,7 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
     
     _weakTweetCtl = tweetViewCtl;
     _weakMineCtl = mineViewCtl;
+    _weakMusicCtl = musicViewCtl;
 }
 
 - (void)setTabBarUI
@@ -223,8 +226,10 @@ static NSString *kDawnAndNightMode       = @"dawnAndNightMode";
     searchViewCtl.presidentView = ^(NSInteger indexPath)
     {
         __strong typeof(self) strongSelf = _weakSelf;
-        if (strongSelf)
+        __strong MusicPlayerViewController *strongMusicCtl = _weakMusicCtl;
+        if (strongSelf && strongMusicCtl)
         {
+            [strongMusicCtl.navigationController popToRootViewControllerAnimated:NO];
             strongSelf.selectedIndex = indexPath;
         }
     };

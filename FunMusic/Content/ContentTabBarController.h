@@ -10,11 +10,13 @@
 
 @class MineTableViewController;
 @class TweetTableVIewController;
+@class MusicPlayerViewController;
 
 @interface ContentTabBarController : UITabBarController
 
 @property (nonatomic, weak) MineTableViewController *weakMineCtl;
 @property (nonatomic, weak) TweetTableVIewController *weakTweetCtl;
+@property (nonatomic, weak) MusicPlayerViewController *weakMusicCtl;
 
 
 @end

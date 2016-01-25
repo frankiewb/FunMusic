@@ -14,6 +14,7 @@
 #import "LoginViewController.h"
 #import "MineTableViewController.h"
 #import "ContentTabBarController.h"
+#import "MusicPlayerViewController.h"
 #import "Utils.h"
 #import "UIColor+Util.h"
 #import "Config.h"
@@ -179,6 +180,7 @@ static NSString *kTweetCellID                    = @"TweetCellID";
             [strongFunServer fmUpdateCurrentChannelInfo:channelInfo];
             [strongFunServer fmSongOperationWithType:SongOperationTypeNext];
             ((UITabBarController *)strongSelf.sideMenuViewController.contentViewController).selectedIndex = funViewTypeMusic;
+            [((ContentTabBarController *)(strongSelf.sideMenuViewController.contentViewController)).weakMusicCtl.navigationController popToRootViewControllerAnimated:NO];
         }
     };
   

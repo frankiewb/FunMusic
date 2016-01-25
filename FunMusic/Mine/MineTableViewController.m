@@ -15,6 +15,8 @@
 #import "SideMenuViewController.h"
 #import "TweetTableVIewController.h"
 #import "SharedChannelTableController.h"
+#import "MusicPlayerViewController.h"
+#import "ContentTabBarController.h"
 #import "UIColor+Util.h"
 #import "Config.h"
 #import "FunServer.h"
@@ -249,7 +251,9 @@ typedef NS_ENUM(NSInteger, mineOPType)
         __weak SharedChannelTableController *weakSharedChannelCtl = sharedChannelCtl;
         sharedChannelCtl.presidentView = ^(NSInteger indexPath)
         {
-            ((UITabBarController *)weakSelf.sideMenuViewController.contentViewController).selectedIndex = indexPath;
+            __strong typeof(self) strongSelf = weakSelf;
+            ((UITabBarController *)strongSelf.sideMenuViewController.contentViewController).selectedIndex = indexPath;
+            [((ContentTabBarController *)(strongSelf.sideMenuViewController.contentViewController)).weakMusicCtl.navigationController popToRootViewControllerAnimated:NO];
             __strong SharedChannelTableController *strongSharedCtl = weakSharedChannelCtl;
             if (strongSharedCtl)
             {
