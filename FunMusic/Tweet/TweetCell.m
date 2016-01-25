@@ -108,6 +108,7 @@
     //tweeterImageView
     _tweeterImageView = [[UIImageView alloc] init];
     _tweeterImageView.userInteractionEnabled = YES;
+    _tweeterImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:_tweeterImageView];
         
     //tweeterNameLabel
@@ -120,6 +121,8 @@
     //channelImageView
     _channelImageView = [[UIImageView alloc] init];
     _channelImageView.layer.cornerRadius = kMainImageHeight / 2;
+    _channelImageView.layer.masksToBounds = YES;
+    _channelImageView.contentMode = UIViewContentModeScaleAspectFill;
     UITapGestureRecognizer *scrolViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(channelNameImageClicked)];
     [_channelImageView addGestureRecognizer:scrolViewTap];
     [self.contentView addSubview:_channelImageView];

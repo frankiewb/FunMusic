@@ -57,6 +57,7 @@ static const CGFloat kEdgeDistance       = 10;
     _opImageView = [[UIImageView alloc] init];
     _opImageView.contentMode = UIViewContentModeScaleAspectFit;
     _opImageView.layer.cornerRadius = kOPImageSide / 2;
+    _opImageView.layer.masksToBounds = YES;
     [self.contentView addSubview:_opImageView];
     
     //opNameLabel

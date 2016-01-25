@@ -71,6 +71,8 @@ static const CGFloat kNameFont                    = 20;
     //userImageView
     _userImageView = [[UIImageView alloc] init];
     _userImageView.layer.cornerRadius = kUserImageViewSide / 2;
+    _userImageView.layer.masksToBounds = YES;
+    _userImageView.contentMode = UIViewContentModeScaleAspectFill;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushView)];
     [_userImageView addGestureRecognizer:singleTap];
     

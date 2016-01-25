@@ -65,6 +65,9 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
     
     //Image
     _channelImageView = [[UIImageView alloc] init];
+    _channelImageView.layer.cornerRadius = kChannelImageCornerRadius;
+    _channelImageView.layer.masksToBounds = YES;
+    _channelImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:_channelImageView];
     
     //NameLabel
@@ -113,13 +116,7 @@ static const CGFloat kChannelCellUIEdgeDistance       = 15;
 
 - (void)setUpChannelCellWithChannelInfo:(ChannelInfo *)channelInfo
 {
-    [_channelImageView setImage:[UIImage imageNamed:channelInfo.channelImage]];
-        
-    //调研下，在复用的时候为什么取不到imageview的bound的size的width，结果居然是0
-    _channelImageView.layer.cornerRadius = kChannelImageCornerRadius;
-    _channelImageView.layer.masksToBounds = YES;
-    _channelImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
+    [_channelImageView setImage:[UIImage imageNamed:channelInfo.channelImage]];    
     _channelNameLabel.text = channelInfo.channelName;
     _channelDescriptionLabel.text = channelInfo.channelIntro;
 }

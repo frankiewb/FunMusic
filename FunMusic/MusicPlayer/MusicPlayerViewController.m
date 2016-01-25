@@ -187,6 +187,7 @@ typedef NS_ENUM(NSInteger, songButtonType)
     _musicPlayerImage = [[UIImageView alloc] init];
     _musicPlayerImage.layer.masksToBounds = YES;
     _musicPlayerImage.layer.cornerRadius = (kPlayerImageSideLengthFactor * [UIScreen mainScreen].bounds.size.width)/2;
+    _musicPlayerImage.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_musicPlayerImage];
     
     //初始化PlayerImageBlock界面

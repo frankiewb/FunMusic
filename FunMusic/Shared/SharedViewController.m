@@ -126,6 +126,8 @@ static const CGFloat kLabelWidthDistance     = 10;
     //ChannelImageView
     _channelImageView = [[UIImageView alloc] init];
     _channelImageView.layer.cornerRadius = kChannelImageHeight / 2;
+    _channelImageView.layer.masksToBounds = YES;
+    _channelImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_channelImageView setImage:[UIImage imageNamed:_currentChannel.channelImage]];
     [self.view addSubview:_channelImageView];
     
