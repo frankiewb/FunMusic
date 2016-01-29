@@ -168,6 +168,13 @@ static NSString *kCellHeight     = @"cellHeight";
 }
 
 
+
++ (BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.tweetID forKey:kTweetID];
@@ -189,14 +196,14 @@ static NSString *kCellHeight     = @"cellHeight";
     self = [super init];
     if (self)
     {
-        self.tweetID        = [aDecoder decodeObjectForKey:kTweetID];
-        self.tweeterImage   = [aDecoder decodeObjectForKey:kTweetImage];
-        self.tweeterName    = [aDecoder decodeObjectForKey:kTweetName];
-        self.channelImage   = [aDecoder decodeObjectForKey:kChannelImage];
-        self.channelName    = [aDecoder decodeObjectForKey:kChannelName];
-        self.tweeterComment = [aDecoder decodeObjectForKey:kTweeterComment];
-        self.tweetDate      = [aDecoder decodeObjectForKey:kTweetDate];
-        self.isLike         = [aDecoder decodeObjectForKey:kIsLike];
+        self.tweetID        = [aDecoder decodeObjectOfClass:[NSString class] forKey:kTweetID];
+        self.tweeterImage   = [aDecoder decodeObjectOfClass:[NSString class] forKey:kTweetImage];
+        self.tweeterName    = [aDecoder decodeObjectOfClass:[NSString class] forKey:kTweetName];
+        self.channelImage   = [aDecoder decodeObjectOfClass:[NSString class] forKey:kChannelImage];
+        self.channelName    = [aDecoder decodeObjectOfClass:[NSString class] forKey:kChannelName];
+        self.tweeterComment = [aDecoder decodeObjectOfClass:[NSString class] forKey:kTweeterComment];
+        self.tweetDate      = [aDecoder decodeObjectOfClass:[NSString class] forKey:kTweetDate];
+        self.isLike         = [aDecoder decodeObjectOfClass:[NSString class] forKey:kIsLike];
         self.likeCount      = [aDecoder decodeIntegerForKey:kLikeCount];
         self.tweeterType    = [aDecoder decodeIntegerForKey:kTweeterType];
         self.infoType       = [aDecoder decodeIntegerForKey:kInfoType];

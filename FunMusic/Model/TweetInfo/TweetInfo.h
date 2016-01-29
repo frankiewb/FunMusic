@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, infoType)
     infoTypeFriend, //朋友发出
 };
 
-@interface TweetInfo : NSObject<NSCoding>
+@interface TweetInfo : NSObject<NSSecureCoding>
 
 @property (nonatomic, copy) NSString *tweeterImage;
 @property (nonatomic, copy) NSString *tweeterName;

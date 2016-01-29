@@ -44,6 +44,12 @@ static NSString *kChannelImage = @"channelImage";
     return self;
 }
 
+
++ (BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.channelID forKey:kChannelID];
@@ -57,10 +63,10 @@ static NSString *kChannelImage = @"channelImage";
     self = [super init];
     if (self)
     {
-        self.channelID    = [aDecoder decodeObjectForKey:kChannelID];
-        self.channelName  = [aDecoder decodeObjectForKey:kChannelName];
-        self.channelIntro = [aDecoder decodeObjectForKey:kChannelIntro];
-        self.channelImage = [aDecoder decodeObjectForKey:kChannelImage];
+        self.channelID    = [aDecoder decodeObjectOfClass:[NSString class] forKey:kChannelID];
+        self.channelName  = [aDecoder decodeObjectOfClass:[NSString class] forKey:kChannelName];
+        self.channelIntro = [aDecoder decodeObjectOfClass:[NSString class] forKey:kChannelIntro];
+        self.channelImage = [aDecoder decodeObjectOfClass:[NSString class] forKey:kChannelImage];
     }
     
     return self;

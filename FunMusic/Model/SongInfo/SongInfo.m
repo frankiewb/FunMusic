@@ -34,6 +34,12 @@ static NSString *kSongId         = @"songID";
     return self;
 }
 
+
++ (BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.songArtist forKey:kSongArtist];
@@ -50,13 +56,13 @@ static NSString *kSongId         = @"songID";
     self = [super init];
     if (self)
     {
-        self.songArtist     = [aDecoder decodeObjectForKey:kSongArtist];
-        self.songTitle      = [aDecoder decodeObjectForKey:kSongTitle];
-        self.songUrl        = [aDecoder decodeObjectForKey:kSongURL];
-        self.songPictureUrl = [aDecoder decodeObjectForKey:kSongPictureUrl];
-        self.songTimeLong   = [aDecoder decodeObjectForKey:kSongTimeLong];
-        self.songIsLike     = [aDecoder decodeObjectForKey:kSongIsLike];
-        self.songId         = [aDecoder decodeObjectForKey:kSongId];
+        self.songArtist     = [aDecoder decodeObjectOfClass:[NSString class] forKey:kSongArtist];
+        self.songTitle      = [aDecoder decodeObjectOfClass:[NSString class] forKey:kSongTitle];
+        self.songUrl        = [aDecoder decodeObjectOfClass:[NSString class] forKey:kSongURL];
+        self.songPictureUrl = [aDecoder decodeObjectOfClass:[NSString class] forKey:kSongPictureUrl];
+        self.songTimeLong   = [aDecoder decodeObjectOfClass:[NSString class] forKey:kSongTimeLong];
+        self.songIsLike     = [aDecoder decodeObjectOfClass:[NSString class] forKey:kSongIsLike];
+        self.songId         = [aDecoder decodeObjectOfClass:[NSString class] forKey:kSongId];
     }
     
     return self;
