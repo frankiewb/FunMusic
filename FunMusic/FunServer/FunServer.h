@@ -40,13 +40,13 @@ typedef NS_ENUM(NSInteger,funViewType)
 
 @interface FunServer : NSObject
 
-#pragma SongOperation
+#pragma mark SongOperation
 - (PlayerInfo *)fmGetCurrentPlayerInfo;
 - (MPMoviePlayerController *)fmGetCurrentMusicPlayer;
 - (void)fmSongOperationWithType:(SongOperationType) operationType;
 @property(nonatomic, copy) void (^getSongListFail)();
 
-#pragma CShannelOperation
+#pragma mark ChannelOperation
 - (void)fmUpdateMySharedChannelListWithChannelName:(NSString *)channelName;
 - (void)fmDeleteMySharedChannelListWithChannelIndex:(NSInteger)channelIndex;
 - (ChannelGroup *)fmGetChannelWithTypeInLocal:(NSInteger)channelType;
@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger,funViewType)
 - (void)fmUpdateCurrentChannelInfo:(ChannelInfo *)newCurrentChannelInfo;
 - (void)fmGetAllChannelInfos;
 
-#pragma TweeterOperation
+#pragma mark TweeterOperation
 - (void)fmGetTweetInfoInLocal;
 - (void)fmSharedTweeterWithTweetInfo:(TweetInfo *)tweetInfo;
 - (void)fmDeleteTweetInfoWithTweetID:(NSString *)tweetID;
@@ -63,27 +63,27 @@ typedef NS_ENUM(NSInteger,funViewType)
 - (NSInteger)fmSearchTweetInfoWithID:(NSString *)tweetID isMyTweetGroup:(BOOL)isMine;
 - (NSMutableArray *)fmGetTweetInfoWithType:(NSInteger)type;
 
-#pragma LoginOperation
+#pragma mark LoginOperation
 - (UserInfo *)fmGetCurrentUserInfo;
 - (BOOL)fmLoginInLocalWithLoginInfo:(LogInfo *)logInfo;
 - (BOOL)fmIsLogin;
 - (void)fmLogOut;
 
-#pragma DawnAndNightMode
+#pragma mark DawnAndNightMode
 - (void)fmSetNightMode:(BOOL)isNightMode;
 - (BOOL)fmGetNightMode;
 
-#pragma MenuInfo
+#pragma mark MenuInfo
 - (NSMutableArray *)fmGetSideMenuInfo;
 - (NSMutableArray *)fmGetMineMenuInfo;
 
-#pragma MysharedChannelList
+#pragma mark MysharedChannelList
 - (NSMutableArray *)fmGetMySharedChannelList;
 
-#pragma SearchChannelList
+#pragma mark SearchChannelList
 - (NSMutableArray *)fmGetSearchChannelList;
 
-#pragma ClearAllData
+#pragma mark ClearAllData
 - (void)fmClearAllData;
 
 

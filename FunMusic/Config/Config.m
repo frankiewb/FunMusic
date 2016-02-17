@@ -25,7 +25,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 
 @implementation Config
 
-#pragma clear all
+#pragma mark clear all
 
 + (void)clearAllDataInUserDefaults
 {
@@ -43,7 +43,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 
 
 
-#pragma DawnAndNight
+#pragma mark DawnAndNight
 
 + (void)saveDawnAndNightMode:(BOOL)isNightMode
 {
@@ -61,7 +61,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 }
 
 
-#pragma UserInfo
+#pragma mark UserInfo
 
 + (void)saveUserInfo:(UserInfo *)userInfo
 {
@@ -91,7 +91,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 }
 
 
-#pragma UserTweetList
+#pragma mark UserTweetList
 //NSUserDefaults存储的对象全是不可变的，如果想存储一个NSMutableArray对象，必须创建一个不可变数组NSArray，再将其存入NSUserDefaults中去
 + (void)saveUserTweetList:(NSMutableArray *)userTweetList
 {
@@ -126,7 +126,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     return tweetInfoList;
 }
 
-#pragma TweetInfoGroup
+#pragma mark TweetInfoGroup
 
 + (void)saveTweetInfoGroup:(NSMutableArray *)tweetInfoGroup
 {
@@ -162,7 +162,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 
 
 
-#pragma UserSharedChannelList
+#pragma mark UserSharedChannelList
 
 + (void)saveUserSharedChannelList:(NSMutableArray *)userSharedChannelList
 {
@@ -196,7 +196,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
 }
 
 
-#pragma CurrentChannel
+#pragma mark CurrentChannel
 
 + (void)saveCurrentChannelInfo:(ChannelInfo *)channelInfo
 {
@@ -214,7 +214,7 @@ static  NSString *kTweetInfoGroup     = @"tweetInfoGroup";
     return currentChannelInfo;
 }
 
-#pragma CurrentSong
+#pragma mark CurrentSong
 
 + (void)saveCurrentSongInfo:(SongInfo *)songInfo
 {

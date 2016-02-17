@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     return self;
 }
 
-#pragma SongOperation Function
+#pragma mark SongOperation Function
 
 - (MPMoviePlayerController *)fmGetCurrentMusicPlayer
 {
@@ -153,9 +153,8 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 
 
-#pragma ChannelOperation Function
+#pragma mark ChannelOperation Function
 //由于豆瓣ChannelID都是固定的，这里暂时采用读取本地JSON文档的方式获取Channel所有数据
-//为该APP将来的扩展留下接口
 
 - (ChannelGroup *)fmGetChannelWithTypeInLocal:(NSInteger)channelType
 {
@@ -279,7 +278,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-#pragma TweetFunction
+#pragma mark TweetFunction
 
 
 - (void)fmGetTweetInfoInLocal
@@ -399,7 +398,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 
 
-#pragma LoginOperation
+#pragma mark LoginOperation
 
 - (UserInfo *)fmGetCurrentUserInfo
 {
@@ -466,7 +465,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 
 
 
-#pragma sharedChannelList
+#pragma mark sharedChannelList
 
 - (NSMutableArray *)fmGetMySharedChannelList
 {
@@ -474,7 +473,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-#pragma searchChannelList
+#pragma mark searchChannelList
 
 - (NSMutableArray *)fmGetSearchChannelList
 {
@@ -482,7 +481,7 @@ typedef NS_ENUM(NSUInteger, managerType)
     return _appDelegate.allChannelGroup;
 }
 
-#pragma DawnAndNightMode
+#pragma mark DawnAndNightMode
 
 - (void)fmSetNightMode:(BOOL)isNightMode
 {
@@ -496,7 +495,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-#pragma clearAllData
+#pragma mark clearAllData
 
 - (void)fmClearAllData
 {
@@ -504,7 +503,7 @@ typedef NS_ENUM(NSUInteger, managerType)
 }
 
 
-#pragma Common Fuction
+#pragma mark Common Fuction
 
 - (AFHTTPSessionManager *)fmGennerateFMManagerWithType:(managerType)type
 {

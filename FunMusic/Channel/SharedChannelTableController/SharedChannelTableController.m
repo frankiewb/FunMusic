@@ -130,7 +130,7 @@ static  NSString *kChannelCellID                 = @"ChannelCellID";
     
 }
 
-#pragma tableviewCell delete
+#pragma mark tableviewCell delete
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

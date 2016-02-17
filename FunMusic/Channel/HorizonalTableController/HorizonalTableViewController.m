@@ -64,7 +64,7 @@ static NSString *kHorizonalCellID = @"HorizonalCell";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma TableView Delegate
+#pragma mark TableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -99,7 +99,7 @@ static NSString *kHorizonalCellID = @"HorizonalCell";
 }
 
 
-#pragma <UIScrollViewDelegate>
+#pragma mark UIScrollViewDelegate
 
 //当拖拽停止后
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -114,7 +114,7 @@ static NSString *kHorizonalCellID = @"HorizonalCell";
 
 
 
-#pragma Class Function
+#pragma mark Common Function
 
 //当拖拽停止前实现TitleBar大小和颜色的渐变效果
 //当拖拽停止后实现页面切换

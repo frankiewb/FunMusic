@@ -147,7 +147,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
 }
 
 
-#pragma TableView Delegate
+#pragma mark TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -181,7 +181,7 @@ typedef NS_ENUM(NSInteger, mineOPType)
     [self mineOpeationWithType:indexPath.row];
 }
 
-#pragma common function
+#pragma mark common function
 
 
 - (void)clearAllUserDefaultData

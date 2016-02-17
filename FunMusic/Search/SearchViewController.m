@@ -83,7 +83,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     //这个很关键，当从tabbar切换到查找页面时，隐藏tabber界面，回退时还可以恢复
     self.searchController.searchResultsUpdater = self;
     self.navigationItem.titleView = self.searchController.searchBar;
-    //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！
+    //哈！！解决Attemping to load the view warning的关键一步，好好研究下深层原因！感谢stackoverflow！注意，只能在ios9下使用
     [self.searchController loadViewIfNeeded];
 }
 
@@ -128,7 +128,7 @@ static NSString *kChannelSearchCellID = @"ChannelSearchCellID";
     }
 }
 
-#pragma tableviewController delegate
+#pragma mark tableviewController delegate
 
 
 #pragma mark 返回组数
